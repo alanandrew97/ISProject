@@ -1,0 +1,102 @@
+.primary-color{
+    background-color: #3F51B5  !important;
+}
+
+.dark-primary-color {
+    background: #303F9F !important;
+}
+
+.accent-color {
+    background: #FF9800 !important;
+}
+
+.black-color {
+    background-color: #000000 !important;
+}
+
+.white-color {
+    background: #FFFFFF;
+}
+
+.light-primary-color   { 
+    background: #C5CAE9; 
+}
+
+.text-primary-color    {
+    color: #FFFFFF; 
+}
+
+.accent-color          { 
+    background: #FF9800; 
+}
+
+.primary-text-color    { 
+    color: #212121; 
+}
+
+.secondary-text-color  {
+    color: #757575; 
+}
+
+.divider-color         { 
+    border-color: #BDBDBD; 
+}
+
+.delete-card {
+    position: absolute !important;
+    right: 5px;
+    top: 5px;
+}
+
+body, html{
+    background: #FFFFFF;
+}
+
+#nav {
+    list-style: none;
+    height: 100px;
+    /* padding: 0;
+    margin: 0; */
+    /* background: #1bc2a2; */
+}
+
+#nav li a, p{
+    vertical-align: middle;
+    line-height: 100px;
+    height: 100px;
+    color: #212121;
+}
+
+#nav li p:hover {
+    background: #C5CAE9;
+}
+
+#submenu {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0;
+}
+
+#submenu ul {
+    display: block;
+}
+
+#submenu li {
+    display: block;
+    width: 100%;
+}
+
+#submenu li a {
+    color: #212121;
+    display: block;
+    width: 100%;
+}
+
+.menuSelected {
+    border-bottom: #FF9800 3px solid;
+}
+
+.submenuSelected {
+    border-right: #FF9800 3px solid;
+}

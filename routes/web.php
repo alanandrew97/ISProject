@@ -14,3 +14,21 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'escuela'], function() {
+    Route::get('/', 'EscuelaController@index');
+    // Route::get('nuevo', 'EscuelaController@nuevo');
+    // Route::post('crear', 'EscuelaController@crear');
+    // Route::get('editar/{id}', 'EscuelaController@vistaEditar');
+    // Route::post('editar', 'EscuelaController@editar');
+    // Route::get('eliminar/{id}', 'EscuelaController@eliminar');
+    // Route::get('carrera/{id}', 'EscuelaController@detalleCarrera');
+    // Route::post('campus/crear', 'EscuelaController@crearCampus');
+    // Route::get('campus/nuevo', 'EscuelaController@nuevoCampus');
+    // Route::get('detalle/{id}', 'EscuelaController@detalleEscuela');
+    // Route::get('carreras/', 'EscuelaController@listaCarreras');
+});
