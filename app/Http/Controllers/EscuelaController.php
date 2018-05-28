@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Utils\FileUtils;
 use App\Escuela;
 use App\Carrera;
+use App\Campus;
 
 class EscuelaController extends Controller {
     
@@ -14,7 +15,7 @@ class EscuelaController extends Controller {
     $escuela = Escuela::all()->first();
     $submenuItems = [
       ['nombre'=>'Escuela','link'=>url(''), 'selected'=>true],
-      ['nombre'=>'Carreras','link'=>url(''), 'selected'=>false],
+      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
       ['nombre'=>'Materias','link'=>url(''), 'selected'=>false]
     ];
 
@@ -24,59 +25,7 @@ class EscuelaController extends Controller {
       'submenuItems' => $submenuItems
     ));
   }
-
-  public function nuevo(Request $request) {
-    return view('escuela.nuevo');
-  }
-
-  public function vistaEditar($id) {
-    $escuela = Escuela::find($id);
-    return view('escuela.editar', array('escuela' => $escuela));
-  }
-
-  public function crear(Request $request) {
-    $this->validate($request, [
-      'nombre' => 'required'
-    ]);
-
-    $nombre = $request->input('nombre');
-    $imagen = $request->file('imagen');
-    $ruta_imagen = FileUtils::guardar($imagen, 'storage/convocatorias/', 'escuela_');
-
-    Escuela::create([
-      'nombre' => $nombre,
-      'ruta_imagen' => $ruta_imagen 
-    ]);
-
-    return redirect('escuelas');
-  }
-
-  public function editar(Request $request) {
-    $this->validate($request, [
-      'id' => 'required',
-      'nombre' => 'required'
-    ]);
-
-    $id = $request->input('id');
-    $nombre = $request->input('nombre');
-    $imagen = $request->file('imagen');
-    $ruta_imagen = null;
-    if($imagen != null) $ruta_imagen = FileUtils::guardar($imagen, 'storage/convocatorias/', 'escuela_');
-
-    $escuela = Escuela::find($id);
-    $escuela->nombre = $nombre;
-    if ($ruta_imagen != null) $escuela->ruta_imagen = $ruta_imagen;
-    $escuela->save();
-
-    return redirect('escuelas');
-  }
-
-  public function eliminar($id) {
-    $escuela = Escuela::find($id);
-    $escuela->delete();
-    return redirect('escuelas');
-  }
-
+  
   public function detalleCarrera($id){
     $carrera = Carrera::find($id);
     $escuela = Escuela::all()->first();
@@ -85,21 +34,21 @@ class EscuelaController extends Controller {
       ['nombre'=>'Carreras','link'=>url(''), 'selected'=>false],
       ['nombre'=>'Materias','link'=>url(''), 'selected'=>false]
     ];
-
+    
     dd($carrera);
   }
-
+  
   public function listaCarreras(){
     $carreras = Carrera::all();
     $escuela = Escuela::all()->first();
     $submenuItems = [
-      ['nombre'=>'Escuela','link'=>url(''), 'selected'=>false],
-      ['nombre'=>'Carreras','link'=>url(''), 'selected'=>true],
+      ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>false],
+      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
       ['nombre'=>'Materias','link'=>url(''), 'selected'=>false]
     ];
-
+    
     // dd($carrera);
-
+    
     return view('escuela.listaCarreras', array(
       'escuela' => $escuela,
       'submenuItems' => $submenuItems,
@@ -107,21 +56,42 @@ class EscuelaController extends Controller {
     ));
   }
 
-  public function nuevoCampus(){
-    return view('escuela.nuevoCampus');
+  public function eliminarCampus($id) {
+    $campus = Campus::find($id);
+    $campus->delete();
+    return redirect('escuela');
   }
-
+  
   public function crearCampus(Request $request){
     // dd($request->all());
+    
+    $this->validate($request, [
+      'nombre' => 'required',
+      'direccion' => 'required'
+    ]);
+      
+    $campus = Campus::create([
+      'nombre' => $request->nombre,
+      'direccion' => $request->direccion,
+      'id_escuela' => 1
+    ]);
+        
+    return redirect('/escuela');
+  }
 
+  public function editarCampus(Request $request){
     $this->validate($request, [
       'nombre' => 'required',
       'direccion' => 'required'
     ]);
 
-    $campus = Campus::create([
-      'nombre' => $request->nombre,
-      'direccion' => $request->direccion
-    ]);
+    $campus = Campus::find($request->campusId);
+
+    $campus->nombre = $request->nombre;
+    $campus->direccion = $request->direccion;
+
+    $campus->save();
+    return redirect('/escuela');    
   }
 }
+    

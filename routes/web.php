@@ -27,8 +27,10 @@ Route::group(['prefix' => 'escuela'], function() {
     // Route::post('editar', 'EscuelaController@editar');
     // Route::get('eliminar/{id}', 'EscuelaController@eliminar');
     // Route::get('carrera/{id}', 'EscuelaController@detalleCarrera');
-    // Route::post('campus/crear', 'EscuelaController@crearCampus');
+    Route::post('crearCampus', 'EscuelaController@crearCampus');
+    Route::post('editarCampus', 'EscuelaController@editarCampus');
+    Route::get('eliminarCampus/{id}', 'EscuelaController@eliminarCampus');
     // Route::get('campus/nuevo', 'EscuelaController@nuevoCampus');
     // Route::get('detalle/{id}', 'EscuelaController@detalleEscuela');
-    // Route::get('carreras/', 'EscuelaController@listaCarreras');
+    Route::get('carreras', 'EscuelaController@listaCarreras');
 });

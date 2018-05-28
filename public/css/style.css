@@ -26,10 +26,6 @@
     color: #FFFFFF; 
 }
 
-.accent-color          { 
-    background: #FF9800; 
-}
-
 .primary-text-color    { 
     color: #212121; 
 }
@@ -49,7 +45,7 @@
 }
 
 body, html{
-    background: #FFFFFF;
+    background: #FFFFFF !important;
 }
 
 #nav {
@@ -93,10 +89,23 @@ body, html{
     width: 100%;
 }
 
+a:link, a i {
+    color:#212121;
+}
+
 .menuSelected {
     border-bottom: #FF9800 3px solid;
+    color: #FF9800 !important;
 }
 
 .submenuSelected {
     border-right: #FF9800 3px solid;
+}
+
+.edit-campus:hover {
+    color: #FF9800;
+}
+
+.delete-campus:hover {
+    color: #FF9800;
 }

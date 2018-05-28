@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-  Escuelas
+  Carreras
 @endsection
 
 @section('cabecera')
-  Escuelas
+  Carreras
 @endsection
 
 @section('head')
@@ -15,28 +15,37 @@
 @section('contenedor')
   <div class="row">
     <div class="col s12">
-      @if( count($escuela->campus) != 0 )
-        @foreach($escuela->campus as $campus)
+      @if( count($carreras) != 0 )
+        @foreach($carreras as $carrera)
           <ul class="collapsible">
             <li>
               <div class="collapsible-header" style="position:relative;">
-                <i class="material-icons">location_city</i><div class="campusNombre">{{$campus->nombre}}</div>
-                <a href="#modalEditarCampus" class="modal-trigger"><i style="position:absolute;right:35px;" data-campus-id="{{$campus->id}}" class="material-icons right edit-campus">edit</i></a>
-                <a href="#modalEliminarCampus" class="modal-trigger"><i style="position:absolute;right:0px;" data-campus-id="{{$campus->id}}" class="material-icons right delete-campus">close</i></a>
+                <i class="material-icons">school</i><div class="campusNombre">{{$carrera->nombre}} ({{$carrera->abreviatura}})</div>
+                <a href="#modalEditarCarrera" class="modal-trigger"><i style="position:absolute;right:35px;" data-carrera-id="{{$carrera->id}}" class="material-icons right edit-carrera">edit</i></a>
+                <a href="#modalEliminarCarrera" class="modal-trigger"><i style="position:absolute;right:0px;" data-carrera-id="{{$carrera->id}}" class="material-icons right delete-carrera">close</i></a>
               </div>
               <div class="collapsible-body" style="padding: 20px;">
-                <span class="campusDireccion" style="margin-bottom: 10px;" class="col s12">{{$campus->direccion}}</span>
-                @foreach($campus->carreras as $carrera)
-                  <div>
-                    <a class="" href="{{url('escuelas/carrera/'.$carrera->id)}}"><i class="material-icons" style="margin-right:10px;color:white;">school</i>{{$carrera->nombre}}</a>
-                  </div>
-                @endforeach
+                <img class="left" style="height:120px;margin-right:15px;" src="{{$carrera->ruta_imagen}}" alt="{{$carrera->nombre}}">
+                <span class="totalCreditos" class="col s12">Total de créditos: {{$carrera->total_creditos}}</span><br>
+                <span class="estructuraGenericaCreditos" class="col s12">Estructura Generica Créditos: {{$carrera->estructura_generica_creditos}}</span><br>
+                <span class="residencia_profesional_creditos" class="col s12">Residencia Profesional Créditos: {{$carrera->residencia_profesional_creditos}}</span><br>
+                <span class="servicio_social_creditos" class="col s12">Servicio Social Créditos: {{$carrera->servicio_social_creditos}}</span><br>
+                <span class="actividades_complementarias_creditos" class="col s12">Actividades Complementarias Créditos: {{$carrera->actividades_complementarias_creditos}}</span><br><br>
+                @if (count($carrera->reticulas)!=0)
+                  @foreach($carrera->reticulas as $reticula)
+                    <div>
+                      <a class="" href="{{url('escuelas/carrera/'.$reticula->id)}}"><i class="material-icons" style="margin-right:10px;color:white;">school</i>{{$reticula->nombre}}</a>
+                    </div>
+                  @endforeach
+                @else
+                  <div class="error">Aun no hay retículas registradas en esta carrera.</div>
+                @endif
               </div>
             </li>
           </ul>
         @endforeach
       @else
-        <div class="error">Aun no hay campus registrados en esta escuela.</div>
+        <div class="error">Aun no hay carreras registradas en esta escuela.</div>
       @endif
 
       <div class="fixed-action-btn">

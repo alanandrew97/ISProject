@@ -21,10 +21,10 @@
     <script type="text/javascript" src="{{url('/js/materialize.js')}}"></script>
     @yield('head')
 </head>
-<body>
+<body id="body">
     {{--<div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
+            <div class="contenedor">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
@@ -73,38 +73,42 @@
         </main>
     </div>--}}
 
-    <input type="hidden" id="_url" value="{{ url('/') }}">
-    <input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
-    <!--Barra de navegación-->
-    <nav style="height:100px; color:#black;">
-        <div class="nav-wrapper white-color" style="height:100px;">
-            <a href="{{url('inicio')}}" class="brand-logo" style="padding-left: 2.5%;">
-                <img src="{{$escuela->ruta_imagen}}" style="vertical-align: middle; display:inline-block; height:95px;" alt="Inicio">
-                <div style="display:inline-block; line-height: 100px; color: #4d4d4d;">{{$escuela->nombre}}</div>
-            </a>
-            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            <ul  id="nav" class="right hide-on-med-and-down">
-                <li><a class="menuItem" href="{{url('escuela')}}">Escuela</a></li>
+    <div class="row">
+        <input type="hidden" id="_url" value="{{ url('/') }}">
+        <input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
+        <!--Barra de navegación-->
+        <nav style="height:100px; color:#black;">
+            <div class="nav-wrapper white-color" style="height:100px;">
+                <a href="{{url('inicio')}}" class="brand-logo">
+                    <img src="{{$escuela->ruta_imagen}}" style="vertical-align: middle; display:inline-block; height:95px;" alt="Inicio">
+                    <div style="display:inline-block; line-height: 100px; color: #4d4d4d;">{{$escuela->nombre}}</div>
+                </a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul  id="nav" class="right hide-on-med-and-down">
+                    <li><a class="menuItem" href="{{url('escuela')}}">Escuela</a></li>
 
-                <li><a class="menuItem menuSelected" href="{{url('usuarios')}}">Usuarios</a></li>
+                    <li><a class="menuItem menuSelected" href="{{url('usuarios')}}">Usuarios</a></li>
 
-                <li><a class="menuItem" href="{{url('grupos')}}">Grupos</a></li>
+                    <li><a class="menuItem" href="{{url('grupos')}}">Grupos</a></li>
 
-                <li><a style="margin:0;cursor:pointer;">Usuario nombre <i style="display:inline-block;vertical-align: middle;" class="material-icons">arrow_drop_down</i></a></li>
-                {{--<li><p>{{$usuario['nombre']}}</p></li>--}}
-            </ul>
-        </div>
-    </nav>
+                    <li><a style="margin:0;cursor:pointer;">Usuario nombre <i style="display:inline-block;vertical-align: middle;" class="material-icons">arrow_drop_down</i></a></li>
+                    {{--<li><p>{{Auth::user()->name}}</p></li>--}}
+                </ul>
+            </div>
+        </nav>
+    </div>
     <div class="row">
         <div class="col s10 offset-s1">
-            <nav id="submenu" class="submenu col l2 m3 s4" style=" box-shadow:none;background:#fff;color:#ddd;margin-top:30px;">
-                <ul>
-                    @foreach ($submenuItems as $submenuItem)
-                        <li><a class="{{$submenuItem['selected']?'submenuSelected':''}}" href="{{$submenuItem['link']}}">{{$submenuItem['nombre']}}</a></li>
-                    @endforeach
-                </ul>
-            </nav>
-            <div class="container col l10 m9 s8" id="container" style="background:white; border-left: #9d9d9d 1px solid; padding:0 30px; margin-top:30px;">
+            <div class="col s4 m3 l2" style="padding:0;">
+                <nav id="submenu" class="submenu" style="box-shadow:none;background:#fff;color:#ddd;margin-top:30px;">
+                    <ul>
+                        @foreach ($submenuItems as $submenuItem)
+                            <li><a class="{{$submenuItem['selected']?'submenuSelected':''}}" href="{{$submenuItem['link']}}">{{$submenuItem['nombre']}}</a></li>
+                        @endforeach
+                    </ul>
+                </nav>
+            </div>
+            <div class="contenedor col s7 m8 l9" id="contenedor" style="background:white; border-left: #9d9d9d 1px solid; padding:0 30px; margin-top:30px;">
                 @yield('contenedor')
             </div>
         </div>
@@ -112,6 +116,5 @@
 
     <!-- Scripts -->
     @yield('modals')
-    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
