@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Comenzando proyecto
+                    Comenzando proyecto de Ing. de Software
                 </div>
 
                 <div class="links">
