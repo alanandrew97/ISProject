@@ -20,7 +20,7 @@ class EscuelaController extends Controller {
 
     $nombre = $request->input('nombre');
 
-    $ruta_imagen = FileUtils::guardar($request->file('imagen'), 'storage/escuela', 'img_');
+    $ruta_imagen = FileUtils::guardar($request->file('imagen'), 'storage/escuela/', 'img_');
 
     Escuela::create([
       'nombre' => $nombre,
