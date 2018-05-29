@@ -146,6 +146,9 @@ class EscuelaController extends Controller {
       'imagenCarrera' => 'required'
     ]);
 
+    //Borrar imagen anterior
+    FileUtils::eliminar();
+
     $rutaImagen = FileUtils::guardar($request->imagenCarrera, 'storage/carreras/', 'car_');
 
     $carrera = Carrera::find($request->carreraId);
