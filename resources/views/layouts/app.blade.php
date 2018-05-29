@@ -73,7 +73,7 @@
         </main>
     </div>--}}
 
-    <div class="row">
+    <div class="row" style="background-image: {{url('/img/background.png')}}">
         <input type="hidden" id="_url" value="{{ url('/') }}">
         <input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
         <!--Barra de navegación-->

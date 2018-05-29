@@ -26,28 +26,19 @@ class UsuarioController extends Controller {
         return view('usuarios.index')->with('usuarios' , $usuarios);
     }
 
-    public function crear(Request $request) {
-        $correo = $request->input('correo');
-        $nombre = $request->input('nombre');
-        $apellido_paterno = $request->input('apellido_paterno');
-        $apellido_materno = $request->input('apellido_materno');
-        $tipo = $request->input('tipo');
-        $password = $request->input('password');
-
-        Usuario::create([
-            'id_tecnologico' => 1,
-            'correo' => $correo,
-            'password' => $password,
-            'nombre' => $nombre,
-            'apellido_paterno' => $apellido_paterno,
-            'apellido_materno' => $apellido_materno,
-            'tipo' => $tipo
-        ]);
-
-        return redirect('usuario');
-    }
-
     public function nuevo(Request $request) {
         return view('usuarios.nuevo');
+    }
+
+    public function registrar(Request $request) {
+        $this->validate($request, [
+            'nombre' => 'required',
+            'apellido_paterno' => 'required',
+            'apellido_materno' => 'required',
+            'correo' => 'required',
+            'password' => 'required'
+        ]);
+
+        
     }
 }

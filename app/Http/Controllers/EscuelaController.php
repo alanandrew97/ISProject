@@ -9,7 +9,26 @@ use App\Carrera;
 use App\Campus;
 
 class EscuelaController extends Controller {
-    
+
+  public function registrar(Request $request) {
+    $this->validate($request, [
+      'imagen' => 'required',
+      'nombre' => 'required'
+    ]);
+
+    $ruta_imagen = null;
+
+    $nombre = $request->input('nombre');
+
+    $ruta_imagen = FileUtils::guardar($request->file('imagen'), 'storage/escuela', 'img_');
+
+    Escuela::create([
+      'nombre' => $nombre,
+      'ruta_imagen' => $ruta_imagen
+    ]);
+
+    return redirect('/');
+  }
 
   public function index() {
     $escuela = Escuela::all()->first();
