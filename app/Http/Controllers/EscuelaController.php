@@ -132,6 +132,36 @@ class EscuelaController extends Controller {
     return redirect('/escuela/carreras');
   }
 
+  public function editarCarrera(Request $request){
+    dd($request->all());
+
+    $this->validate($request, [
+      'nombre' => 'required',
+      'abreviatura' => 'required',
+      'totalCreditos' => 'required',
+      'estructuraGenericaCreditos' => 'required',
+      'residenciaProfesionalCreditos' => 'required',
+      'servicioSocialCreditos' => 'required',
+      'actividadesComplementariasCreditos' => 'required',
+      'imagenCarrera' => 'required'
+    ]);
+
+    $rutaImagen = FileUtils::guardar($request->imagenCarrera, 'storage/carreras/', 'car_');
+
+    $carrera = Carrera::find($request->carreraId);
+    
+    $carrera->nombre = $request->nombre;
+    $carrera->abreviatura = $request->abreviatura;
+    $carrera->total_creditos = $request->totalCreditos;
+    $carrera->estructura_generica_creditos = $request->estructuraGenericaCreditos;
+    $carrera->residencia_profesional_creditos = $request->residenciaProfesionalCreditos;
+    $carrera->servicio_social_creditos = $request->servicioSocialCreditos;
+    $carrera->actividades_complementarias_creditos = $request->actividadesComplementariasCreditos;
+    $carrera->ruta_imagen = $rutaImagen;
+        
+    return redirect('/escuela/carreras');
+  }
+
   public function listaReticulas(){
     $carreras = Carrera::all();
     $escuela = Escuela::all()->first();
