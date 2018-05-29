@@ -14,6 +14,9 @@
 
 @section('contenedor')
   <div class="row">
+    <h1>Campus</h1>
+  </div>
+  <div class="row">
     <div class="col s12">
       @if( count($escuela->campus) != 0 )
         @foreach($escuela->campus as $campus)
@@ -51,7 +54,7 @@
 @endsection
 
 @section('modals')
-  <div id="modalNuevoCampus" class="modal" style="padding:20px;">
+  <div id="modalNuevoCampus" class="modal" style="padding:20px;max-height:400px;">
     <form id="form-crear" method="post" action="{{url('/escuela/crearCampus')}}" class="col s12" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="row">
@@ -78,7 +81,7 @@
     </form>
   </div>
 
-  <div id="modalEditarCampus" class="modal" style="padding:30px;">
+  <div id="modalEditarCampus" class="modal" style="padding:30px;max-height:400px;">
     <form id="formEditar" method="POST" action="{{url('/escuela/editarCampus/')}}">
       {{csrf_field()}}
       <div class="row">
@@ -106,16 +109,16 @@
     </form>
   </div>
 
-  <div class="modal modal-fixed-footer" id="modalEliminarCampus" style="padding:30px;">
-    <form id="formEliminar" action="{{url('/escuela/eliminarCampus')}}">
+  <div class="modal modal-fixed-footer" id="modalEliminarCampus" style="padding:30px;max-height:200px;">
+    <form id="formEliminar" method="POST" action="{{url('/escuela/eliminarCampus')}}">
       {{csrf_field()}}
       <input type="hidden" name="campus_id" id="campus_id">
       <h2>¿Desea eliminar este campus?</h2>
       <div class="modal-footer">
+        <button class="waves-effect btn primary-color" type="submit" form="formEliminar" style="width:40%;margin:auto;">Sí</button>
         <a href="" class="modal-action modal-close waves-effect btn accent-color" style="width:35%;margin:auto;">
           Cancelar
         </a>
-        <input class="waves-effect btn primary-color" type="submit" value="Sí" style="width:40%;margin:auto;">
       </div>
     </form>
   </div>

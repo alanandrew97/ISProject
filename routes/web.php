@@ -21,16 +21,18 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'escuela'], function() {
     Route::get('/', 'EscuelaController@index');
+    Route::post('crearCampus', 'EscuelaController@crearCampus');
+    Route::post('editarCampus', 'EscuelaController@editarCampus');
+    Route::post('eliminarCampus', 'EscuelaController@eliminarCampus');
+    Route::post('crearCarrera', 'EscuelaController@crearCarrera');
+    Route::post('editarCarrera', 'EscuelaController@editarCarrera');
+    Route::post('registrar', 'EscuelaController@registrar');
     // Route::get('nuevo', 'EscuelaController@nuevo');
     // Route::post('crear', 'EscuelaController@crear');
     // Route::get('editar/{id}', 'EscuelaController@vistaEditar');
     // Route::post('editar', 'EscuelaController@editar');
     // Route::get('eliminar/{id}', 'EscuelaController@eliminar');
     // Route::get('carrera/{id}', 'EscuelaController@detalleCarrera');
-    Route::post('registrar', 'EscuelaController@registrar');
-    Route::post('crearCampus', 'EscuelaController@crearCampus');
-    Route::post('editarCampus', 'EscuelaController@editarCampus');
-    Route::get('eliminarCampus/{id}', 'EscuelaController@eliminarCampus');
     // Route::get('campus/nuevo', 'EscuelaController@nuevoCampus');
     // Route::get('detalle/{id}', 'EscuelaController@detalleEscuela');
     Route::get('carreras', 'EscuelaController@listaCarreras');
