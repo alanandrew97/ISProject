@@ -49,7 +49,7 @@
       @endif
 
       <div class="fixed-action-btn">
-        <a href="#modalNuevoCampus" class="modal-trigger accent-color modal-close btn-floating btn-large red">
+        <a href="#modalNuevaCarrera" class="modal-trigger accent-color modal-close btn-floating btn-large">
           <i class="large material-icons">add</i>
         </a>
       </div>
@@ -60,11 +60,11 @@
 @endsection
 
 @section('modals')
-  <div id="modalNuevoCampus" class="modal" style="padding:20px;">
-    <form id="form-crear" method="post" action="{{url('/escuela/crearCampus')}}" class="col s12" enctype="multipart/form-data">
+  <div id="modalNuevaCarrera" class="modal" style="padding:20px;">
+    <form id="form-crear" method="post" action="{{url('/escuela/crearCarrera')}}" class="col s12" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="row">
-          <h2 style="margin-bottom:25px;">Nuevo campus</h2>
+          <h2 style="margin-bottom:25px;">Nueva carrera</h2>
         </div>
 
         <div class="row">

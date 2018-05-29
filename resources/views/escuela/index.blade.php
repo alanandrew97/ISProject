@@ -28,7 +28,7 @@
                 <span class="campusDireccion" style="margin-bottom: 10px;" class="col s12">{{$campus->direccion}}</span>
                 @foreach($campus->carreras as $carrera)
                   <div>
-                    <a class="" href="{{url('escuelas/carrera/'.$carrera->id)}}"><i class="material-icons" style="margin-right:10px;color:white;">school</i>{{$carrera->nombre}}</a>
+                    <a class="" href="{{url('escuela/carreras/')}}"><i class="material-icons" style="margin-right:10px;">school</i>{{$carrera->nombre}}</a>
                   </div>
                 @endforeach
               </div>

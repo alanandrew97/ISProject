@@ -14,9 +14,9 @@ class EscuelaController extends Controller {
   public function index() {
     $escuela = Escuela::all()->first();
     $submenuItems = [
-      ['nombre'=>'Escuela','link'=>url(''), 'selected'=>true],
+      ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>true],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
-      ['nombre'=>'Materias','link'=>url(''), 'selected'=>false]
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
     ];
 
     // dd($submenuItems);
@@ -30,9 +30,9 @@ class EscuelaController extends Controller {
     $carrera = Carrera::find($id);
     $escuela = Escuela::all()->first();
     $submenuItems = [
-      ['nombre'=>'Escuela','link'=>url(''), 'selected'=>true],
-      ['nombre'=>'Carreras','link'=>url(''), 'selected'=>false],
-      ['nombre'=>'Materias','link'=>url(''), 'selected'=>false]
+      ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>true],
+      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
     ];
     
     dd($carrera);
@@ -44,7 +44,7 @@ class EscuelaController extends Controller {
     $submenuItems = [
       ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
-      ['nombre'=>'Materias','link'=>url(''), 'selected'=>false]
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
     ];
     
     // dd($carrera);

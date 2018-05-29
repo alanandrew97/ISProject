@@ -78,7 +78,7 @@
         <input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
         <!--Barra de navegación-->
         <nav style="height:100px; color:#black;">
-            <div class="nav-wrapper white-color" style="height:100px;">
+            <div class="nav-wrapper white-color" style="height:100px;padding:0 20px;">
                 <a href="{{url('inicio')}}" class="brand-logo">
                     <img src="{{$escuela->ruta_imagen}}" style="vertical-align: middle; display:inline-block; height:95px;" alt="Inicio">
                     <div style="display:inline-block; line-height: 100px; color: #4d4d4d;">{{$escuela->nombre}}</div>
