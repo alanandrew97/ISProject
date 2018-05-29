@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => '/'], function () {
+    Route::get('', 'IndexController@index');
 });
 
 Auth::routes();
@@ -25,6 +25,7 @@ Route::group(['prefix' => 'escuela'], function() {
     Route::post('editarCampus', 'EscuelaController@editarCampus');
     Route::post('eliminarCampus', 'EscuelaController@eliminarCampus');
     Route::post('crearCarrera', 'EscuelaController@crearCarrera');
+    Route::post('registrar', 'EscuelaController@registrar');
     // Route::get('nuevo', 'EscuelaController@nuevo');
     // Route::post('crear', 'EscuelaController@crear');
     // Route::get('editar/{id}', 'EscuelaController@vistaEditar');

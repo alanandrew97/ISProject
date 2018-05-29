@@ -8,12 +8,10 @@ class FileUtils {
 
     public static function guardar($file, $destinationPath, $prefix){
         if ($file->isValid()) {
-          $extension = $file->getClientOriginalExtension();
-          $fileName = uniqid($prefix).'.'.$extension;
-            // $fileName = $file->getClientOriginalName(); // No renaming image
-            // $path = $file->storeAss($destinationPath,$fileName); // Con esta linea, se hace magia al guardar en la ruta
-          $file->move($destinationPath, $fileName);
-          return url($destinationPath.$fileName);
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $fileName =uniqid($prefix).'.'.$extension; // renameing image
+            $file->move($destinationPath, $fileName); // uploading file to given path
+            return url($destinationPath . $fileName);
         }
         return null;
     }
@@ -27,6 +25,7 @@ class FileUtils {
         $spl = explode("/", $url);
         if(count($spl) > 3) {
             $path = $spl[count($spl) - 3] . "/" . $spl[count($spl) - 2] . "/" . $spl[count($spl) - 1];
+
             if ( file_exists($url) ){
               unlink($url);
             }
