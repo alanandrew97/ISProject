@@ -17,7 +17,7 @@ class IndexController extends Controller {
         } else if(is_null($maestro)) {
             return view('maestro.primerMaestro');
         } else {
-            return view('login');
+            return view('login')->with('escuela', $escuela);
         }
     }
 

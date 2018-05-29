@@ -37,3 +37,8 @@ Route::group(['prefix' => 'escuela'], function() {
     // Route::get('detalle/{id}', 'EscuelaController@detalleEscuela');
     Route::get('carreras', 'EscuelaController@listaCarreras');
 });
+
+Route::group(['prefix' => 'usuarios'], function() {
+    Route::post('registrarPrimerUsuario', 'UsuarioController@registrarPrimerUsuario');
+    Route::post('login', 'UsuarioController@login');
+});
