@@ -16,6 +16,7 @@ class EscuelaController extends Controller {
     $submenuItems = [
       ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>true],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
+      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
       ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
     ];
 
@@ -25,45 +26,14 @@ class EscuelaController extends Controller {
       'submenuItems' => $submenuItems
     ));
   }
-  
-  public function detalleCarrera($id){
-    $carrera = Carrera::find($id);
-    $escuela = Escuela::all()->first();
-    $submenuItems = [
-      ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>true],
-      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
-      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
-    ];
-    
-    dd($carrera);
-  }
-  
-  public function listaCarreras(){
-    $carreras = Carrera::all();
-    $escuela = Escuela::all()->first();
-    $submenuItems = [
-      ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>false],
-      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
-      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
-    ];
-    
-    // dd($carrera);
-    
-    return view('escuela.listaCarreras', array(
-      'escuela' => $escuela,
-      'submenuItems' => $submenuItems,
-      'carreras' => $carreras
-    ));
-  }
 
-  public function eliminarCampus($id) {
-    $campus = Campus::find($id);
+  public function eliminarCampus(Request $request) {
+    $campus = Campus::find($request->campus_id);
     $campus->delete();
     return redirect('escuela');
   }
   
   public function crearCampus(Request $request){
-    // dd($request->all());
     
     $this->validate($request, [
       'nombre' => 'required',
@@ -92,6 +62,74 @@ class EscuelaController extends Controller {
 
     $campus->save();
     return redirect('/escuela');    
+  }
+
+  public function listaCarreras(){
+    $carreras = Carrera::all();
+    $escuela = Escuela::all()->first();
+    $submenuItems = [
+      ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>false],
+      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
+      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
+    ];
+    
+    // dd($carrera);
+    
+    return view('escuela.listaCarreras', array(
+      'escuela' => $escuela,
+      'submenuItems' => $submenuItems,
+      'carreras' => $carreras
+    ));
+  }
+
+  public function crearCarrera(Request $request){
+    // dd($request->all());
+
+    $this->validate($request, [
+      'nombre' => 'required',
+      'abreviatura' => 'required',
+      'totalCreditos' => 'required',
+      'estructuraGenericaCreditos' => 'required',
+      'residenciaProfesionalCreditos' => 'required',
+      'servicioSocialCreditos' => 'required',
+      'actividadesComplementariasCreditos' => 'required',
+      'imagenCarrera' => 'required'
+    ]);
+
+    $rutaImagen = FileUtils::guardar($request->imagenCarrera, 'storage/carreras/', 'car_');
+
+    $carrera = Carrera::create([
+      'nombre' => $request->nombre,
+      'abreviatura' => $request->abreviatura,
+      'total_creditos' => $request->totalCreditos,
+      'estructura_generica_creditos' => $request->estructuraGenericaCreditos,
+      'residencia_profesional_creditos' => $request->residenciaProfesionalCreditos,
+      'servicio_social_creditos' => $request->servicioSocialCreditos,
+      'actividades_complementarias_creditos' => $request->actividadesComplementariasCreditos,
+      'ruta_imagen' => $rutaImagen
+    ]);
+        
+    return redirect('/escuela/carreras');
+  }
+
+  public function listaReticulas(){
+    $carreras = Carrera::all();
+    $escuela = Escuela::all()->first();
+    $submenuItems = [
+      ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>false],
+      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
+      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>true],
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
+    ];
+    
+    // dd($carrera);
+    
+    return view('escuela.listaReticulas', array(
+      'escuela' => $escuela,
+      'submenuItems' => $submenuItems,
+      'carreras' => $carreras
+    ));
   }
 }
     
