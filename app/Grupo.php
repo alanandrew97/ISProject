@@ -20,6 +20,18 @@ class Grupo extends Model {
     public $timestamps = false;
 
     public function materia(){
-        return hasOne('App\Materia', 'id', 'id_materia');
+        return $this->hasOne('App\Materia', 'id', 'id_materia');
+    }
+
+    public function maestro() {
+        return $this->hasOne('App\Maestro', 'id', 'id_maestro');
+    }
+
+    public function aula() {
+        return $this->hasOne('App\Aula', 'id', 'id_aula');
+    }
+
+    public function semestre() {
+        return $this->hasOne('App\Semestre', 'id', 'id_semestre');
     }
 }
