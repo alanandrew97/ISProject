@@ -23,8 +23,16 @@ class Grupo extends Model {
         return $this->hasOne('App\Materia', 'id', 'id_materia');
     }
 
-    public function maestro(){
+    public function maestro() {
         return $this->hasOne('App\Maestro', 'id', 'id_maestro');
+    }
+
+    public function aula() {
+        return $this->hasOne('App\Aula', 'id', 'id_aula');
+    }
+
+    public function semestre() {
+        return $this->hasOne('App\Semestre', 'id', 'id_semestre');
     }
 
     public function alumnos(){

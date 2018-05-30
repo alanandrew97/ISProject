@@ -13,6 +13,8 @@ use App\Edificio;
 use App\Aula;
 use App\Horario;
 use App\Semestre;
+use App\Grupo;
+use App\Maestro;
 
 class EscuelaController extends Controller {
 
@@ -510,6 +512,10 @@ class EscuelaController extends Controller {
     public function listaGrupos(Request $request) {
       // $horarios = Horario::all();
       $grupos = Grupo::all();
+      $materias = Materia::all();
+      $maestros = Maestro::all();
+      $aulas = Aula::all();
+      $semestres = Semestre::all();
       $escuela = Escuela::all()->first();
       $submenuItems = [
         ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
@@ -517,13 +523,40 @@ class EscuelaController extends Controller {
         ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
         ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
         ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>true],
+        ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
+        ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
+        ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
       ];
 
     return view('escuela.listaGrupos', array(
       'grupos' => $grupos,
+      'materias' => $materias,
+      'maestros' => $maestros,
+      'aulas' => $aulas,
+      'semestres' => $semestres,
       'escuela' => $escuela,
       'submenuItems' => $submenuItems
     )); 
+  }
+
+  public function registrarGrupo(Request $request) {
+    /*$this->validate($request, [
+      'clave' => 'required',
+      'id_ materia' => 'required',
+      'id_maestro' => 'required',
+      'id_aula' => 'required',
+      'id_semestre' => 'required'
+    ]);*/
+
+    Grupo::create([
+      'clave' => $request->input('clave'),
+      'id_materia' => $request->input('id_materia'),
+      'id_maestro' => $request->input('id_maestro'),
+      'id_aula' => $request->input('id_aula'),
+      'id_semestre' => $request->input('id_semestre')
+    ]);
+
+    return redirect('escuela/grupos');
   }
 
   public function registrarMateria(Request $request) {

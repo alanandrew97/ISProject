@@ -1,60 +1,51 @@
 @extends('layouts.app')
 
 @section('title')
-  Carreras
+  Grupos
 @endsection
 
 @section('cabecera')
-  Carreras
+  Grupos
 @endsection
 
 @section('head')
-  <script src="{{url('/js/escuela/escuela.js')}}"></script>
+  <script src="{{url('/js/edificio/edificio.js')}}"></script>
 @endsection
 
 @section('contenedor')
   <div class="row">
-    <h1>Carreras</h1>
+    <h1>Grupos</h1>
   </div>
   <div class="row">
     <div class="col s12">
-      @if( count($carreras) != 0 )
-        @foreach($carreras as $carrera)
+      @if( count($grupos) != 0 )
+        @foreach($grupos as $grupo)
           <ul class="collapsible">
             <li>
               <div class="collapsible-header" style="position:relative;">
-                <i class="material-icons">school</i><div class="carreraNombre">{{$carrera->nombre}}</div>&nbsp;&nbsp;(<div class="carreraAbreviatura">{{$carrera->abreviatura}}</div>)
-                <a href="#modalEditarCarrera" class="modal-trigger"><i style="position:absolute;right:35px;" data-carrera-id="{{$carrera->id}}" class="material-icons right edit-carrera">edit</i></a>
-                <a href="#modalEliminarCarrera" class="modal-trigger"><i style="position:absolute;right:0px;" data-carrera-id="{{$carrera->id}}" class="material-icons right delete-carrera">close</i></a>
+                <i class="material-icons">school</i><div class="carreraNombre">{{$grupo->clave}}</div>&nbsp;&nbsp;
               </div>
               <div class="collapsible-body" style="padding: 20px;">
-                <img class="left imgCarrera" style="height:120px;margin-right:15px;" src="{{$carrera->ruta_imagen}}" alt="{{$carrera->nombre}}">
                 <div style="display:inline-block;">
-                  <div class="col s12">Total de créditos:&nbsp;<span class="totalCreditos"> {{$carrera->total_creditos}}</span></div><br>
-                  <div class="col s12">Estructura Generica Créditos:&nbsp;<span class="estructuraGenericaCreditos">{{$carrera->estructura_generica_creditos}}</span></div><br>
-                  <div class="col s12">Residencia Profesional Créditos:&nbsp;<span class="residencia_profesional_creditos">{{$carrera->residencia_profesional_creditos}}</span></div><br>
-                  <div class="col s12">Servicio Social Créditos:&nbsp;<span class="servicio_social_creditos">{{$carrera->servicio_social_creditos}}</span></div><br>
-                  <div class="col s12">Actividades Complementarias Créditos:&nbsp;<span class="actividades_complementarias_creditos">{{$carrera->actividades_complementarias_creditos}}</span></div><br><br>
-                  @if (count($carrera->reticulas)!=0)
-                    @foreach($carrera->reticulas as $reticula)
-                      <div>
-                        <a class="" href="{{url('escuelas/carrera/'.$reticula->id)}}"><i class="material-icons" style="margin-right:10px;color:white;">school</i>{{$reticula->nombre}}</a>
-                      </div>
-                    @endforeach
-                  @else
-                    <div class="error">Aun no hay retículas registradas en esta carrera.</div>
-                  @endif
+                  <div class="col s12">Clave:&nbsp;<span class="totalCreditos"> {{$grupo->clave}}</span></div><br>
+                  <div class="col s12">Materia:&nbsp;<span class="estructuraGenericaCreditos">{{$grupo->materia->nombre}}</span></div><br>
+                  <div class="col s12">Maestro:&nbsp;<span class="estructuraGenericaCreditos">{{$grupo->maestro->nombre}} {{$grupo->maestro->apellido_paterno}} {{$grupo->maestro->apellido_materno}}</span></div><br>
+                  <div class="col s12">Edificio:&nbsp;<span class="estructuraGenericaCreditos">{{$grupo->aula->edificio->nombre}}</span></div><br>
+                  <div class="col s12">Aula:&nbsp;<span class="estructuraGenericaCreditos">{{$grupo->aula->numero}}</span></div><br>
+                  <div class="col s12">Semestre:&nbsp;<span class="estructuraGenericaCreditos">{{$grupo->semestre->fecha_inicial_parcial_1}} - {{$grupo->semestre->fecha_final_promedio}}</span></div><br>
+                  
                 </div>
-              </div>
+                </div>
             </li>
-          </ul>
+        </ul>
+
         @endforeach
       @else
-        <div class="error">Aun no hay carreras registradas en esta escuela.</div>
+        <div class="error">Aun no hay grupos registrados en esta escuela.</div>
       @endif
 
       <div class="fixed-action-btn">
-        <a href="#modalNuevaCarrera" class="modal-trigger accent-color modal-close btn-floating btn-large">
+        <a href="#modalNuevoEdificio" class="modal-trigger accent-color modal-close btn-floating btn-large">
           <i class="large material-icons">add</i>
         </a>
       </div>
@@ -65,72 +56,54 @@
 @endsection
 
 @section('modals')
-  <div id="modalNuevaCarrera" class="modal" style="padding:20px;overflow-y:scroll;">
-    <form id="form-crear" method="post" action="{{url('/escuela/crearCarrera')}}" class="col s12" enctype="multipart/form-data">
+  <div id="modalNuevoEdificio" class="modal" style="padding:20px;overflow-y:scroll;">
+    <form id="form-crear" method="post" action="{{url('/escuela/registrarGrupo')}}" class="col s12" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="row">
-          <h2 style="margin-bottom:25px;">Nueva carrera</h2>
+          <h2 style="margin-bottom:25px;">Nuevo grupo</h2>
         </div>
 
-        <div class="row" id="imgNuevaCarreraContainer">
 
-          <!-- <img src="" alt="Nueva Carrera" id="imgNuevaCarrera"> -->
+ <div class="input-field col s12">
+                    <input  id="matricula" name="clave" type="number" maxlength="70" required>
+                    <label for="matricula">Clave</label>
+                </div>
+        
+        <div class="input-field col s12">
+            <select id="carrera" name="id_materia" class="select-wrapper">
+                @foreach($materias as $materia)
+                    <option value="{{ $materia->id }}">{{$materia->nombre}}</option>
+                @endforeach
+            </select>
+            <label>Materia</label>
         </div>
 
-        <div class="row">
-          <div class="file-field input-field col s12">
-            <div class="btn">
-              <span>Imagen</span>
-              <input name="imagenCarrera" type="file" id="imagenCarrera">
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
-            </div>
-          </div>
+        <div class="input-field col s12">
+            <select id="carrera" name="id_maestro" class="select-wrapper">
+                @foreach($maestros as $maestro)
+                    <option value="{{ $maestro->id }}">{{$maestro->datosUsuario->nombre}}</option>
+                @endforeach
+            </select>
+            <label>Maestro</label>
         </div>
 
-        <div class="row">
-          <div class="input-field col s8 ">
-            <input  id="nombre" name="nombre" type="text" maxlength="70" required>
-            <label for="nombre">Nombre</label>
-          </div>
-          <div class="input-field col s4">
-            <input  id="abreviatura" name="abreviatura" type="text" maxlength="20" required>
-            <label for="abreviatura">Abreviatura</label>
-          </div>
+        <div class="input-field col s12">
+            <select id="carrera" name="id_aula" class="select-wrapper">
+                @foreach($aulas as $aula)
+                    <option value="{{ $aula->id }}">{{$aula->numero}}</option>
+                @endforeach
+            </select>
+            <label>Aula</label>
         </div>
 
-        <div class="row">
-          <div class="col s12 m6">
-            <div class="input-field">
-              <input type="number" id="totalCreditos" name="totalCreditos" required>
-              <label for="totalCreditos">Total Créditos</label>
-            </div>
-          </div>
-          <div class="col s12 m6">
-            <div class="input-field">
-              <input type="number" id="estructuraGenericaCreditos" name="estructuraGenericaCreditos" required>
-              <label for="estructuraGenericaCreditos">Estructura Genérica Créditos</label>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input type="number" id="residenciaProfesionalCreditos" name="residenciaProfesionalCreditos" required>
-            <label for="residenciaProfesionalCreditos">Residencia Profecional Créditos</label>
-          </div>
-          <div class="input-field col s12 m6">
-            <input type="number" id="servicioSocialCreditos" name="servicioSocialCreditos" required>
-            <label for="servicioSocialCreditos">Servicio Social Créditos</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input type="number" id="actividadesComplementariasCreditos" name="actividadesComplementariasCreditos" required>
-            <label for="actividadesComplementariasCreditos">Actividades Complementarias Créditos</label>
-          </div>
+        
+        <div class="input-field col s12">
+            <select id="carrera" name="id_semestre" class="select-wrapper">
+                @foreach($semestres as $semestre)
+                    <option value="{{ $semestre->id }}">{{$semestre->id}}</option>
+                @endforeach
+            </select>
+            <label>Semestre</label>
         </div>
 
         <div class="row">
@@ -139,73 +112,25 @@
     </form>
   </div>
 
-  <div id="modalEditarCarrera" class="modal" style="padding:30px;overflow-y:scroll;">
-    <form id="formEditar" method="POST" action="{{url('/escuela/editarCarrera/')}}" enctype="multipart/form-data">
+  <div id="modalEditarEdificio" class="modal" style="padding:30px;overflow-y:scroll;">
+    <form id="formEditar" method="POST" action="{{url('/escuela/editarHorario/')}}" enctype="multipart/form-data">
       {{csrf_field()}}
       <div class="row">
-        <h2 style="margin-bottom:25px;">Editar carrera</h2>
-        <input type="hidden" name="carreraId" id="carreraId">
+        <h2 style="margin-bottom:25px;">Editar horario</h2>
+        <input type="hidden" name="id" id="id-editar">
       </div>
 
-      <div class="row" id="imgEditarCarreraContainer">
-        <img src="" alt="Editar imagen Carrera" id="imgEditarCarrera" style="height:100px;margin:auto;">
-      </div>
-
-      <div class="row">
-        <div class="file-field input-field col s12">
-          <div class="btn">
-            <span>Imagen</span>
-            <input name="ruta_imagen" type="file" id="ruta_imagen">
+        <div class="row">
+          <div class="input-field col s8 ">
+          <input id="horainicio"type="text" name="hora_inicio" class="timepicker">
+          <label for="horainicio">Hora inicio</label>
           </div>
-          <div class="file-path-wrapper">
-            <input class="file-path validate" type="text">
+
+          <div class="input-field col s8 ">
+          <input id="horainicio"type="text" name="hora_fin" class="timepicker">
+          <label for="horainicio">Hora fin</label>
           </div>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="input-field col s8 ">
-          <input  id="nombre" name="nombre" type="text" maxlength="70" required>
-          <label for="nombre">Nombre</label>
-        </div>
-        <div class="input-field col s4">
-          <input  id="abreviatura" name="abreviatura" type="text" maxlength="20" required>
-          <label for="abreviatura">Abreviatura</label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="input-field">
-            <input type="number" id="totalCreditos" name="totalCreditos" required>
-            <label for="totalCreditos">Total Créditos</label>
-          </div>
-        </div>
-        <div class="col s12 m6">
-          <div class="input-field">
-            <input type="number" id="estructuraGenericaCreditos" name="estructuraGenericaCreditos" required>
-            <label for="estructuraGenericaCreditos">Estructura Genérica Créditos</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="input-field col s12 m6">
-          <input type="number" id="residenciaProfesionalCreditos" name="residenciaProfesionalCreditos" required>
-          <label for="residenciaProfesionalCreditos">Residencia Profecional Créditos</label>
-        </div>
-        <div class="input-field col s12 m6">
-          <input type="number" id="servicioSocialCreditos" name="servicioSocialCreditos" required>
-          <label for="servicioSocialCreditos">Servicio Social Créditos</label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="input-field col s12 m6">
-          <input type="number" id="actividadesComplementariasCreditos" name="actividadesComplementariasCreditos" required>
-          <label for="actividadesComplementariasCreditos">Actividades Complementarias Créditos</label>
-        </div>
-      </div>
 
       <div class="row">
           <input class="input-field btn right dark-primary-color" style="width:70%; margin:auto;" type="submit" value="Guardar">
@@ -213,11 +138,11 @@
     </form>
   </div>
 
-  <div class="modal modal-fixed-footer" id="modalEliminarCarrera" style="padding:30px;max-height:200px;">
-    <form id="formEliminar" action="{{url('/escuela/eliminarCarrera')}}" method="POST">
+  <div class="modal modal-fixed-footer" id="modalEliminarEdificio" style="padding:30px;max-height:200px;">
+    <form id="formEliminar" action="{{url('/escuela/eliminarHorario')}}" method="POST">
       {{csrf_field()}}
-      <input type="hidden" name="carrera_id" id="carrera_id">
-      <h2>¿Desea eliminar esta carrera?</h2>
+      <input type="hidden" name="id" id="id-eliminar">
+      <h2>¿Desea eliminar este horario?</h2>
       <div class="modal-footer">
         <button class="waves-effect btn primary-color" type="submit" form="formEliminar" style="width:40%;margin:auto;">Sí</button>
         <a href="" class="modal-action modal-close waves-effect btn accent-color" style="width:35%;margin:auto;">
@@ -226,4 +151,6 @@
       </div>
     </form>
   </div>
+
+  
 @endsection
