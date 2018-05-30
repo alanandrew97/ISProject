@@ -24,9 +24,13 @@ Route::group(['prefix' => 'escuela'], function() {
     Route::post('crearCampus', 'EscuelaController@crearCampus');
     Route::post('editarCampus', 'EscuelaController@editarCampus');
     Route::post('eliminarCampus', 'EscuelaController@eliminarCampus');
+    Route::get('carreras', 'EscuelaController@listaCarreras');
     Route::post('crearCarrera', 'EscuelaController@crearCarrera');
     Route::post('editarCarrera', 'EscuelaController@editarCarrera');
+    Route::post('eliminarCarrera', 'EscuelaController@eliminarCarrera');
     Route::post('registrar', 'EscuelaController@registrar');
+    Route::get('reticulas', 'EscuelaController@listaReticulas');
+    
     // Route::get('nuevo', 'EscuelaController@nuevo');
     // Route::post('crear', 'EscuelaController@crear');
     // Route::get('editar/{id}', 'EscuelaController@vistaEditar');
@@ -35,7 +39,6 @@ Route::group(['prefix' => 'escuela'], function() {
     // Route::get('carrera/{id}', 'EscuelaController@detalleCarrera');
     // Route::get('campus/nuevo', 'EscuelaController@nuevoCampus');
     // Route::get('detalle/{id}', 'EscuelaController@detalleEscuela');
-    Route::get('carreras', 'EscuelaController@listaCarreras');
 });
 
 Route::group(['prefix' => 'usuarios'], function() {

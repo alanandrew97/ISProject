@@ -127,6 +127,6 @@ $(function(){
   $('.delete-carrera').on('click', function (e) {
     let carreraId = $(this).data('carrera-id');
     // $('#formEliminar').attr('action', url + '/escuela/eliminarCampus/' + campusId);
-    $('#campus_id').val(carreraId);
+    $('#carrera_id').val(carreraId);
   });
 });

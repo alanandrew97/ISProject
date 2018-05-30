@@ -7,6 +7,7 @@ use App\Utils\FileUtils;
 use App\Escuela;
 use App\Carrera;
 use App\Campus;
+use App\Reticula;
 
 class EscuelaController extends Controller {
 
@@ -36,7 +37,12 @@ class EscuelaController extends Controller {
       ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>true],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
       ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
-      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
+      ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
+      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
+      ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
+      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
     ];
 
     // dd($submenuItems);
@@ -90,7 +96,12 @@ class EscuelaController extends Controller {
       ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
       ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
-      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
+      ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
+      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
+      ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
+      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
     ];
     
     // dd($carrera);
@@ -133,7 +144,6 @@ class EscuelaController extends Controller {
   }
 
   public function editarCarrera(Request $request){
-    dd($request->all());
 
     $this->validate($request, [
       'nombre' => 'required',
@@ -143,10 +153,7 @@ class EscuelaController extends Controller {
       'residenciaProfesionalCreditos' => 'required',
       'servicioSocialCreditos' => 'required',
       'actividadesComplementariasCreditos' => 'required',
-      'imagenCarrera' => 'required'
     ]);
-
-    $rutaImagen = FileUtils::guardar($request->imagenCarrera, 'storage/carreras/', 'car_');
 
     $carrera = Carrera::find($request->carreraId);
     
@@ -157,19 +164,42 @@ class EscuelaController extends Controller {
     $carrera->residencia_profesional_creditos = $request->residenciaProfesionalCreditos;
     $carrera->servicio_social_creditos = $request->servicioSocialCreditos;
     $carrera->actividades_complementarias_creditos = $request->actividadesComplementariasCreditos;
-    $carrera->ruta_imagen = $rutaImagen;
-        
+    
+    if ( isset($request->ruta_imagen) ) {
+      //Borrar imagen anterior
+      FileUtils::eliminar($carrera->ruta_imagen);
+      $rutaImagen = FileUtils::guardar($request->ruta_imagen, 'storage/carreras/', 'car_');
+      $carrera->ruta_imagen = $rutaImagen;
+    }
+
+    $carrera->save();
+    
     return redirect('/escuela/carreras');
   }
 
+  public function eliminarCarrera(Request $request){
+    $carrera = Carrera::find($request->carrera_id);
+    // dd($carrera->ruta_imagen);
+    FileUtils::eliminar($carrera->ruta_imagen);
+    $carrera->delete();
+    return redirect('/escuela/carreras');
+
+  }
+  
   public function listaReticulas(){
-    $carreras = Carrera::all();
     $escuela = Escuela::all()->first();
+    $carreras = Carrera::all();
+    // $reticulas = Reticula::all();
     $submenuItems = [
       ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
       ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>true],
-      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
+      ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
+      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
+      ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
+      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
     ];
     
     // dd($carrera);
@@ -177,7 +207,8 @@ class EscuelaController extends Controller {
     return view('escuela.listaReticulas', array(
       'escuela' => $escuela,
       'submenuItems' => $submenuItems,
-      'carreras' => $carreras
+      'carreras' => $carreras,
+      // 'reticulas' => $reticulas
     ));
   }
 
