@@ -8,6 +8,7 @@ use App\Escuela;
 use App\Carrera;
 use App\Campus;
 use App\Reticula;
+use App\Materia;
 use App\Edificio;
 use App\Aula;
 use App\Horario;
@@ -193,7 +194,7 @@ class EscuelaController extends Controller {
   public function listaReticulas(){
     $escuela = Escuela::all()->first();
     $carreras = Carrera::all();
-    // $reticulas = Reticula::all();
+    $materias = Materia::all();
     $submenuItems = [
       ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
@@ -212,6 +213,7 @@ class EscuelaController extends Controller {
       'escuela' => $escuela,
       'submenuItems' => $submenuItems,
       'carreras' => $carreras,
+      'materias' => $materias,
       // 'reticulas' => $reticulas
     ));
   }

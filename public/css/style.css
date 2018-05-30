@@ -109,3 +109,10 @@ a:link, a i {
 .delete-campus:hover {
     color: #FF9800;
 }
+
+.tarjeta {
+    width:100%;
+    padding: 20px;
+    box-shadow: #212121 0px 0px 5px;
+    margin-top: 10px;
+}
