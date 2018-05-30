@@ -1,4 +1,8 @@
 $(function(){
+
+  // $('select').formSelect();
+  $('select').material_select();
+
   $('.modal').modal({
     startingTop: '0%',
     endingTop: '2%'
