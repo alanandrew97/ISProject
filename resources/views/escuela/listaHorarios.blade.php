@@ -31,6 +31,11 @@
                 <div style="display:inline-block;">
                   <div class="col s12">Hora inicio:&nbsp;<span class="totalCreditos"> {{$horario->hora_inicio}}</span></div><br>
                   <div class="col s12">Hora fin:&nbsp;<span class="estructuraGenericaCreditos">{{$horario->hora_fin}}</span></div><br>
+                </div>
+                </div>
+            </li>
+        </ul>
+
         @endforeach
       @else
         <div class="error">Aun no hay horarios registrados en esta escuela.</div>
@@ -112,4 +117,6 @@
       </div>
     </form>
   </div>
+
+  
 @endsection
