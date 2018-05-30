@@ -13,8 +13,14 @@ use App\Grupo;
 class GruposController extends Controller {
 
   public function index() {
-    $escuela = Escuela::all()->first();
-    dd( session('usuario') );
+    // $escuela = Escuela::all()->first();
+    if (session('rol')==1) {
+      // $maestro = session('usuario');
+      $grupos = session('usuario')->grupos;
+    }
+
+    // dd( $grupos[0]->alumnos );
+
     $submenuItems = [
       ['nombre'=>'Grupos','link'=>url('grupos'), 'selected'=>true],
       
@@ -22,7 +28,7 @@ class GruposController extends Controller {
 
     // dd($submenuItems);
     return view('escuela.index', array(
-      'escuela' => $escuela,
+      'grupos' => $grupos,
       'submenuItems' => $submenuItems
     ));
   }
