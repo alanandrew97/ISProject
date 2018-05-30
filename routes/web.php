@@ -38,6 +38,11 @@ Route::group(['prefix' => 'escuela'], function() {
     Route::post('registrarAula', 'EscuelaController@registrarAula');
     Route::post('editarAula', 'EscuelaController@editarAula');
     Route::post('eliminarAula', 'EscuelaController@eliminarAula');
+    Route::get('horarios', 'EscuelaController@listaHorarios');
+    Route::post('registrarHorario', 'EscuelaController@registrarHorario');
+    Route::post('editarHorario', 'EscuelaController@editarHorario');
+    Route::post('eliminarHorario', 'EscuelaController@eliminarHorario');
+
 
 
     // Route::get('nuevo', 'EscuelaController@nuevo');

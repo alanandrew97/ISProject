@@ -10,6 +10,7 @@ use App\Campus;
 use App\Reticula;
 use App\Edificio;
 use App\Aula;
+use App\Horario;
 
 class EscuelaController extends Controller {
 
@@ -348,5 +349,65 @@ class EscuelaController extends Controller {
 
     return redirect('escuela/aulas');
   }
+
+  public function listaHorarios(Request $request) {
+    $horarios = Horario::all();
+    $escuela = Escuela::all()->first();
+    $submenuItems = [
+      ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
+      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
+      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
+      ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
+      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
+      ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
+      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+    ];
+
+    return view('escuela.listaHorarios', array(
+      'horarios' => $horarios,
+      'escuela' => $escuela,
+      'submenuItems' => $submenuItems
+    )); 
+  }
+
+  public function registrarHorario(Request $request) {
+    $this->validate($request, [
+      'hora_inicio' => 'required',
+      'hora_fin' => 'required'
+    ]);
+
+    Horario::create([
+      'hora_inicio' => $request->input('hora_inicio'),
+      'hora_fin' => $request->input('hora_fin')
+    ]);
+
+    return redirect('escuela/horarios');
+  }
+  
+  public function editarHorario(Request $request) {
+    $this->validate($request, [
+      'hora_inicio' => 'required',
+      'hora_fin' => 'required'
+    ]);
+
+    $horario = Horario::find($request->input('id'));
+
+    $horario->hora_inicio = $request->input('hora_inicio');
+    $horario->hora_fin = $request->input('hora_fin');
+    $horario->save();
+
+    return redirect('escuela/horarios');
+  }
+
+  
+  public function eliminarHorario(Request $request) {
+    $horario = Horario::find($request->input('id'));
+    $horario->delete();
+
+    return redirect('escuela/horarios');
+  }
+
 }
     
