@@ -22,12 +22,12 @@ class GruposController extends Controller {
     foreach ($grupos as $grupo) {
       $grupo['data'] = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
     }
-    // dd( $grupos[0]->alumnos );
-
+    
     $submenuItems = [
       ['nombre'=>'Grupos','link'=>url('grupos'), 'selected'=>true],
     ];
-
+    
+    // dd( $grupos[0]['data'] );
     // dd($submenuItems);
     return view('grupos.index', array(
       'escuela' => $escuela,

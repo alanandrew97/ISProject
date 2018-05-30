@@ -40,7 +40,7 @@ class Grupo extends Model {
     }
 
     public function registro(){
-        return $this->hasOne('App\RegistroGrupo', 'id', 'id_grupo');
+        return $this->hasOne('App\RegistroGrupo', 'id_grupo', 'id');
     }
 
     public function alumnosGrupo() {
