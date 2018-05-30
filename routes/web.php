@@ -73,3 +73,13 @@ Route::group(['prefix' => 'usuarios'], function() {
     Route::post('editar', 'UsuarioController@editar');
     Route::post('eliminar', 'UsuarioController@eliminar');
 });
+
+Route::group(['prefix' => 'grupos'], function() {
+    Route::get('/', 'GruposController@index');
+    // Route::get('alumnos', 'UsuarioController@listaAlumnos');
+    // Route::post('registrarPrimerUsuario', 'UsuarioController@registrarPrimerUsuario');
+    // Route::post('registrar', 'UsuarioController@registrar');
+    // Route::post('login', 'UsuarioController@login');
+    // Route::post('editar', 'UsuarioController@editar');
+    // Route::post('eliminar', 'UsuarioController@eliminar');
+});
