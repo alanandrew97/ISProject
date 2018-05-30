@@ -1,7 +1,15 @@
 $(document).ready(function () {
+  let dataGroup;
+
   $('.modal').modal({
     startingTop: '0%',
     endingTop: '2%'
+  });
+
+  $('.modalGraficaGrupo').click(function(){
+    let $this = $(this);
+    dataGroup = $this.data('graphicData');
+    console.log(dataGroup);
   });
   
   var ctx = document.getElementById("graficaGrupo").getContext('2d');
