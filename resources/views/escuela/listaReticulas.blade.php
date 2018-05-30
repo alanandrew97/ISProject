@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-  Carreras
+  Reticulas
 @endsection
 
 @section('cabecera')
-  Carreras
+  Reticulas
 @endsection
 
 @section('head')
@@ -14,40 +14,43 @@
 
 @section('contenedor')
   <div class="row">
-    <h1>Carreras</h1>
+    <h1>Reticulas</h1>
   </div>
   <div class="row">
     <div class="col s12">
       @if( count($carreras) != 0 )
         @foreach($carreras as $carrera)
-          <ul class="collapsible">
-            <li>
-              <div class="collapsible-header" style="position:relative;">
-                <i class="material-icons">school</i><div class="carreraNombre">{{$carrera->nombre}}</div>&nbsp;&nbsp;(<div class="carreraAbreviatura">{{$carrera->abreviatura}}</div>)
-                <a href="#modalEditarCarrera" class="modal-trigger"><i style="position:absolute;right:35px;" data-carrera-id="{{$carrera->id}}" class="material-icons right edit-carrera">edit</i></a>
-                <a href="#modalEliminarCarrera" class="modal-trigger"><i style="position:absolute;right:0px;" data-carrera-id="{{$carrera->id}}" class="material-icons right delete-carrera">close</i></a>
-              </div>
-              <div class="collapsible-body" style="padding: 20px;">
-                <img class="left imgCarrera" style="height:120px;margin-right:15px;" src="{{$carrera->ruta_imagen}}" alt="{{$carrera->nombre}}">
-                <div style="display:inline-block;">
-                  <div class="col s12">Total de créditos:&nbsp;<span class="totalCreditos"> {{$carrera->total_creditos}}</span></div><br>
-                  <div class="col s12">Estructura Generica Créditos:&nbsp;<span class="estructuraGenericaCreditos">{{$carrera->estructura_generica_creditos}}</span></div><br>
-                  <div class="col s12">Residencia Profesional Créditos:&nbsp;<span class="residencia_profesional_creditos">{{$carrera->residencia_profesional_creditos}}</span></div><br>
-                  <div class="col s12">Servicio Social Créditos:&nbsp;<span class="servicio_social_creditos">{{$carrera->servicio_social_creditos}}</span></div><br>
-                  <div class="col s12">Actividades Complementarias Créditos:&nbsp;<span class="actividades_complementarias_creditos">{{$carrera->actividades_complementarias_creditos}}</span></div><br><br>
-                  @if (count($carrera->reticulas)!=0)
-                    @foreach($carrera->reticulas as $reticula)
-                      <div>
-                        <a class="" href="{{url('escuelas/carrera/'.$reticula->id)}}"><i class="material-icons" style="margin-right:10px;color:white;">school</i>{{$reticula->nombre}}</a>
-                      </div>
-                    @endforeach
-                  @else
-                    <div class="error">Aun no hay retículas registradas en esta carrera.</div>
-                  @endif
-                </div>
-              </div>
-            </li>
-          </ul>
+          <h4>{{$carrera->nombre}}</h4>
+          @if (count($carrera->reticulas)!=0)
+            <ul class="collapsible">
+              @foreach($carrera->reticulas as $reticula)
+                <li>
+                  <div class="collapsible-header" style="position:relative;">
+                    <i class="material-icons">dashboard</i>{{$carrera->abreviatura}}-<div class="reticulaNumero">{{$reticula->numero}}</div>&nbsp;&nbsp;Número de semestres:&nbsp;<div class="reticulaSemestres">{{$reticula->numero_semestres}}</div>
+                    <a href="#modalEditarReticula" class="modal-trigger"><i style="position:absolute;right:35px;" data-reticula-id="{{$reticula->id}}" class="material-icons right edit-reticula">edit</i></a>
+                    <a href="#modalEliminarReticula" class="modal-trigger"><i style="position:absolute;right:0px;" data-reticula-id="{{$reticula->id}}" class="material-icons right delete-reticula">close</i></a>
+                  </div>
+                  <div class="collapsible-body" style="padding: 20px;">
+                    @if (count($reticula->materias)!=0)
+                      @foreach ($reticula->materias as $materia)
+                        <span style="position:inherit;" class="col s4">
+                          <div class="materia" style="text-align:center;padding:10px;width:100%;">
+                            {{$materia->nombre}}<br>
+                            {{$materia->clave}}<br>
+                            {{$materia->horas_teoria}}-{{$materia->horas_practica}}-{{$materia->creditos}}
+                          </div>
+                        </span>
+                      @endforeach
+                    @else
+                      <div>No hay materias asignadas a esta retícula</div>
+                    @endif
+                  </div>
+                </li>
+              @endforeach
+            </ul>
+          @else
+            <div class="error">Aun no hay retículas registradas en esta carrera.</div>
+          @endif
         @endforeach
       @else
         <div class="error">Aun no hay carreras registradas en esta escuela.</div>

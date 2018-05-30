@@ -85,7 +85,7 @@
                 </a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul  id="nav" class="right hide-on-med-and-down">
-                    <li><a class="menuItem" href="{{url('escuela')}}">Escuela</a></li>
+                    <li><a class="menuItem" href="{{url('escuela')}}">Administración</a></li>
 
                     <li><a class="menuItem menuSelected" href="{{url('usuarios')}}">Usuarios</a></li>
 
