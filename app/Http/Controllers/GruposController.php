@@ -40,4 +40,18 @@ class GruposController extends Controller {
     $data = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
   }
 
+  public function imprimir(Request $request) {
+    $escuela = Escuela::all()->first();
+    $grupo = Grupo::find($request->input('id'));
+    $alumnos = $grupo->alumnos;
+    $maestro = $grupo->maestro;
+    $materia = $grupo->materia;
+
+    $view = view('pdf.listaAlumnos')->with('alumnos', $alumnos)->with('grupo', $grupo)->with('escuela', $escuela)->render();
+    $pdf = \App::make('dompdf.wrapper');
+    $pdf->loadHTML($view)->save('pdf/algo.pdf');
+    $grupo = Grupo::find(1);
+    return redirect('grupos');
+  }
+
 }

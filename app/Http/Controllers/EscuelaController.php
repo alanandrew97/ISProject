@@ -15,6 +15,8 @@ use App\Horario;
 use App\Semestre;
 use App\Grupo;
 use App\Maestro;
+use App\Alumno;
+use App\AlumnoGrupo;
 
 class EscuelaController extends Controller {
 
@@ -517,6 +519,7 @@ class EscuelaController extends Controller {
       $aulas = Aula::all();
       $semestres = Semestre::all();
       $escuela = Escuela::all()->first();
+      $alumnos = Alumno::all();
       $submenuItems = [
         ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
         ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
@@ -535,6 +538,7 @@ class EscuelaController extends Controller {
       'aulas' => $aulas,
       'semestres' => $semestres,
       'escuela' => $escuela,
+      'alumnos' => $alumnos,
       'submenuItems' => $submenuItems
     )); 
   }
@@ -605,6 +609,18 @@ class EscuelaController extends Controller {
     $materia->delete();
 
     return redirect('escuela/materias');
+  }
+
+  public function registrarAlumnosGrupo(Request $request) {
+    foreach($request->input('id_usuarios') as $id_usuario) {
+      AlumnoGrupo::create([
+        'id_alumno' => $id_usuario,
+        'id_grupo' => $request->input('id'),
+        'id_alumno_horario' => 0
+      ]);
+    }
+
+    return redirect('escuela');
   }
 
 }

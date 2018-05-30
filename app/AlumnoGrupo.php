@@ -20,4 +20,8 @@ class AlumnoGrupo extends Model {
     public function registroAlumnoGrupo() {
         return $this->hasOne('App\RegistroAlumnoGrupo', 'id_alumno_grupo');
     }
+
+    public function alumno() {
+        return $this->hasOne('App\Alumno', 'id', 'id_alumno');
+    }
 }

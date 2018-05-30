@@ -24,7 +24,8 @@
             <li>
               <div class="collapsible-header" style="position:relative;">
                 <i class="material-icons">school</i><div class="carreraNombre">{{$grupo->clave}}</div>&nbsp;&nbsp;
-                <a href="#modalEditarEdificio" class="modal-trigger"><i style="position:absolute;right:35px;" data-edificio-id="{{$grupo->id}}" class="material-icons right edit-edificio">print</i></a>
+                <a href="#modalEditarEdificio" class="modal-trigger"><i style="position:absolute;right:35px;" data-edificio-id="{{$grupo->id}}" class="material-icons right edit-edificio">add</i></a>
+                <a href="#modalEliminarEdificio" class="modal-trigger"><i style="position:absolute;right:0px;" data-edificio-id="{{$grupo->id}}" class="material-icons right delete-edificio">print</i></a>
               </div>
               <div class="collapsible-body" style="padding: 20px;">
                 <div style="display:inline-block;">
@@ -34,7 +35,19 @@
                   <div class="col s12">Edificio:&nbsp;<span class="estructuraGenericaCreditos">{{$grupo->aula->edificio->nombre}}</span></div><br>
                   <div class="col s12">Aula:&nbsp;<span class="estructuraGenericaCreditos">{{$grupo->aula->numero}}</span></div><br>
                   <div class="col s12">Semestre:&nbsp;<span class="estructuraGenericaCreditos">{{$grupo->semestre->fecha_inicial_parcial_1}} - {{$grupo->semestre->fecha_final_promedio}}</span></div><br>
-                  
+                  @if(count($grupo->alumnosGrupo) != 0)
+                  <div class="col s12">Alumnos:&nbsp;</div><br>
+                  <ul>
+                    @foreach($grupo->alumnosGrupo as $registro)
+                    <li>
+                    <div class="col s12">Nombre:&nbsp;<span class="totalCreditos">{{$registro->alumno->datosUsuario->nombre}} {{$registro->alumno->datosUsuario->apellido_paterno}} {{$registro->alumno->datosUsuario->apellido_materno}} Matricula: {{$registro->alumno->matricula}}</span></div><br>
+                    </li>
+                    @endforeach
+                  </ul>
+                  @else
+                  <div class="error">Aun no hay alumnos registrados en este grupo.</div>
+                  @endif
+
                 </div>
                 </div>
             </li>
@@ -114,24 +127,22 @@
   </div>
 
   <div id="modalEditarEdificio" class="modal" style="padding:30px;overflow-y:scroll;">
-    <form id="formEditar" method="POST" action="{{url('/escuela/editarHorario/')}}" enctype="multipart/form-data">
+    <form id="formEditar" method="POST" action="{{url('/escuela/registrarAlumnosGrupo/')}}" enctype="multipart/form-data">
       {{csrf_field()}}
       <div class="row">
-        <h2 style="margin-bottom:25px;">Editar horario</h2>
+        <h2 style="margin-bottom:25px;">Agregar alumnos</h2>
         <input type="hidden" name="id" id="id-editar">
       </div>
 
-        <div class="row">
-          <div class="input-field col s8 ">
-          <input id="horainicio"type="text" name="hora_inicio" class="timepicker">
-          <label for="horainicio">Hora inicio</label>
-          </div>
-
-          <div class="input-field col s8 ">
-          <input id="horainicio"type="text" name="hora_fin" class="timepicker">
-          <label for="horainicio">Hora fin</label>
-          </div>
-        </div>
+        
+      <div class="input-field col s12">
+        <select multiple name="id_usuarios[]">
+            @foreach($alumnos as $alumno)
+            <option value="{{$alumno->id}}">{{$alumno->matricula}}, {{$alumno->datosUsuario->nombre}} {{$alumno->datosUsuario->apellido_paterno}} {{$alumno->datosUsuario->apellido_materno}}</option>
+            @endforeach
+        </select>
+        <label>Alumnos</label>
+    </div>
 
       <div class="row">
           <input class="input-field btn right dark-primary-color" style="width:70%; margin:auto;" type="submit" value="Guardar">
@@ -140,10 +151,11 @@
   </div>
 
   <div class="modal modal-fixed-footer" id="modalEliminarEdificio" style="padding:30px;max-height:200px;">
-    <form id="formEliminar" action="{{url('/escuela/eliminarHorario')}}" method="POST">
+    <form id="formEliminar" action="{{url('/imprimir')}}" method="GET">
       {{csrf_field()}}
       <input type="hidden" name="id" id="id-eliminar">
-      <h2>¿Desea eliminar este horario?</h2>
+      <h2>¿Imprimir reporte?</h2>
+
       <div class="modal-footer">
         <button class="waves-effect btn primary-color" type="submit" form="formEliminar" style="width:40%;margin:auto;">Sí</button>
         <a href="" class="modal-action modal-close waves-effect btn accent-color" style="width:35%;margin:auto;">
