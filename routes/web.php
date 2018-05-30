@@ -42,6 +42,11 @@ Route::group(['prefix' => 'escuela'], function() {
 });
 
 Route::group(['prefix' => 'usuarios'], function() {
+    Route::get('/', 'UsuarioController@index');
+    Route::get('alumnos', 'UsuarioController@listaAlumnos');
     Route::post('registrarPrimerUsuario', 'UsuarioController@registrarPrimerUsuario');
+    Route::post('registrar', 'UsuarioController@registrar');
     Route::post('login', 'UsuarioController@login');
+    Route::post('editar', 'UsuarioController@editar');
+    Route::post('eliminar', 'UsuarioController@eliminar');
 });

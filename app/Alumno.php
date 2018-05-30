@@ -18,4 +18,12 @@ class Alumno extends Model {
     ];
 
     public $timestamps = false;
+
+    public function datosUsuario() {
+        return $this->hasOne('App\DatosUsuario', 'id', 'id_datos_usuario');
+    }
+
+    public function carrera() {
+        return $this->hasOne('App\Carrea', 'id', 'id_carrera');
+    }
 }
