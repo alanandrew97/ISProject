@@ -15,4 +15,8 @@ class Maestro extends Model {
     ];
 
     public $timestamps = false;
+
+    public function datosUsuario() {
+        return $this->hasOne('App\DatosUsuario', 'id', 'id_datos_usuario');
+    }
 }

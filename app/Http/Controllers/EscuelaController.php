@@ -180,5 +180,22 @@ class EscuelaController extends Controller {
       'carreras' => $carreras
     ));
   }
+
+  public function listaTurnos() {
+    $turnos = Turno::all();
+    $escuela = Escuela::all()->first();
+    $submenuItems = [
+      ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>false],
+      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
+      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
+    ];
+    
+    return view('escuela.turnos', array(
+      'escuela' => $escuela,
+      'submenuItems' => $submenuItems,
+      'turnos' => $turnos
+    ));
+  }
 }
     
