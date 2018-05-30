@@ -41,7 +41,6 @@ class EscuelaController extends Controller {
     $submenuItems = [
       ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>true],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
-      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
       ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
@@ -100,7 +99,6 @@ class EscuelaController extends Controller {
     $submenuItems = [
       ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
-      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
       ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
@@ -198,7 +196,6 @@ class EscuelaController extends Controller {
     $submenuItems = [
       ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
-      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>true],
       ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
@@ -241,7 +238,6 @@ class EscuelaController extends Controller {
     $submenuItems = [
       ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
-      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
       ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
@@ -300,7 +296,6 @@ class EscuelaController extends Controller {
     $submenuItems = [
       ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
-      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
       ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
@@ -359,7 +354,6 @@ class EscuelaController extends Controller {
     $submenuItems = [
       ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
-      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
       ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
@@ -418,7 +412,6 @@ class EscuelaController extends Controller {
     $submenuItems = [
       ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
-      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
       ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
@@ -500,7 +493,6 @@ class EscuelaController extends Controller {
     $submenuItems = [
       ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
-      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
       ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
@@ -522,7 +514,6 @@ class EscuelaController extends Controller {
       $submenuItems = [
         ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
         ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
-        ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
         ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
         ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
         ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>true],

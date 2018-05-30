@@ -22,11 +22,17 @@ class UsuarioController extends Controller {
             if(password_verify($password, $datos_usuario->password)) {
             $maestro = Maestro::where('id_datos_usuario', '=', $datos_usuario->id)->first();
             if($maestro != null) {
-                return redirect('/escuela');
+
+                session(['usuario' => $maestro, 'rol' => '1']);
+
+                //dump(session('usuario'));
+
+                return redirect('/grupos');
             } else {
                 $alumno = Alumno::where('id_datos_usuario', '=', $datos_usuario->id)->first();
                 if($alumno != null) {
-                    return redirect('/escuela');
+                    session(['usuario' => $alumno, 'rol' => '2']);
+                    return redirect('/grupos');
                 } else {
                     return redirect('/')->withErrors(['Usuario ha dejado de existir']);
                 }

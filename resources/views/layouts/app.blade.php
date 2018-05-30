@@ -85,13 +85,16 @@
                 </a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul  id="nav" class="right hide-on-med-and-down">
-                    <li><a class="menuItem" href="{{url('escuela')}}">Administración</a></li>
+                    @if(session('rol') == 1)
+                        @if(session('usuario')->administrador == 1)    
+                            <li><a class="menuItem" href="{{url('escuela')}}">Administración</a></li>
 
-                    <li><a class="menuItem menuSelected" href="{{url('usuarios')}}">Usuarios</a></li>
-
+                            <li><a class="menuItem menuSelected" href="{{url('usuarios')}}">Usuarios</a></li>
+                        @endif
+                    @endif
                     <li><a class="menuItem" href="{{url('grupos')}}">Grupos</a></li>
 
-                    <li><a style="margin:0;cursor:pointer;">Usuario nombre <i style="display:inline-block;vertical-align: middle;" class="material-icons">arrow_drop_down</i></a></li>
+                    <li><a href="{{url('/')}}"style="margin:0;cursor:pointer;">Cerrar sesión<i style="display:inline-block;vertical-align: middle;" class="material-icons"></i></a></li>
                     {{--<li><p>{{Auth::user()->name}}</p></li>--}}
                 </ul>
             </div>
