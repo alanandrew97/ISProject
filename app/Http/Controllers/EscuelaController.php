@@ -494,21 +494,39 @@ class EscuelaController extends Controller {
     return redirect('escuela/semestres');
   }
 
-  public function listaGrupos(Request $request) {
-    // $horarios = Horario::all();
-    $grupos = Grupo::all();
+  public function listaMaterias(Request $request) {
+    $materias = Materia::all();
     $escuela = Escuela::all()->first();
     $submenuItems = [
       ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
-      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
+      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
       ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
       ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
-      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>true],
+      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
       ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
       ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
       ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
     ];
+      
+    return view('escuela.listaMaterias', array(
+        'materias' => $materias,
+        'escuela' => $escuela,
+        'submenuItems' => $submenuItems,
+    ));
+  }
+    public function listaGrupos(Request $request) {
+      // $horarios = Horario::all();
+      $grupos = Grupo::all();
+      $escuela = Escuela::all()->first();
+      $submenuItems = [
+        ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
+        ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
+        ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
+        ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
+        ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
+        ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>true],
+      ];
 
     return view('escuela.listaGrupos', array(
       'grupos' => $grupos,
@@ -516,5 +534,54 @@ class EscuelaController extends Controller {
       'submenuItems' => $submenuItems
     )); 
   }
+
+  public function registrarMateria(Request $request) {
+    $this->validate($request, [
+      'nombre' => 'required',
+      'clave' => 'required',
+      'creditos' => 'required',
+      'horas_teoria' => 'required',
+      'horas_practica' => 'required'
+    ]);
+
+    Materia::create([
+      'nombre' => $request->input('nombre'),
+      'clave' => $request->input('clave'),
+      'creditos' => $request->input('creditos'),
+      'horas_teoria' => $request->input('horas_teoria'),
+      'horas_practica' => $request->input('horas_practica')
+    ]);
+
+    return redirect('escuela/materias');
+  }
+
+  public function editarMateria(Request $request) {
+    $this->validate($request, [
+      'nombre' => 'required',
+      'clave' => 'required',
+      'creditos' => 'required',
+      'horas_teoria' => 'required',
+      'horas_practica' => 'required'
+    ]);
+    
+    $materia = Materia::find($request->input('id'));
+
+    $materia->nombre = $request->input('nombre');
+    $materia->clave = $request->input('clave');
+    $materia->creditos = $request->input('creditos');
+    $materia->horas_teoria = $request->input('horas_teoria');
+    $materia->horas_practica = $request->input('horas_practica');
+    $materia->save();
+
+    return redirect('escuela/materias');
+  }
+
+  public function eliminarMateria(Request $request) {
+    $materia = Materia::find($request->input('id'));
+    $materia->delete();
+
+    return redirect('escuela/materias');
+  }
+
 }
     
