@@ -34,7 +34,7 @@ class EscuelaController extends Controller {
   public function index() {
     $escuela = Escuela::all()->first();
     $submenuItems = [
-      ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>true],
+      ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>true],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
       ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
       ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
@@ -93,7 +93,7 @@ class EscuelaController extends Controller {
     $carreras = Carrera::all();
     $escuela = Escuela::all()->first();
     $submenuItems = [
-      ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>false],
+      ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
       ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
       ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
@@ -191,7 +191,7 @@ class EscuelaController extends Controller {
     $carreras = Carrera::all();
     // $reticulas = Reticula::all();
     $submenuItems = [
-      ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>false],
+      ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
       ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>true],
       ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
