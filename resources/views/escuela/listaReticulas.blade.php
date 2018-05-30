@@ -98,7 +98,7 @@
         <div class="row">
           @foreach ($materias as $materia)
           <div class="input-field col s6 m4 l3">
-            <input id="materias" name="materias[]" value="{{$materia->id}}" type="checkbox" class="filled-in">
+            <input id="materias" name="materias[]" value="{{$materia->id}}" type="checkbox" class="browser-default">
             <label for="materias[]" >{{$materia->nombre}}</label>
           </div>
           @endforeach

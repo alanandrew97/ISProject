@@ -1,7 +1,7 @@
 $(function(){
 
-  // $('select').formSelect();
-  $('select').material_select();
+  $('select').formSelect();
+  // $('select').material_select();
 
   $('.modal').modal({
     startingTop: '0%',
