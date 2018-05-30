@@ -98,10 +98,16 @@
         <div class="row">
           @foreach ($materias as $materia)
           <div class="input-field col s6 m4 l3">
-            <label>
-              <input id="materias" name="materias[]" value="{{$materia->id}}" type="checkbox" class="browser-default">
-              <span>{{$materia->nombre}}</span>
-            </label>
+            <div>
+              <input type="checkbox" id="test5" />
+              <label for="test5">Red</label>
+            </div>
+            {{--<label>
+              <p>
+                <input id="materias" name="materias[]" value="{{$materia->id}}" type="checkbox" class="browser-default">
+                <label>{{$materia->nombre}}</label>
+              </p>
+            </label>--}}
           </div>
           @endforeach
         </div>
@@ -112,7 +118,7 @@
     </form>
   </div>
 
-  <div id="modalEditarReticula" class="modal" style="padding:30px;overflow-y:scroll;">
+  <div id="modalEditarReticula" class="modal modal-fixed-footer" style="padding:30px;overflow-y:scroll;">
     <form id="formEditar" method="POST" action="{{url('/escuela/editarCarrera/')}}" enctype="multipart/form-data">
       {{csrf_field()}}
       <div class="row">
@@ -132,7 +138,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="modal-footer">
           <input class="input-field btn right dark-primary-color" style="width:70%; margin:auto;" type="submit" value="Guardar">
       </div>
     </form>

@@ -18,4 +18,8 @@ class Grupo extends Model {
     ];
 
     public $timestamps = false;
+
+    public function materia(){
+        return hasOne('App\Materia', 'id', 'id_materia');
+    }
 }

@@ -46,6 +46,7 @@ Route::group(['prefix' => 'escuela'], function() {
     Route::post('registrarSemestre', 'EscuelaController@registrarSemestre');
     Route::post('editarSemestre', 'EscuelaController@editarSemestre');
     Route::post('eliminarSemestre', 'EscuelaController@eliminarSemestre');
+    Route::get('grupos', 'EscuelaController@listaGrupos');
 
 
 

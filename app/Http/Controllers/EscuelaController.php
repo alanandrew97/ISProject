@@ -493,5 +493,28 @@ class EscuelaController extends Controller {
 
     return redirect('escuela/semestres');
   }
+
+  public function listaGrupos(Request $request) {
+    // $horarios = Horario::all();
+    $grupos = Grupo::all();
+    $escuela = Escuela::all()->first();
+    $submenuItems = [
+      ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
+      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
+      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
+      ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
+      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>true],
+      ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
+      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+    ];
+
+    return view('escuela.listaGrupos', array(
+      'grupos' => $grupos,
+      'escuela' => $escuela,
+      'submenuItems' => $submenuItems
+    )); 
+  }
 }
     

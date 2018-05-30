@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-  Grupos
+  Carreras
 @endsection
 
 @section('cabecera')
-  Grupos
+  Carreras
 @endsection
 
 @section('head')
@@ -14,7 +14,7 @@
 
 @section('contenedor')
   <div class="row">
-    <h1>Grupos</h1>
+    <h1>Carreras</h1>
   </div>
   <div class="row">
     <div class="col s12">
