@@ -31,6 +31,10 @@
                 <div style="display:inline-block;">
                   <div class="col s12">Nombre:&nbsp;<span class="totalCreditos"> {{$edificio->nombre}}</span></div><br>
                   <div class="col s12">Clave:&nbsp;<span class="estructuraGenericaCreditos">{{$edificio->clave}}</span></div><br>
+                  </div>
+                </div>
+                </li>
+                </ul>
         @endforeach
       @else
         <div class="error">Aun no hay edificios registrados en esta escuela.</div>

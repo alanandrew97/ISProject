@@ -12,6 +12,7 @@ use App\Materia;
 use App\Edificio;
 use App\Aula;
 use App\Horario;
+use App\Semestre;
 
 class EscuelaController extends Controller {
 
@@ -411,5 +412,86 @@ class EscuelaController extends Controller {
     return redirect('escuela/horarios');
   }
 
+  public function listaSemestres(Request $request) {
+    $semestres = Semestre::all();
+    $escuela = Escuela::all()->first();
+    $submenuItems = [
+      ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
+      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
+      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
+      ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
+      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
+      ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
+      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+    ];
+
+    return view('escuela.listaSemestres', array(
+      'semestres' => $semestres,
+      'escuela' => $escuela,
+      'submenuItems' => $submenuItems
+    )); 
+  }
+
+  public function registrarSemestre(Request $request) {
+    $this->validate($request, [
+      'fecha_inicial_parcial_1' => 'required',
+      'fecha_final_parcial_1' => 'required',
+      'fecha_inicial_parcial_2' => 'required',
+      'fecha_final_parcial_2' => 'required',
+      'fecha_inicial_parcial_3' => 'required',
+      'fecha_final_parcial_3' => 'required',
+      'fecha_inicial_promedio' => 'required',
+      'fecha_final_promedio' => 'required'
+    ]);
+
+    Semestre::create([
+      'fecha_inicial_parcial_1' => $request->input('fecha_inicial_parcial_1'),
+      'fecha_final_parcial_1' => $request->input('fecha_final_parcial_1'),
+      'fecha_inicial_parcial_2' => $request->input('fecha_inicial_parcial_2'),
+      'fecha_final_parcial_2' => $request->input('fecha_final_parcial_2'),
+      'fecha_inicial_parcial_3' => $request->input('fecha_inicial_parcial_3'),
+      'fecha_final_parcial_3' => $request->input('fecha_final_parcial_3'),
+      'fecha_inicial_promedio' => $request->input('fecha_inicial_promedio'),
+      'fecha_final_promedio' => $request->input('fecha_final_promedio')
+    ]);
+
+    return redirect('escuela/semestres');
+  }
+
+  public function editarSemestre(Request $request) {
+    $this->validate($request, [
+      'fecha_inicial_parcial_1' => 'required',
+      'fecha_final_parcial_1' => 'required',
+      'fecha_inicial_parcial_2' => 'required',
+      'fecha_final_parcial_2' => 'required',
+      'fecha_inicial_parcial_3' => 'required',
+      'fecha_final_parcial_3' => 'required',
+      'fecha_inicial_promedio' => 'required',
+      'fecha_final_promedio' => 'required'
+    ]);
+
+    $semestre = Semestre::find($request->input('id'));
+
+    $semestre->fecha_inicial_parcial_1 = $request->input('fecha_inicial_parcial_1');
+    $semestre->fecha_final_parcial_1 = $request->input('fecha_final_parcial_1');
+    $semestre->fecha_inicial_parcial_2 = $request->input('fecha_inicial_parcial_2');
+    $semestre->fecha_final_parcial_2 = $request->input('fecha_final_parcial_2');
+    $semestre->fecha_inicial_parcial_3 = $request->input('fecha_inicial_parcial_3');
+    $semestre->fecha_final_parcial_3 = $request->input('fecha_final_parcial_3');
+    $semestre->fecha_inicial_promedio = $request->input('fecha_inicial_promedio');
+    $semestre->fecha_final_promedio = $request->input('fecha_final_promedio');
+    $semestre->save();
+    
+    return redirect('escuela/semestres');
+  }
+
+  public function eliminarSemestre(Request $request) {
+    $semestre = Semestre::find($request->input('id'));
+    $semestre->delete();
+
+    return redirect('escuela/semestres');
+  }
 }
     

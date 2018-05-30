@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-  Edificios
+  Aulas
 @endsection
 
 @section('cabecera')
-  Edificios
+  Aulas
 @endsection
 
 @section('head')
@@ -32,6 +32,10 @@
                   <div class="col s12">Número:&nbsp;<span class="totalCreditos"> {{$aula->numero}}</span></div><br>
                   <div class="col s12">Edificio:&nbsp;<span class="estructuraGenericaCreditos">{{$aula->edificio->nombre}}</span></div><br>
                   <div class="col s12">Clave:&nbsp;<span class="estructuraGenericaCreditos">{{$aula->edificio->clave}}</span></div><br>
+                  </div>
+                  </div>
+                  </li>
+                  </ul>
         @endforeach
       @else
         <div class="error">Aun no hay aulas registrados en esta escuela.</div>

@@ -14,14 +14,14 @@ class CreateSemestreMigration extends Migration
     public function up() {
         Schema::create('semestre', function(Blueprint $table) {
             $table->increments('id');
-            $table->date('fecha_inicial_parcial_1');
-            $table->date('fecha_final_parcial_1');
-            $table->date('fecha_inicial_parcial_2');
-            $table->date('fecha_final_parcial_2');
-            $table->date('fecha_inicial_parcial_3');
-            $table->date('fecha_final_parcial_3');
-            $table->date('fecha_inicial_promedio');
-            $table->date('fecha_final_promedio');
+            $table->string('fecha_inicial_parcial_1');
+            $table->string('fecha_final_parcial_1');
+            $table->string('fecha_inicial_parcial_2');
+            $table->string('fecha_final_parcial_2');
+            $table->string('fecha_inicial_parcial_3');
+            $table->string('fecha_final_parcial_3');
+            $table->string('fecha_inicial_promedio');
+            $table->string('fecha_final_promedio');
         });
     }
 
