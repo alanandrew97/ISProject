@@ -24,8 +24,6 @@
             <li>
               <div class="collapsible-header" style="position:relative;">
                 <i class="material-icons">school</i><div class="carreraNombre">{{$grupo->clave}}</div>&nbsp;&nbsp;
-                <a href="#modalEditarEdificio" class="modal-trigger"><i style="position:absolute;right:35px;" data-edificio-id="{{$grupo->id}}" class="material-icons right edit-edificio">edit</i></a>
-                <a href="#modalEliminarEdificio" class="modal-trigger"><i style="position:absolute;right:0px;" data-edificio-id="{{$grupo->id}}" class="material-icons right delete-edificio">close</i></a>
               </div>
               <div class="collapsible-body" style="padding: 20px;">
                 <div style="display:inline-block;">
@@ -59,22 +57,53 @@
 
 @section('modals')
   <div id="modalNuevoEdificio" class="modal" style="padding:20px;overflow-y:scroll;">
-    <form id="form-crear" method="post" action="{{url('/escuela/registrarHorario')}}" class="col s12" enctype="multipart/form-data">
+    <form id="form-crear" method="post" action="{{url('/escuela/registrarGrupo')}}" class="col s12" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="row">
-          <h2 style="margin-bottom:25px;">Nuevo horario</h2>
+          <h2 style="margin-bottom:25px;">Nuevo grupo</h2>
         </div>
 
-        <div class="row">
-          <div class="input-field col s8 ">
-          <input id="horainicio"type="text" name="hora_inicio" class="timepicker">
-          <label for="horainicio">Hora inicio</label>
-          </div>
 
-          <div class="input-field col s8 ">
-          <input id="horainicio"type="text" name="hora_fin" class="timepicker">
-          <label for="horainicio">Hora fin</label>
-          </div>
+ <div class="input-field col s12">
+                    <input  id="matricula" name="clave" type="number" maxlength="70" required>
+                    <label for="matricula">Clave</label>
+                </div>
+        
+        <div class="input-field col s12">
+            <select id="carrera" name="id_materia" class="select-wrapper">
+                @foreach($materias as $materia)
+                    <option value="{{ $materia->id }}">{{$materia->nombre}}</option>
+                @endforeach
+            </select>
+            <label>Materia</label>
+        </div>
+
+        <div class="input-field col s12">
+            <select id="carrera" name="id_maestro" class="select-wrapper">
+                @foreach($maestros as $maestro)
+                    <option value="{{ $maestro->id }}">{{$maestro->datosUsuario->nombre}}</option>
+                @endforeach
+            </select>
+            <label>Maestro</label>
+        </div>
+
+        <div class="input-field col s12">
+            <select id="carrera" name="id_aula" class="select-wrapper">
+                @foreach($aulas as $aula)
+                    <option value="{{ $aula->id }}">{{$aula->numero}}</option>
+                @endforeach
+            </select>
+            <label>Aula</label>
+        </div>
+
+        
+        <div class="input-field col s12">
+            <select id="carrera" name="id_semestre" class="select-wrapper">
+                @foreach($semestres as $semestre)
+                    <option value="{{ $semestre->id }}">{{$semestre->id}}</option>
+                @endforeach
+            </select>
+            <label>Semestre</label>
         </div>
 
         <div class="row">

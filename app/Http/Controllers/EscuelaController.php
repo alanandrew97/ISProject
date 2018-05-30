@@ -539,6 +539,26 @@ class EscuelaController extends Controller {
     )); 
   }
 
+  public function registrarGrupo(Request $request) {
+    /*$this->validate($request, [
+      'clave' => 'required',
+      'id_ materia' => 'required',
+      'id_maestro' => 'required',
+      'id_aula' => 'required',
+      'id_semestre' => 'required'
+    ]);*/
+
+    Grupo::create([
+      'clave' => $request->input('clave'),
+      'id_materia' => $request->input('id_materia'),
+      'id_maestro' => $request->input('id_maestro'),
+      'id_aula' => $request->input('id_aula'),
+      'id_semestre' => $request->input('id_semestre')
+    ]);
+
+    return redirect('escuela/grupos');
+  }
+
   public function registrarMateria(Request $request) {
     $this->validate($request, [
       'nombre' => 'required',

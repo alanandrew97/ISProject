@@ -23,7 +23,6 @@ class Grupo extends Model {
         return $this->hasOne('App\Materia', 'id', 'id_materia');
     }
 
-<<<<<<< HEAD
     public function maestro() {
         return $this->hasOne('App\Maestro', 'id', 'id_maestro');
     }
@@ -34,9 +33,6 @@ class Grupo extends Model {
 
     public function semestre() {
         return $this->hasOne('App\Semestre', 'id', 'id_semestre');
-=======
-    public function maestro(){
-        return $this->hasOne('App\Maestro', 'id', 'id_maestro');
     }
 
     public function alumnos(){
@@ -49,6 +45,5 @@ class Grupo extends Model {
 
     public function alumnosGrupo() {
         return $this->hasMany('App\AlumnoGrupo', 'id_grupo');
->>>>>>> 4c3dd8b227adc64213077323d03d8bb510cc8d23
     }
 }
