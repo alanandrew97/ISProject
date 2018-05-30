@@ -8,10 +8,14 @@ $(document).ready(function () {
 
   $('.modalGraficaGrupo').click(function(){
     let $this = $(this);
-    dataGroup = $this.data('graphicData');
+    dataGroup = $this.data('graphic-data');
     console.log(dataGroup);
+    crearGrafica(dataGroup);
   });
   
+});//Termina document ready
+
+function crearGrafica(dataG){
   var ctx = document.getElementById("graficaGrupo").getContext('2d');
   var groupChart = new Chart(ctx, {
     type: 'bar',
@@ -19,7 +23,7 @@ $(document).ready(function () {
       labels: ["Aprobados", "Reprobados", "Desertores"],
       datasets: [{
         label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        data: dataG,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -36,7 +40,7 @@ $(document).ready(function () {
           'rgba(153, 102, 255, 1)',
           'rgba(255, 159, 64, 1)'
         ],
-        borderWidth: 1
+        borderWidth: 2
       }]
     },
     options: {
@@ -49,5 +53,4 @@ $(document).ready(function () {
       }
     }
   });
-
-});//Termina document ready
+}
