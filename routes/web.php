@@ -30,7 +30,21 @@ Route::group(['prefix' => 'escuela'], function() {
     Route::post('eliminarCarrera', 'EscuelaController@eliminarCarrera');
     Route::post('registrar', 'EscuelaController@registrar');
     Route::get('reticulas', 'EscuelaController@listaReticulas');
-    
+    Route::get('edificios', 'EscuelaController@listaEdificios');
+    Route::post('registrarEdificio', 'EscuelaController@registrarEdificio');
+    Route::post('editarEdificio', 'EscuelaController@editarEdificio');
+    Route::post('eliminarEdificio', 'EscuelaController@eliminarEdificio');
+    Route::get('aulas', 'EscuelaController@listaAulas');
+    Route::post('registrarAula', 'EscuelaController@registrarAula');
+    Route::post('editarAula', 'EscuelaController@editarAula');
+    Route::post('eliminarAula', 'EscuelaController@eliminarAula');
+    Route::get('horarios', 'EscuelaController@listaHorarios');
+    Route::post('registrarHorario', 'EscuelaController@registrarHorario');
+    Route::post('editarHorario', 'EscuelaController@editarHorario');
+    Route::post('eliminarHorario', 'EscuelaController@eliminarHorario');
+
+
+
     // Route::get('nuevo', 'EscuelaController@nuevo');
     // Route::post('crear', 'EscuelaController@crear');
     // Route::get('editar/{id}', 'EscuelaController@vistaEditar');

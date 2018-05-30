@@ -9,6 +9,9 @@ use App\Carrera;
 use App\Campus;
 use App\Reticula;
 use App\Materia;
+use App\Edificio;
+use App\Aula;
+use App\Horario;
 
 class EscuelaController extends Controller {
 
@@ -230,5 +233,183 @@ class EscuelaController extends Controller {
       'turnos' => $turnos
     ));
   }
+
+  public function listaEdificios(Request $request) {
+    $edificios = Edificio::all();
+    $escuela = Escuela::all()->first();
+    $submenuItems = [
+      ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
+      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
+      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
+      ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
+      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
+      ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
+      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+    ];
+
+    return view('escuela.listaEdificios', array(
+      'edificios' => $edificios,
+      'escuela' => $escuela,
+      'submenuItems' => $submenuItems
+    ));
+  }
+
+  public function registrarEdificio(Request $request) {
+    $this->validate($request, [
+      'nombre' => 'required',
+      'clave' => 'required'
+    ]);
+
+    Edificio::create([
+      'nombre' => $request->input('nombre'),
+      'clave' => $request->input('clave')
+    ]);
+
+    return redirect('escuela/edificios');
+  }
+
+  public function editarEdificio(Request $request) {
+    $this->validate($request, [
+      'nombre' => 'required',
+      'clave' => 'required'
+    ]);
+
+    $edificio = Edificio::find($request->input('id'));
+
+    $edificio->nombre = $request->input('nombre');
+    $edificio->clave = $request->input('clave');
+    $edificio->save();
+
+    return redirect('escuela/edificios');
+  }
+
+  public function eliminarEdificio(Request $request) {
+    $edificio = Edificio::find($request->input('id'));
+    $edificio->delete();
+
+    return redirect('escuela/edificios');
+  }
+
+  public function listaAulas(Request $request) {
+    $edificios = Edificio::all();
+    $aulas = Aula::all();
+    $escuela = Escuela::all()->first();
+    $submenuItems = [
+      ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
+      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
+      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
+      ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
+      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
+      ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
+      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+    ];
+
+    return view('escuela.listaAulas', array(
+      'edificios' => $edificios,
+      'aulas' => $aulas,
+      'escuela' => $escuela,
+      'submenuItems' => $submenuItems
+    ));
+  }
+
+  public function registrarAula(Request $request) {
+    $this->validate($request, [
+      'numero' => 'required',
+      'id_edificio' => 'required'
+    ]);
+
+    Aula::create([
+      'numero' => $request->input('numero'),
+      'id_edificio' => $request->input('id_edificio')
+    ]);
+
+    return redirect('escuela/aulas');
+  }
+
+  public function editarAula(Request $request) {
+    $this->validate($request, [
+      'numero' => 'required',
+      'id_edificio' => 'required'
+    ]);
+
+    $aula = Aula::find($request->input('id'));
+
+    $aula->numero = $request->input('numero');
+    $aula->id_edificio = $request->input('id_edificio');
+    $aula->save();
+
+    return redirect('escuela/aulas');
+  }
+
+  public function eliminarAula(Request $request) {
+    $aula = Aula::find($request->input('id'));
+    $aula->delete();
+
+    return redirect('escuela/aulas');
+  }
+
+  public function listaHorarios(Request $request) {
+    $horarios = Horario::all();
+    $escuela = Escuela::all()->first();
+    $submenuItems = [
+      ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
+      ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
+      ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
+      ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
+      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
+      ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
+      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+    ];
+
+    return view('escuela.listaHorarios', array(
+      'horarios' => $horarios,
+      'escuela' => $escuela,
+      'submenuItems' => $submenuItems
+    )); 
+  }
+
+  public function registrarHorario(Request $request) {
+    $this->validate($request, [
+      'hora_inicio' => 'required',
+      'hora_fin' => 'required'
+    ]);
+
+    Horario::create([
+      'hora_inicio' => $request->input('hora_inicio'),
+      'hora_fin' => $request->input('hora_fin')
+    ]);
+
+    return redirect('escuela/horarios');
+  }
+  
+  public function editarHorario(Request $request) {
+    $this->validate($request, [
+      'hora_inicio' => 'required',
+      'hora_fin' => 'required'
+    ]);
+
+    $horario = Horario::find($request->input('id'));
+
+    $horario->hora_inicio = $request->input('hora_inicio');
+    $horario->hora_fin = $request->input('hora_fin');
+    $horario->save();
+
+    return redirect('escuela/horarios');
+  }
+
+  
+  public function eliminarHorario(Request $request) {
+    $horario = Horario::find($request->input('id'));
+    $horario->delete();
+
+    return redirect('escuela/horarios');
+  }
+
 }
     

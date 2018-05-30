@@ -8,7 +8,7 @@ $(function(){
       //Funcion de editar maestro
   $('.edit-maestro').on('click', function(e){
     let $this = $(this);
-    let id = $this.data('maestro-id');
+    let idDatosUsuario = $this.data('id-datos-usuario');
     let padre = $this.parents('.collapsible');
 
     let nombre = $('.nombre', padre).text();
@@ -20,8 +20,13 @@ $(function(){
     $('#modalEditarMaestro #apellido_paterno').val(apellido_paterno);
     $('#modalEditarMaestro #apellido_materno').val(apellido_materno);
     $('#modalEditarMaestro #correo').val(correo);
-    $('#modalEditarMaestro #id').val(id);
+    $('#id_datos_usuario').val(idDatosUsuario);
+
     Materialize.updateTextFields()
+  });
+
+  $(document).ready(function() {
+    $('select').material_select();
   });
 
   // Funcion de eliminar campus
@@ -30,6 +35,8 @@ $(function(){
     // $('#formEliminar').attr('action', url + '/escuela/eliminarCampus/' + campusId);
     //console.log(idDatosUsuario);
     $('#iddatosusuario').val(idDatosUsuario);
+
+    console.log(idDatosUsuario);
     // $('#formEliminar').submit();
   });
 })

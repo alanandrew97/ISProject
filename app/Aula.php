@@ -15,4 +15,8 @@ class Aula extends Model {
     ];
 
     public $timestamps = false;
+
+    public function edificio() {
+        return $this->hasOne('App\Edificio', 'id', 'id_edificio');
+    }
 }

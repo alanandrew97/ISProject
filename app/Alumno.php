@@ -24,6 +24,6 @@ class Alumno extends Model {
     }
 
     public function carrera() {
-        return $this->hasOne('App\Carrea', 'id', 'id_carrera');
+        return $this->hasOne('App\Carrera', 'id', 'id_carrera');
     }
 }

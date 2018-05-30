@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\DatosUsuario;
 use App\Maestro;
 use App\Alumno;
-use App\Escuela;    
+use App\Escuela;
+use App\Carrera;
+use App\Turno;
 
 class UsuarioController extends Controller {
 
@@ -54,6 +56,8 @@ class UsuarioController extends Controller {
 
     public function listaAlumnos(Request $request) {
         $escuela = Escuela::all()->first();
+        $carreras = Carrera::all();
+        $turnos = Turno::all();
         $alumnos = Alumno::all();
         $submenuItems = [
             ['nombre'=>'Maestros', 'link'=>url('usuarios/'), 'selected'=>true],
@@ -63,6 +67,8 @@ class UsuarioController extends Controller {
         return view('usuario.listaAlumnos', array(
             'alumnos' => $alumnos,
             'escuela' => $escuela,
+            'carreras' => $carreras,
+            'turnos' => $turnos,
             'submenuItems' => $submenuItems
         ));
     }
@@ -108,7 +114,11 @@ class UsuarioController extends Controller {
             ]);
         } else {
             Alumno::create([
-
+                'id_datos_usuario' => $datos_usuario->id,
+                'matricula' => $request->input('matricula'),
+                'id_carrera' => $request->input('id_carrera'),
+                'semestre' => $request->input('semestre'),
+                'id_turno' => $request->input('id_turno')
             ]);
         }
 
@@ -173,7 +183,8 @@ class UsuarioController extends Controller {
             $administrador = 1;
         }
 
-        $datos_usuario = DatosUsuario::where('correo', '=', $correo)->first();
+        $datos_usuario = DatosUsuario::find($request->input('id_datos_usuario'));
+
         $maestro = Maestro::where('id_datos_usuario', '=', $datos_usuario->id)->first();
 
         if(!is_null($maestro)) {
@@ -187,7 +198,19 @@ class UsuarioController extends Controller {
             $datos_usuario->save();
             $maestro->save();
         } else {
-            //Editar alumno
+            $alumno = Alumno::where('id_datos_usuario', '=', $datos_usuario->id)->first();
+            $datos_usuario->nombre = $nombre;
+            $datos_usuario->apellido_paterno = $apellido_paterno;
+            $datos_usuario->apellido_materno = $apellido_materno;
+            $datos_usuario->correo = $correo;
+            $datos_usuario->password = $password;
+            $alumno->matricula = $request->input('matricula');
+            $alumno->id_carrera = $request->input('id_carrera');
+            $alumno->semestre = $request->input('semestre');
+            $alumno->id_turno = $request->input('id_turno');
+            
+            $datos_usuario->save();
+            $alumno->save();
         }
 
         return redirect('usuarios');
@@ -201,7 +224,9 @@ class UsuarioController extends Controller {
             $maestro->delete();
             $datos_usuario->delete();
         } else {
-            //Eliminar alumno
+            $alumno = Alumno::where('id_datos_usuario', '=', $datos_usuario->id)->first();
+            $alumno->delete();
+            $datos_usuario->delete();
         }
 
         return redirect('usuarios');
