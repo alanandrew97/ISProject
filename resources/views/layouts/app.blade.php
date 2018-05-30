@@ -11,14 +11,14 @@
     <title>@yield('title')</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{url('/css/materialize0.99.min.css')}}">
+    <link rel="stylesheet" href="{{url('/css/materialize.css')}}">
     <link rel="stylesheet" href="{{url('/css/style.css')}}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Scripts -->
     <script type="text/javascript" src="{{url('/js/jquery-3.3.1.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('/js/materialize0.99.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('/js/materialize.js')}}"></script>
     @yield('head')
 </head>
 <body id="body">

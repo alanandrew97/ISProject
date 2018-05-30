@@ -98,8 +98,10 @@
         <div class="row">
           @foreach ($materias as $materia)
           <div class="input-field col s6 m4 l3">
-            <input id="materias" name="materias[]" value="{{$materia->id}}" type="checkbox" class="browser-default">
-            <label for="materias[]" >{{$materia->nombre}}</label>
+            <label>
+              <input id="materias" name="materias[]" value="{{$materia->id}}" type="checkbox" class="browser-default">
+              <span>{{$materia->nombre}}</span>
+            </label>
           </div>
           @endforeach
         </div>
@@ -118,10 +120,6 @@
         <input type="hidden" name="carreraId" id="carreraId">
       </div>
 
-      <div class="row" id="imgEditarCarreraContainer">
-        <img src="" alt="Editar imagen Carrera" id="imgEditarCarrera" style="height:100px;margin:auto;">
-      </div>
-
       <div class="row">
         <div class="file-field input-field col s12">
           <div class="btn">
@@ -131,50 +129,6 @@
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text">
           </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="input-field col s8 ">
-          <input  id="nombre" name="nombre" type="text" maxlength="70" required>
-          <label for="nombre">Nombre</label>
-        </div>
-        <div class="input-field col s4">
-          <input  id="abreviatura" name="abreviatura" type="text" maxlength="20" required>
-          <label for="abreviatura">Abreviatura</label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="input-field">
-            <input type="number" id="totalCreditos" name="totalCreditos" required>
-            <label for="totalCreditos">Total Créditos</label>
-          </div>
-        </div>
-        <div class="col s12 m6">
-          <div class="input-field">
-            <input type="number" id="estructuraGenericaCreditos" name="estructuraGenericaCreditos" required>
-            <label for="estructuraGenericaCreditos">Estructura Genérica Créditos</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="input-field col s12 m6">
-          <input type="number" id="residenciaProfesionalCreditos" name="residenciaProfesionalCreditos" required>
-          <label for="residenciaProfesionalCreditos">Residencia Profecional Créditos</label>
-        </div>
-        <div class="input-field col s12 m6">
-          <input type="number" id="servicioSocialCreditos" name="servicioSocialCreditos" required>
-          <label for="servicioSocialCreditos">Servicio Social Créditos</label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="input-field col s12 m6">
-          <input type="number" id="actividadesComplementariasCreditos" name="actividadesComplementariasCreditos" required>
-          <label for="actividadesComplementariasCreditos">Actividades Complementarias Créditos</label>
         </div>
       </div>
 
