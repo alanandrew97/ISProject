@@ -108,7 +108,7 @@
                     </ul>
                 </nav>
             </div>
-            <div class="contenedor col s7 m8 l9" id="contenedor" style="background:white; border-left: #9d9d9d 1px solid; padding:0 30px; margin-top:30px;">
+            <div class="contenedor col s7 m8 l9" id="contenedor" style="border-left: #9d9d9d 1px solid; padding:0 30px; margin-top:30px;">
                 @yield('contenedor')
             </div>
         </div>
