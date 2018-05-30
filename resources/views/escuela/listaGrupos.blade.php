@@ -24,6 +24,7 @@
             <li>
               <div class="collapsible-header" style="position:relative;">
                 <i class="material-icons">school</i><div class="carreraNombre">{{$grupo->clave}}</div>&nbsp;&nbsp;
+                <a href="#modalEditarEdificio" class="modal-trigger"><i style="position:absolute;right:35px;" data-edificio-id="{{$grupo->id}}" class="material-icons right edit-edificio">print</i></a>
               </div>
               <div class="collapsible-body" style="padding: 20px;">
                 <div style="display:inline-block;">
