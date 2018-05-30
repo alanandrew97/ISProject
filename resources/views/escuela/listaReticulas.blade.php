@@ -22,32 +22,30 @@
         @foreach($carreras as $carrera)
           <h4>{{$carrera->nombre}}</h4>
           @if (count($carrera->reticulas)!=0)
-            <ul class="collapsible">
-              @foreach($carrera->reticulas as $reticula)
-                <li>
-                  <div class="collapsible-header" style="position:relative;">
-                    <i class="material-icons">dashboard</i>{{$carrera->abreviatura}}-<div class="reticulaNumero">{{$reticula->numero}}</div>&nbsp;&nbsp;Número de semestres:&nbsp;<div class="reticulaSemestres">{{$reticula->numero_semestres}}</div>
-                    <a href="#modalEditarReticula" class="modal-trigger"><i style="position:absolute;right:35px;" data-reticula-id="{{$reticula->id}}" class="material-icons right edit-reticula">edit</i></a>
-                    <a href="#modalEliminarReticula" class="modal-trigger"><i style="position:absolute;right:0px;" data-reticula-id="{{$reticula->id}}" class="material-icons right delete-reticula">close</i></a>
-                  </div>
-                  <div class="collapsible-body" style="padding: 20px;">
-                    @if (count($reticula->materias)!=0)
-                      @foreach ($reticula->materias as $materia)
-                        <span style="position:inherit;" class="col s4">
-                          <div class="materia" style="text-align:center;padding:10px;width:100%;">
-                            {{$materia->nombre}}<br>
-                            {{$materia->clave}}<br>
-                            {{$materia->horas_teoria}}-{{$materia->horas_practica}}-{{$materia->creditos}}
-                          </div>
-                        </span>
-                      @endforeach
-                    @else
-                      <div>No hay materias asignadas a esta retícula</div>
-                    @endif
-                  </div>
-                </li>
-              @endforeach
-            </ul>
+            @foreach($carrera->reticulas as $reticula)
+              <div class="card-panel">
+                <div class="card-header" style="position:relative;">
+                  <i class="material-icons">dashboard</i>{{$carrera->abreviatura}}-<div class="reticulaNumero" style="display:inline-block;">{{$reticula->numero}}</div>&nbsp;&nbsp;Número de semestres:&nbsp;<div style="display:inline-block;" class="reticulaSemestres">{{$reticula->numero_semestres}}</div>
+                  <a href="#modalEditarReticula" class="modal-trigger"><i style="position:absolute;right:35px;" data-reticula-id="{{$reticula->id}}" class="material-icons right edit-reticula">edit</i></a>
+                  <a href="#modalEliminarReticula" class="modal-trigger"><i style="position:absolute;right:0px;" data-reticula-id="{{$reticula->id}}" class="material-icons right delete-reticula">close</i></a>
+                </div>
+                <div class="card-body" style="padding: 20px;">
+                  @if (count($reticula->materias)!=0)
+                    @foreach ($reticula->materias as $materia)
+                      <div class="col l4 m6 s12">
+                        <div class="card-panel" style="position:inherit;" class="col s4">
+                          {{$materia->nombre}}<br>
+                          {{$materia->clave}}<br>
+                          {{$materia->horas_teoria}}-{{$materia->horas_practica}}-{{$materia->creditos}}
+                        </div>
+                      </div>
+                    @endforeach
+                  @else
+                    <div>No hay materias asignadas a esta retícula</div>
+                  @endif
+                </div>
+              </div>
+            @endforeach
           @else
             <div class="error">Aun no hay retículas registradas en esta carrera.</div>
           @endif

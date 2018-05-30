@@ -37,7 +37,12 @@ class EscuelaController extends Controller {
       ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>true],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
       ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
-      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
+      ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
+      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
+      ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
+      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
     ];
 
     // dd($submenuItems);
@@ -91,7 +96,12 @@ class EscuelaController extends Controller {
       ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>true],
       ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>false],
-      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
+      ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
+      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
+      ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
+      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
     ];
     
     // dd($carrera);
@@ -184,7 +194,12 @@ class EscuelaController extends Controller {
       ['nombre'=>'Escuela','link'=>url('escuela'), 'selected'=>false],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
       ['nombre'=>'Retículas','link'=>url('escuela/reticulas'), 'selected'=>true],
-      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false]
+      ['nombre'=>'Materias','link'=>url('escuela/materias'), 'selected'=>false],
+      ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
+      ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
+      ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
+      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
     ];
     
     // dd($carrera);
