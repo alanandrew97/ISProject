@@ -31,7 +31,7 @@
                   @if (count($grupo->alumnos)!=0)
                     @foreach($grupo->alumnos as $alumno)
                       <div>
-                        Hola{{--<a class="" href="{{url('escuelas/carrera/'.$reticula->id)}}"><i class="material-icons" style="margin-right:10px;color:white;">school</i>{{$reticula->nombre}}</a>--}}
+                        Alumno {{--<a class="" href="{{url('escuelas/carrera/'.$reticula->id)}}"><i class="material-icons" style="margin-right:10px;color:white;">school</i>{{$reticula->nombre}}</a>--}}
                       </div>
                     @endforeach
                   @else
@@ -46,11 +46,7 @@
         <div class="error">Aun no hay grupos registrados.</div>
       @endif
 
-      <div class="fixed-action-btn">
-        <a href="#modalNuevaCarrera" class="modal-trigger accent-color modal-close btn-floating btn-large">
-          <i class="large material-icons">add</i>
-        </a>
-      </div>
+      
 
     </div>
   </div>
