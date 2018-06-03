@@ -20,7 +20,7 @@ class GruposController extends Controller {
       dd( session('usuario') );
     }
 
-    dd($grupos);
+    //dd($grupos);
   
     foreach ($grupos as $grupo) {
       $grupo['data'] = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];

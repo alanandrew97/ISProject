@@ -26,4 +26,8 @@ class Carrera extends Model {
     {
         return $this->hasMany('App\Reticula', 'id_carrera');
     }
+
+    public function campus() {
+        
+    }
 }

@@ -53,6 +53,7 @@ Route::group(['prefix' => 'escuela'], function() {
     Route::post('editarMateria', 'EscuelaController@editarMateria');
     Route::post('eliminarMateria', 'EscuelaController@eliminarMateria');
     Route::post('registrarAlumnosGrupo', 'EscuelaController@registrarAlumnosGrupo');
+    Route::get('buscarCampus', 'EscuelaController@buscarCampus');
 
 
     // Route::get('nuevo', 'EscuelaController@nuevo');
