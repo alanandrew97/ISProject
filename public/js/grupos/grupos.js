@@ -9,18 +9,21 @@ $(document).ready(function () {
   $('.modalGraficaGrupo').click(function(){
     let $this = $(this);
     dataGroup = $this.data('graphic-data');
+    labelsG = $this.data('graphic-labels');
     console.log(dataGroup);
-    crearGrafica(dataGroup);
+    crearGrafica(dataGroup, labelsG);
+    // $('canvas').width('60%');
+    // $('canvas').height('60%');
   });
   
 });//Termina document ready
 
-function crearGrafica(dataG){
+function crearGrafica(dataG, labelsG){
   var ctx = document.getElementById("graficaGrupo").getContext('2d');
   var groupChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ["Aprobados", "Reprobados", "Desertores"],
+      labels: labelsG,
       datasets: [{
         label: '# of Votes',
         data: dataG,

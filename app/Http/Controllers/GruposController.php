@@ -18,28 +18,28 @@ class GruposController extends Controller {
       $grupos = session('usuario')->grupos;
       foreach ($grupos as $grupo) {
         $grupo['data'] = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
+        $grupo['labels'] = ["Aprobados", "Reprobados", "Desertores"];
       }
+      $submenuItems = [
+        ['nombre'=>'Grupos','link'=>url('grupos'), 'selected'=>true],
+        ['nombre'=>'Alumnos','link'=>url('grupos'), 'selected'=>true],
+      ];
     } else {
       $grupos = session('usuario')->gruposAlumno;
       foreach ($grupos as $grupo) {
-        $grupo['data'] = [$grupo->registroAlumnoGrupo];
+        foreach ($grupo->parciales as $parcial) {
+          array_push($grupo['data'], $parcial->calificacion);
+          array_push($grupo['labels'], 'U'.$parcial->numero);
+        }
+        array_push($grupo['data'], $grupo->registroAlumnoGrupo->calificacionTotal);
+        array_push($grupo['labels'], 'Total');
       }
-      dd( session('usuario')->gruposAlumno[0]->registroAlumnoGrupo );
+      $submenuItems = [
+        ['nombre'=>'Grupos','link'=>url('grupos'), 'selected'=>true],
+      ];
+      dd( $grupo['data'] );
     }
-
-<<<<<<< HEAD
     
-=======
-    //dd($grupos);
-  
-    foreach ($grupos as $grupo) {
-      $grupo['data'] = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
-    }
->>>>>>> 0d53f20c7c92e6a9c0307479962acd78f6b34323
-    
-    $submenuItems = [
-      ['nombre'=>'Grupos','link'=>url('grupos'), 'selected'=>true],
-    ];
     
     // dd( $grupos[0]['data'] );
     // dd($submenuItems);
