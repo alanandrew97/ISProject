@@ -11,38 +11,52 @@ use App\Carrera;
 use App\Grupo;
 
 class GruposController extends Controller {
-
+  
   public function index() {
+    $data = [];
+    $labels = [];
     $escuela = Escuela::all()->first();
     if (session('rol')==1) {
-      $grupos = session('usuario')->grupos;
+      if (session('usuario')->administrador == 1) {
+        $grupos = Grupo::all();
+      } else {
+        $grupos = session('usuario')->grupos;
+      }
       foreach ($grupos as $grupo) {
-        $grupo['data'] = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
-        $grupo['labels'] = ["Aprobados", "Reprobados", "Desertores"];
+        // dd( $grupo->materia );
+        if (isset($grupo->registro)){
+          $grupo['data'] = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
+          $grupo['labels'] = ["Aprobados", "Reprobados", "Desertores"];
+          $grupo['materiaNombre'] = $grupo->materia->nombre;
+          $grupo['maestroNombre'] = $grupo->maestro->nombre;
+          $grupo['maestroApellido'] = $grupo->maestro->apellido_paterno;
+        }
       }
       $submenuItems = [
         ['nombre'=>'Grupos','link'=>url('grupos'), 'selected'=>true],
-        ['nombre'=>'Alumnos','link'=>url('grupos'), 'selected'=>true],
+        ['nombre'=>'Alumnos','link'=>url('grupos/alumnos'), 'selected'=>false],
       ];
     } else {
       $grupos = session('usuario')->gruposAlumno;
-      foreach ($grupos as $grupo) {
+      foreach ($grupos as $i => $grupo) {
         foreach ($grupo->parciales as $parcial) {
-          array_push($grupo['data'], $parcial->calificacion);
-          array_push($grupo['labels'], 'U'.$parcial->numero);
+          $data[$i][] = $parcial->calificacion;
+          $labels[$i][] = 'U'.$parcial->numero;
         }
-        array_push($grupo['data'], $grupo->registroAlumnoGrupo->calificacionTotal);
-        array_push($grupo['labels'], 'Total');
+        $data[$i][] = $grupo->registroAlumnoGrupo->calificacion_total;
+        $labels[$i][] = 'Total';
+        $grupo['data'] = $data[$i];
+        $grupo['labels'] = $labels[$i];
+        $grupo['materiaNombre'] = $grupo->grupo->materia->nombre;
+        $grupo['maestroNombre'] = $grupo->grupo->maestro->nombre;
+        $grupo['maestroApellido'] = $grupo->grupo->maestro->apellido_paterno;
       }
       $submenuItems = [
         ['nombre'=>'Grupos','link'=>url('grupos'), 'selected'=>true],
       ];
-      dd( $grupo['data'] );
     }
     
-    
-    // dd( $grupos[0]['data'] );
-    // dd($submenuItems);
+    // dd($grupos[0]);
     return view('grupos.index', array(
       'escuela' => $escuela,
       'grupos' => $grupos,
@@ -66,6 +80,10 @@ class GruposController extends Controller {
     $pdf->loadHTML($view)->save('pdf/algo.pdf');
     $grupo = Grupo::find(1);
     return redirect('grupos');
+  }
+
+  public function alumnos(Request $request) {
+    
   }
 
 }
