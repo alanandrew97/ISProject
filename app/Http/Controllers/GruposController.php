@@ -14,17 +14,20 @@ class GruposController extends Controller {
 
   public function index() {
     $escuela = Escuela::all()->first();
-    $grupos = session('usuario')->grupos;
     if (session('rol')==1) {
+      $grupos = session('usuario')->grupos;
+      foreach ($grupos as $grupo) {
+        $grupo['data'] = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
+      }
     } else {
-      dd( session('usuario') );
+      $grupos = session('usuario')->gruposAlumno;
+      foreach ($grupos as $grupo) {
+        $grupo['data'] = [$grupo->registroAlumnoGrupo];
+      }
+      dd( session('usuario')->gruposAlumno[0]->registroAlumnoGrupo );
     }
 
-    dd($grupos);
-  
-    foreach ($grupos as $grupo) {
-      $grupo['data'] = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
-    }
+    
     
     $submenuItems = [
       ['nombre'=>'Grupos','link'=>url('grupos'), 'selected'=>true],

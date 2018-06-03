@@ -24,4 +24,12 @@ class AlumnoGrupo extends Model {
     public function alumno() {
         return $this->hasOne('App\Alumno', 'id', 'id_alumno');
     }
+
+    public function grupo() {
+        return $this->hasOne('App\Grupo', 'id', 'id_grupo');
+    }
+
+    public function parciales() {
+        return $this->hasMany();
+    }
 }
