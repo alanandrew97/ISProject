@@ -23,11 +23,14 @@ class GruposController extends Controller {
         $grupos = session('usuario')->grupos;
       }
       foreach ($grupos as $grupo) {
-        $grupo['data'] = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
-        $grupo['labels'] = ["Aprobados", "Reprobados", "Desertores"];
-        $grupo['materiaNombre'] = $grupo->materia->nombre;
-        $grupo['maestroNombre'] = $grupo->maestro->nombre;
-        $grupo['maestroApellido'] = $grupo->maestro->apellido_paterno;
+        // dd( $grupo->materia );
+        if (isset($grupo->registro)){
+          $grupo['data'] = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
+          $grupo['labels'] = ["Aprobados", "Reprobados", "Desertores"];
+          $grupo['materiaNombre'] = $grupo->materia->nombre;
+          $grupo['maestroNombre'] = $grupo->maestro->nombre;
+          $grupo['maestroApellido'] = $grupo->maestro->apellido_paterno;
+        }
       }
       $submenuItems = [
         ['nombre'=>'Grupos','link'=>url('grupos'), 'selected'=>true],
@@ -77,6 +80,10 @@ class GruposController extends Controller {
     $pdf->loadHTML($view)->save('pdf/algo.pdf');
     $grupo = Grupo::find(1);
     return redirect('grupos');
+  }
+
+  public function alumnos(Request $request) {
+    
   }
 
 }
