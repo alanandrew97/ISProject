@@ -35,7 +35,7 @@ class Alumno extends Model {
         return $this->belongsToMany('App\Grupo', 'alumno_grupo', 'id_alumno', 'id_grupo');
     }
 
-    public function alumnosGrupo() {
-        return $this->hasMany('App\AlumnoGrupo', 'id_grupo');
+    public function gruposAlumno() {
+        return $this->hasMany('App\AlumnoGrupo', 'id_alumno');
     }
 }
