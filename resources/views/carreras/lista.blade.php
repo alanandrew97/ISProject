@@ -5,7 +5,7 @@
             <li>
               <div class="collapsible-header" style="position:relative;">
                 <i class="material-icons">school</i><div class="carreraNombre">{{$carrera->nombre}}</div>&nbsp;&nbsp;(<div class="carreraAbreviatura">{{$carrera->abreviatura}}</div>)
-                <a href="#modalEditarCarrera" class="modal-trigger"><i style="position:absolute;right:35px;" data-carrera-id="{{$carrera->id}}"  data-campus="{{$carrera->campus}}" class="material-icons right edit-carrera">edit</i></a>
+                <a href="#modalEditarCarrera" class="modal-trigger"><i style="position:absolute;right:35px;" data-carrera-id="{{$carrera->id}}"  data-campuses="{{$carrera->campus}}" class="material-icons right edit-carrera">edit</i></a>
                 <a href="#modalEliminarCarrera" class="modal-trigger"><i style="position:absolute;right:0px;" data-carrera-id="{{$carrera->id}}" class="material-icons right delete-carrera">close</i></a>
               </div>
               <div class="collapsible-body" style="padding: 20px;">
