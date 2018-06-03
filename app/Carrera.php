@@ -28,6 +28,6 @@ class Carrera extends Model {
     }
 
     public function campus() {
-        
+        return $this->belongsToMany('App\Campus', 'campus_carrera', 'id_carrera', 'id_campus');
     }
 }

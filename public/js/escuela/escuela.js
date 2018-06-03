@@ -34,7 +34,7 @@ $(function(){
   });
 
   //Funcion de editar carrera
-  $('.edit-carrera').on('click', function (e) {
+  $(document).on('click', '.edit-carrera', function (e) {
     let $this = $(this);
     let carreraId = $this.data('carrera-id');
     let padre = $this.parents('.collapsible');
@@ -48,6 +48,7 @@ $(function(){
     let servicioSocialCreditos = $('.servicio_social_creditos', padre).text();
     let actividadesComplementariasCreditos = $('.actividades_complementarias_creditos', padre).text();
 
+    console.log($this.data('campus'));
     $('#carreraId').val(carreraId);
     $('#modalEditarCarrera #imgEditarCarrera').attr('src',imgCarrera);
     $('#modalEditarCarrera #nombre').val(carreraNombre);
@@ -129,21 +130,22 @@ $(function(){
   });
 
   // Funcion de eliminar carrera
-  $('.delete-carrera').on('click', function (e) {
+  $(document).on('click', '.delete-carrera', function (e) {
     let carreraId = $(this).data('carrera-id');
     // $('#formEliminar').attr('action', url + '/escuela/eliminarCampus/' + campusId);
     $('#carrera_id').val(carreraId);
   });
 
-    
-
-
   $('#buscar-campus').on('keyup paste change', function(e) {
+    getCampus($(this).val());
+  });
+
+  $('#buscar-carrera').on('keyup paste change', function(e) {
     getCarreras($(this).val());
   });
 
 
-  function getCarreras(query) {
+  function getCampus(query) {
     $.ajax({
       url: $('#_url').val() + '/escuela/buscarCampus',
       data: {
@@ -153,5 +155,20 @@ $(function(){
       $('#lista-campus').html(data);
       $('.collapsible').collapsible();
     });
+  }
+
+  var gg;
+  function getCarreras(query) {
+    gg = $.ajax({
+      url: $('#_url').val() + '/escuela/buscarCarrera',
+      data: {
+        query : query
+      }
+    }).done(function(data) {
+      $('#lista-carreras').html(data);
+      $('.collapsible').collapsible();
+    }); 
+
+    console.log(gg);
   }
 });

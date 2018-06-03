@@ -30,11 +30,24 @@
               <div class="collapsible-body" style="padding: 20px;">
                 <div style="display:inline-block;">
                   <div class="col s12">Clave:&nbsp;<span class="totalCreditos"> {{$grupo->clave}}</span></div><br>
+                  
+                  @if(!is_null($grupo->materia))
                   <div class="col s12">Materia:&nbsp;<span class="estructuraGenericaCreditos">{{$grupo->materia->nombre}}</span></div><br>
+                  @endif
+                  
+                  @if(!is_null($grupo->maestro))
                   <div class="col s12">Maestro:&nbsp;<span class="estructuraGenericaCreditos">{{$grupo->maestro->nombre}} {{$grupo->maestro->apellido_paterno}} {{$grupo->maestro->apellido_materno}}</span></div><br>
+                  @endif
+
+                  @if(!is_null($grupo->aula))
                   <div class="col s12">Edificio:&nbsp;<span class="estructuraGenericaCreditos">{{$grupo->aula->edificio->nombre}}</span></div><br>
                   <div class="col s12">Aula:&nbsp;<span class="estructuraGenericaCreditos">{{$grupo->aula->numero}}</span></div><br>
+                  @endif
+
+                  @if(!is_null($grupo->semestre))
                   <div class="col s12">Semestre:&nbsp;<span class="estructuraGenericaCreditos">{{$grupo->semestre->fecha_inicial_parcial_1}} - {{$grupo->semestre->fecha_final_promedio}}</span></div><br>
+                  @endif
+
                   @if(count($grupo->alumnosGrupo) != 0)
                   <div class="col s12">Alumnos:&nbsp;</div><br>
                   <ul>

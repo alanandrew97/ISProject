@@ -17,6 +17,7 @@ use App\Grupo;
 use App\Maestro;
 use App\Alumno;
 use App\AlumnoGrupo;
+use App\CampusCarrera;
 
 class EscuelaController extends Controller {
 
@@ -127,8 +128,6 @@ class EscuelaController extends Controller {
   }
 
   public function crearCarrera(Request $request){
-    // dd($request->all());
-
     $this->validate($request, [
       'nombre' => 'required',
       'abreviatura' => 'required',
@@ -140,6 +139,7 @@ class EscuelaController extends Controller {
       'imagenCarrera' => 'required'
     ]);
 
+    $campuses = $request->input('campuses');
     $rutaImagen = FileUtils::guardar($request->imagenCarrera, 'storage/carreras/', 'car_');
 
     $carrera = Carrera::create([
@@ -152,6 +152,10 @@ class EscuelaController extends Controller {
       'actividades_complementarias_creditos' => $request->actividadesComplementariasCreditos,
       'ruta_imagen' => $rutaImagen
     ]);
+
+    foreach($campuses as $campus) {
+      $carrera->campus()->attach($campus);
+    }
         
     return redirect('/escuela/carreras');
   }
@@ -634,6 +638,12 @@ class EscuelaController extends Controller {
     $query = $request->input('query');
     $campuses = Campus::where('nombre', 'like', "%$query%")->get();
     return view('campus.lista')->with('campuses', $campuses);
+  }
+
+  public function buscarCarrera(Request $request) {
+    $query = $request->input('query');
+    $carreras = Carrera::where('nombre', 'like', "%$query%")->get();
+    return view('carreras.lista')->with('carreras', $carreras);
   }
 
 }

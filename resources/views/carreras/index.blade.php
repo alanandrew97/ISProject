@@ -115,10 +115,10 @@
         <h3 style="margin-bottom:25px;">Selecciona los campus en los que estará la carrera</h3>
 
         @foreach($campuses as $campus)
-        <div class="row col s12">
-          <input type="checkbox" id="myCheckbox{{$campus->id}}" class="filled-in" />
-          <label for="myCheckbox{{$campus->id}}">{{$campus->nombre}}</label>
-        </div>
+          <div class="row col s12">
+            <input type="checkbox" value="{{$campus->id}}" id="myCheckbox{{$campus->id}}" name="campuses[]" class="filled-in" />
+            <label for="myCheckbox{{$campus->id}}">{{$campus->nombre}}</label>
+          </div>
         @endforeach
 
       <div class="row">
@@ -194,6 +194,18 @@
           <label for="actividadesComplementariasCreditos">Actividades Complementarias Créditos</label>
         </div>
       </div>
+
+      <input type="hidden" value="{{count($campuses)}}" id="numero-campus">
+
+      <h3 style="margin-bottom:25px;">Selecciona los campus en los que estará la carrera</h3>
+
+      @foreach($campuses as $campus)
+        <div class="row col s12">
+          <input type="checkbox" value="{{$campus->id}}" id="myCheckbox{{$campus->id}}" name="campuses[]" class="filled-in" />
+          <label for="myCheckbox{{$campus->id}}">{{$campus->nombre}}</label>
+        </div>
+      @endforeach
+
 
       <div class="row">
           <input class="input-field btn right dark-primary-color" style="width:70%; margin:auto;" type="submit" value="Guardar">
