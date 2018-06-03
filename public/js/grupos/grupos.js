@@ -19,7 +19,8 @@ $(document).ready(function () {
 });//Termina document ready
 
 function crearGrafica(dataG, labelsG){
-  var ctx = document.getElementById("graficaGrupo").getContext('2d');
+  // let ctx = ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let ctx = document.getElementById("graficaGrupo").getContext('2d');
   var groupChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -56,4 +57,5 @@ function crearGrafica(dataG, labelsG){
       }
     }
   });
+  ctx.update();
 }
