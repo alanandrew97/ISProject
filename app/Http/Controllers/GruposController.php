@@ -27,7 +27,15 @@ class GruposController extends Controller {
       dd( session('usuario')->gruposAlumno[0]->registroAlumnoGrupo );
     }
 
+<<<<<<< HEAD
     
+=======
+    //dd($grupos);
+  
+    foreach ($grupos as $grupo) {
+      $grupo['data'] = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
+    }
+>>>>>>> 0d53f20c7c92e6a9c0307479962acd78f6b34323
     
     $submenuItems = [
       ['nombre'=>'Grupos','link'=>url('grupos'), 'selected'=>true],

@@ -42,6 +42,7 @@ class EscuelaController extends Controller {
 
   public function index() {
     $escuela = Escuela::all()->first();
+    $campuses = Campus::all();
     $submenuItems = [
       ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>true],
       ['nombre'=>'Carreras','link'=>url('escuela/carreras'), 'selected'=>false],
@@ -53,9 +54,10 @@ class EscuelaController extends Controller {
       ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
     ];
 
-    // dd($submenuItems);
-    return view('escuela.index', array(
+    //dd($escuela);
+    return view('campus.index', array(
       'escuela' => $escuela,
+      'campuses' => $campuses,
       'submenuItems' => $submenuItems
     ));
   }
@@ -72,11 +74,13 @@ class EscuelaController extends Controller {
       'nombre' => 'required',
       'direccion' => 'required'
     ]);
-      
+
+    $escuela = Escuela::all()->first();
+
     $campus = Campus::create([
       'nombre' => $request->nombre,
       'direccion' => $request->direccion,
-      'id_escuela' => 1
+      'id_escuela' => $escuela->id
     ]);
         
     return redirect('/escuela');
@@ -621,6 +625,13 @@ class EscuelaController extends Controller {
     }
 
     return redirect('escuela');
+  }
+
+
+  public function buscarCampus(Request $request) {
+    $query = $request->input('query');
+    $campuses = Campus::where('nombre', 'like', "%$query%")->get();
+    return view('campus.lista')->with('campuses', $campuses);
   }
 
 }

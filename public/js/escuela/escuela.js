@@ -133,4 +133,22 @@ $(function(){
     // $('#formEliminar').attr('action', url + '/escuela/eliminarCampus/' + campusId);
     $('#carrera_id').val(carreraId);
   });
+
+
+  $('#buscar-campus').on('keyup paste change', function(e) {
+    getCarreras($(this).val());
+    
+  });
+
+
+  function getCarreras(query) {
+    $.ajax({
+      url: $('#_url').val() + '/escuela/buscarCampus',
+      data: {
+        query : query
+      }
+    }).done(function(data) {
+      $('#lista-campus').html(data);
+    });
+  }
 });
