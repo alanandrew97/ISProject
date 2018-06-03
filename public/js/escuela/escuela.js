@@ -38,6 +38,8 @@ $(function(){
     let $this = $(this);
     let carreraId = $this.data('carrera-id');
     let padre = $this.parents('.collapsible');
+    let campuses = $this.data('campuses');
+    let numeroCampus = $('#numero-campus').val();
 
     let imgCarrera = $('.imgCarrera', padre).attr('src');
     let carreraNombre = $('.carreraNombre', padre).text();
@@ -48,7 +50,8 @@ $(function(){
     let servicioSocialCreditos = $('.servicio_social_creditos', padre).text();
     let actividadesComplementariasCreditos = $('.actividades_complementarias_creditos', padre).text();
 
-    console.log($this.data('campus'));
+    console.log(numeroCampus);
+
     $('#carreraId').val(carreraId);
     $('#modalEditarCarrera #imgEditarCarrera').attr('src',imgCarrera);
     $('#modalEditarCarrera #nombre').val(carreraNombre);

@@ -52,9 +52,13 @@
                   <div class="col s12">Alumnos:&nbsp;</div><br>
                   <ul>
                     @foreach($grupo->alumnosGrupo as $registro)
-                    <li>
-                    <div class="col s12">Nombre:&nbsp;<span class="totalCreditos">{{$registro->alumno->datosUsuario->nombre}} {{$registro->alumno->datosUsuario->apellido_paterno}} {{$registro->alumno->datosUsuario->apellido_materno}} Matricula: {{$registro->alumno->matricula}}</span></div><br>
-                    </li>
+                    @if(!is_null($registro))
+                      @if(!is_null($registro->alumno))
+                        <li>
+                        <div class="col s12">Nombre:&nbsp;<span class="totalCreditos">{{$registro->alumno->datosUsuario->nombre}} {{$registro->alumno->datosUsuario->apellido_paterno}} {{$registro->alumno->datosUsuario->apellido_materno}} Matricula: {{$registro->alumno->matricula}}</span></div><br>
+                        </li>
+                      @endif
+                    @endif
                     @endforeach
                   </ul>
                   @else
