@@ -2,15 +2,15 @@ $(function(){
 
   // $('select').formSelect();
   $('select').material_select();
-
   $('.modal').modal({
     startingTop: '0%',
     endingTop: '2%'
   });
   let url = $('#_url').val();
   
+  
   //Funcion de editar campus
-  $('.edit-campus').on('click', function(e){
+  $(document).on('click', '.edit-campus', function(e){
     let $this = $(this);
     let campusId = $this.data('campus-id');
     let padre = $this.parents('.collapsible');
@@ -23,9 +23,10 @@ $(function(){
     $('#modalEditarCampus #campusId').val(campusId);
     Materialize.updateTextFields()
   });
-  
+
+
   // Funcion de eliminar campus
-  $('.delete-campus').on('click', function(e){
+  $(document).on('click', '.delete-campus', function(e){
     let campusId = $(this).data('campus-id');
     // $('#formEliminar').attr('action', url + '/escuela/eliminarCampus/' + campusId);
     $('#campus_id').val(campusId);
@@ -134,10 +135,11 @@ $(function(){
     $('#carrera_id').val(carreraId);
   });
 
+    
+
 
   $('#buscar-campus').on('keyup paste change', function(e) {
     getCarreras($(this).val());
-    
   });
 
 
@@ -149,6 +151,7 @@ $(function(){
       }
     }).done(function(data) {
       $('#lista-campus').html(data);
+      $('.collapsible').collapsible();
     });
   }
 });

@@ -1,7 +1,7 @@
 <div id="lista-campus">
     @if( count($campuses) != 0 )
         @foreach($campuses as $campus)
-            <ul class="collapsible">
+            <ul class="collapsible"  data-collapsible="accordion">
             <li>
                 <div class="collapsible-header" style="position:relative;">
                 <i class="material-icons">location_city</i><div class="campusNombre">{{$campus->nombre}}</div>

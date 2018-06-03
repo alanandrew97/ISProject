@@ -14,12 +14,12 @@
 
 @section('contenedor')
   <div class="row">
-    <div class="input-field col s1">
+    <div class="input-field col s2">
     <h1>Campus</h1>
     </div>
 
-    <div class="col s6">
-        <div class="input-field col s11">
+    <div class="col s10">
+        <div class="input-field col s12 ">
             <i class="material-icons prefix">search</i>
             <input type="text" id="buscar-campus" maxlength="70">
             <label for="buscar-campus">Buscar campus...</label>

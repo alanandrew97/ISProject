@@ -103,6 +103,7 @@ class EscuelaController extends Controller {
 
   public function listaCarreras(){
     $carreras = Carrera::all();
+    $campuses = Campus::all();
     $escuela = Escuela::all()->first();
     $submenuItems = [
       ['nombre'=>'Campus','link'=>url('escuela'), 'selected'=>false],
@@ -117,10 +118,11 @@ class EscuelaController extends Controller {
     
     // dd($carrera);
     
-    return view('escuela.listaCarreras', array(
+    return view('carreras.index', array(
       'escuela' => $escuela,
       'submenuItems' => $submenuItems,
-      'carreras' => $carreras
+      'carreras' => $carreras,
+      'campuses' => $campuses
     ));
   }
 
