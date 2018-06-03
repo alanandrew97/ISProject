@@ -26,7 +26,7 @@
                 <i class="material-icons">insert_chart</i>&nbsp;Grupo: &nbsp;{{$grupo->clave}}&nbsp;{{$grupo->materia->nombre}}&nbsp;{{$grupo->maestro->nombre}}&nbsp;{{$grupo->maestro->apellido_paterno}}
               </div>
               <div class="collapsible-body" style="padding: 20px;">
-                <a href="#modalGraficaGrupo" data-graphic-data="{{ json_encode($grupo['data']) }}" class="modal-trigger modalGraficaGrupo"><i class="material-icons large">insert_chart</i>&nbsp;<h5>Ver gráfica</h5></a>
+                <a href="#modalGraficaGrupo" data-graphic-labels="{{json_encode($grupo['labels'])}}" data-graphic-data="{{ json_encode($grupo['data']) }}" class="modal-trigger modalGraficaGrupo"><i class="material-icons large">insert_chart</i>&nbsp;<h5>Ver gráfica</h5></a>
                 <div>
                   @if (count($grupo->alumnos)!=0)
                     @foreach($grupo->alumnos as $alumno)
@@ -56,9 +56,11 @@
 @section('modals')
 
   <div class="modal" id="modalGraficaGrupo" style="padding:30px;">
-    <center>
-      <canvas id="graficaGrupo" width="400" height="400"></canvas>
-    </center>
+    <div class="modal-content" >
+      <center>
+        <canvas id="graficaGrupo" style="max-height:525px;" width="200" height="200"></canvas>
+      </center>
+    </div>
   </div>
 
 

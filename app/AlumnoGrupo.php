@@ -30,6 +30,6 @@ class AlumnoGrupo extends Model {
     }
 
     public function parciales() {
-        return $this->hasMany();
+        return $this->hasMany('App\Parcial', 'id_alumno_grupo');
     }
 }
