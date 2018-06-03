@@ -154,10 +154,7 @@ class EscuelaController extends Controller {
     ]);
 
     foreach($campuses as $campus) {
-      CampusCarrera::create([
-        'id_campus' => $campus,
-        'id_carrera' => $carrera->id
-      ]);
+      $carrera->campus()->attach($campus);
     }
         
     return redirect('/escuela/carreras');
@@ -641,6 +638,12 @@ class EscuelaController extends Controller {
     $query = $request->input('query');
     $campuses = Campus::where('nombre', 'like', "%$query%")->get();
     return view('campus.lista')->with('campuses', $campuses);
+  }
+
+  public function buscarCarrera(Request $request) {
+    $query = $request->input('query');
+    $carreras = Carrera::where('nombre', 'like', "%$query%")->get();
+    return view('carreras.lista')->with('carreras', $carreras);
   }
 
 }
