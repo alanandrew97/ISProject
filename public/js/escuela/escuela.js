@@ -50,7 +50,14 @@ $(function(){
     let servicioSocialCreditos = $('.servicio_social_creditos', padre).text();
     let actividadesComplementariasCreditos = $('.actividades_complementarias_creditos', padre).text();
 
-    console.log(numeroCampus);
+    for(i = 0; i < numeroCampus; i++) {
+      $('#modalEditarCarrera #checkCampus' + i).prop('checked', false);
+      for(j = 0; j < campuses.length; j++) {
+        if($('#modalEditarCarrera #checkCampus' + i).val() == campuses[j].id) {
+          $('#modalEditarCarrera #checkCampus' + i).prop('checked', true);
+        }
+      }
+    }
 
     $('#carreraId').val(carreraId);
     $('#modalEditarCarrera #imgEditarCarrera').attr('src',imgCarrera);
@@ -62,7 +69,7 @@ $(function(){
     $('#modalEditarCarrera #servicioSocialCreditos').val(servicioSocialCreditos);
     $('#modalEditarCarrera #actividadesComplementariasCreditos').val(actividadesComplementariasCreditos);
     
-    Materialize.updateTextFields()
+    Materialize.updateTextFields();
   });
 
   $("#ruta_imagen").on('change', function (evt) {
