@@ -26,6 +26,9 @@
             <li>
               <div class="collapsible-header" style="position:relative;">
                 <i class="material-icons">insert_chart</i>&nbsp;Grupo: &nbsp;{{$grupo->clave}}&nbsp;{{$grupo->materia->nombre}}&nbsp;{{$grupo->maestro->datosUsuario->nombre}}&nbsp;{{$grupo->maestro->datosUsuario->apellido_paterno}}&nbsp;{{$grupo->maestro->datosUsuario->apellido_materno}}
+                @if (session('rol')==1)
+                <a href="#modalImprimirReporte" class="modal-trigger"><i style="position:absolute;right:35px;" data-grupo-id="{{$grupo->id}}" class="material-icons right">print</i></a>
+                @endif
               </div>
               <div class="collapsible-body" style="padding: 20px;">
                 <a href="#modalGraficaGrupo" data-graphic-labels="{{json_encode($grupo['labels'])}}" data-graphic-data="{{ json_encode($grupo['data']) }}" class="modal-trigger modalGraficaGrupo"><i class="material-icons">insert_chart</i>&nbsp;<h5 style="display:inline-block;">Ver gráfica</h5></a><br>
