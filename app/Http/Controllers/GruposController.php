@@ -17,13 +17,8 @@ class GruposController extends Controller {
     $labels = [];
     $escuela = Escuela::all()->first();
     if (session('rol')==1) {
-      // if (session('usuario')->administrador == 1) {
-      //   $grupos  = Grupo::all();
-      // } else {
-        $grupos = session('usuario')->grupos;
-      // }
+      $grupos = session('usuario')->grupos;
       foreach ($grupos as $grupo) {
-        // dd( $grupo->materia );
         if (isset($grupo->registro)){
           $grupo['data'] = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
           $grupo['labels'] = ["Aprobados", "Reprobados", "Desertores"];

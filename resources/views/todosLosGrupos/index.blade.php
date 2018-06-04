@@ -199,5 +199,11 @@
     </form>
   </div>
 
-  
+    <div class="modal" id="modalGraficaGrupo" style="padding:30px;">
+        <div class="modal-content" >
+            <center>
+                <canvas id="graficaGrupo" style="max-height:525px;" width="200" height="200"></canvas>
+            </center>
+        </div>
+    </div>
 @endsection
