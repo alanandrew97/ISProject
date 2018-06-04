@@ -14,7 +14,7 @@ class CreateRegistroAlumnoGrupoMigration extends Migration
     public function up() {
         Schema::create('registro_alumno_grupo', function(Blueprint $table) {
             $table->integer('id_alumno_grupo');
-            $table->integer('id_tipo_curso');
+            $table->integer('id_tipo_curso')->default(0);
             $table->integer('faltas_totales');
             $table->double('calificacion_total');
             $table->boolean('desertor');
