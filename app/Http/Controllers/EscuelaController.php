@@ -542,6 +542,13 @@ class EscuelaController extends Controller {
         ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false]
       ];
 
+      foreach ($grupos as $grupo) {
+        if (isset($grupo->registro)){
+          $grupo['data'] = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
+          $grupo['labels'] = ["Aprobados", "Reprobados", "Desertores"];
+        }
+      }
+
     return view('todosLosGrupos.index', array(
       'grupos' => $grupos,
       'materias' => $materias,

@@ -10,10 +10,7 @@ $(document).ready(function () {
     let $this = $(this);
     dataGroup = $this.data('graphic-data');
     labelsG = $this.data('graphic-labels');
-    // console.log(dataGroup);
     crearGrafica(dataGroup, labelsG, 'graficaGrupo', 'bar');
-    // $('canvas').width('60%');
-    // $('canvas').height('60%');
   });
 
   $('.modalGraficaAlumno').click(function () {
@@ -22,8 +19,6 @@ $(document).ready(function () {
     labelsG = $this.data('graphic-labels');
     console.log(dataGroup);
     crearGrafica(dataGroup, labelsG, 'graficaAlumno', 'bar');
-    // $('canvas').width('60%');
-    // $('canvas').height('60%');
   });
   
 });//Termina document ready
@@ -40,7 +35,7 @@ function crearGrafica(dataG, labelsG, elemento, tipo){
     data: {
       labels: labelsG,
       datasets: [{
-        label: '# of Votes',
+        label: '# de alumnos',
         data: dataG,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
