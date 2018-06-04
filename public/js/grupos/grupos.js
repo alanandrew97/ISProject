@@ -10,17 +10,30 @@ $(document).ready(function () {
     let $this = $(this);
     dataGroup = $this.data('graphic-data');
     labelsG = $this.data('graphic-labels');
+    // console.log(dataGroup);
+    crearGrafica(dataGroup, labelsG, 'graficaGrupo');
+    // $('canvas').width('60%');
+    // $('canvas').height('60%');
+  });
+
+  $('.modalGraficaAlumno').click(function () {
+    let $this = $(this);
+    dataGroup = $this.data('graphic-data');
+    labelsG = $this.data('graphic-labels');
     console.log(dataGroup);
-    crearGrafica(dataGroup, labelsG);
+    crearGrafica(dataGroup, labelsG, 'graficaAlumno');
     // $('canvas').width('60%');
     // $('canvas').height('60%');
   });
   
 });//Termina document ready
 
-function crearGrafica(dataG, labelsG){
+// let ctx;
+
+function crearGrafica(dataG, labelsG, elemento){
   // let ctx = ctx.clearRect(0, 0, canvas.width, canvas.height);
-  let ctx = document.getElementById("graficaGrupo").getContext('2d');
+  // ctx.update();
+  ctx = document.getElementById(elemento).getContext('2d');
   var groupChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -57,5 +70,4 @@ function crearGrafica(dataG, labelsG){
       }
     }
   });
-  ctx.update();
 }

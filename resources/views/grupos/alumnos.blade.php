@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-  Grupos
+  Alumnos
 @endsection
 
 @section('cabecera')
-  Grupos
+  Alumnos
 @endsection
 
 @section('head')
@@ -14,26 +14,30 @@
 
 @section('contenedor')
   <div class="row">
-    <h1>Grupos</h1>
+    <h1>Estadísticas por alumno</h1>
   </div>
   <div class="row">
     <div class="col s12">
       @if( count($grupos) != 0 )
-        @foreach($grupos as $grupo)
+        @foreach ( $grupos as $grupo )
           <ul class="collapsible">
             <li>
               <div class="collapsible-header" style="position:relative;">
-                <i class="material-icons">insert_chart</i>&nbsp;Grupo: &nbsp;{{$grupo->clave}}&nbsp;{{$grupo->materiaNombre}}&nbsp;{{$grupo->maestroNombre}}&nbsp;{{$grupo->maestroApellido}}
+                <i class="material-icons">insert_chart</i>&nbsp;Grupo: &nbsp;{{$grupo->clave}}&nbsp;{{$grupo->materia->nombre}}&nbsp;{{$grupo->maestro->nombre}}&nbsp;{{$grupo->maestroApellido}}
               </div>
               <div class="collapsible-body" style="padding: 20px;">
-                <a href="#modalGraficaGrupo" data-graphic-labels="{{json_encode($grupo['labels'])}}" data-graphic-data="{{ json_encode($grupo['data']) }}" class="modal-trigger modalGraficaGrupo"><i class="material-icons large">insert_chart</i>&nbsp;<h5>Ver gráfica</h5></a>
                 <div>
-                  @if (count($grupo->alumnos)!=0)
-                    @foreach($grupo->alumnos as $alumno)
+                  @if (count($grupo->alumnosGrupo)!=0)
+                    @foreach($grupo->alumnosGrupo as $alumnoGrupo)
                       <div>
-                        Alumno {{--<a class="" href="{{url('escuelas/carrera/'.$reticula->id)}}"><i class="material-icons" style="margin-right:10px;color:white;">school</i>{{$reticula->nombre}}</a>--}}
+                        @if (isset($alumnoGrupo->alumno))
+                          Alumno: <a class="modal-trigger modalGraficaAlumno" href="#modalGraficaAlumno" data-graphic-labels="{{json_encode($grupo['labels'])}}" data-graphic-data="{{ json_encode($grupo['data']) }}">
+                          {{$alumnoGrupo->alumno->datosUsuario->nombre.' '.$alumnoGrupo->alumno->datosUsuario->apellido_paterno.' '.$alumnoGrupo->alumno->datosUsuario->apellido_materno}}
+                          <i class="material-icons">insert_chart</i></a>
+                        @endif
                       </div>
                     @endforeach
+                    {{--var_dump($alumnoGrupo->alumno)--}}
                   @else
                     <div class="error">Aun no hay alumnos asignados a este grupo.</div>
                   @endif
@@ -41,6 +45,9 @@
               </div>
             </li>
           </ul>
+          <pre>
+          </pre>
+            {{--dd($grupos)--}}
         @endforeach
       @else
         <div class="error">Aun no hay grupos registrados.</div>
@@ -55,10 +62,10 @@
 
 @section('modals')
 
-  <div class="modal" id="modalGraficaGrupo" style="padding:30px;">
+  <div class="modal" id="modalGraficaAlumno" style="padding:30px;">
     <div class="modal-content" >
       <center>
-        <canvas id="graficaGrupo" style="max-height:525px;" width="200" height="200"></canvas>
+        <canvas id="graficaAlumno" style="max-height:525px;" width="200" height="200"></canvas>
       </center>
     </div>
   </div>
