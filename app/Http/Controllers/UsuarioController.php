@@ -107,7 +107,7 @@ class UsuarioController extends Controller {
 
         $datos_usuario = DatosUsuario::create([
             'nombre' => $nombre,
-            'apellido_paterno' => $apellido_materno,
+            'apellido_paterno' => $apellido_paterno,
             'apellido_materno' => $apellido_materno,
             'correo' => $correo,
             'password' => $password

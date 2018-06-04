@@ -55,6 +55,11 @@ Route::group(['prefix' => 'escuela'], function() {
     Route::post('registrarAlumnosGrupo', 'EscuelaController@registrarAlumnosGrupo');
     Route::get('buscarCampus', 'EscuelaController@buscarCampus');
     Route::get('buscarCarrera', 'EscuelaController@buscarCarrera');
+    Route::get('buscarMateria', 'EscuelaController@buscarMateria');
+    Route::get('buscarSemestre', 'EscuelaController@buscarSemestre');
+    Route::get('buscarTodosLosGrupos', 'EscuelaController@buscarTodosLosGrupos');
+    Route::post('eliminarGrupo', 'EscuelaController@eliminarGrupo');
+
 
     // Route::get('nuevo', 'EscuelaController@nuevo');
     // Route::post('crear', 'EscuelaController@crear');

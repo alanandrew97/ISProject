@@ -19,6 +19,6 @@ class Campus extends Model {
 
     public function carreras()
     {
-        return $this->belongsToMany('App\Carrera', 'campus_carrera', 'id_carrera', 'id_campus');
+        return $this->belongsToMany('App\Carrera', 'campus_carrera', 'id_campus', 'id_carrera');
     }
 }
