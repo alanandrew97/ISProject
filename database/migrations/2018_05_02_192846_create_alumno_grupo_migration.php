@@ -16,7 +16,7 @@ class CreateAlumnoGrupoMigration extends Migration
             $table->increments('id');
             $table->integer('id_alumno');
             $table->integer('id_grupo');
-            $table->integer('id_alumno_horario');
+            $table->integer('id_alumno_horario')->default(0);
         });
     }
 

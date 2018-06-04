@@ -121,9 +121,16 @@ $(function(){
     let idAula = $('.idAula', padre).val();
     let idSemestre = $('.idSemestre', padre).val();
 
-    console.log(idSemestre);
-
     $('#modalEditarGrupo #clave').val(clave);
+    $('#modalEditarGrupo #materia').val(idMateria);
+    $('#modalEditarGrupo #materia').material_select();
+    $('#modalEditarGrupo #maestro').val(idMaestro);
+    $('#modalEditarGrupo #maestro').material_select();
+    $('#modalEditarGrupo #aula').val(idAula);
+    $('#modalEditarGrupo #aula').material_select();
+    $('#modalEditarGrupo #semestre').val(idSemestre);
+    $('#modalEditarGrupo #semestre').material_select();
+    
 
     
     $('#id-editar').val(idEdificio);
@@ -140,6 +147,19 @@ $(function(){
     console.log(id);
     // $('#formEliminar').submit();
   });
+
+  $(document).on('click', '.alumnos-grupo', function(e){
+    let id = $(this).data('edificio-id');
+    // $('#formEliminar').attr('action', url + '/escuela/eliminarCampus/' + campusId);
+    //console.log(idDatosUsuario);
+    $('#id-agregaralumnos').val(id);
+
+    console.log(id);
+    // $('#formEliminar').submit();
+  });
+
+  
+
 
   $('.timepicker').pickatime({
     default: 'now', // Set default time: 'now', '1:30AM', '16:30'

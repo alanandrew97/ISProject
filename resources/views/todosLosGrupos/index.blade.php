@@ -68,7 +68,7 @@
         <div class="input-field col s12">
             <select id="carrera" name="id_maestro" class="select-wrapper">
                 @foreach($maestros as $maestro)
-                    <option value="{{ $maestro->id }}">{{$maestro->datosUsuario->nombre}}</option>
+                    <option value="{{ $maestro->id }}">{{$maestro->datosUsuario->nombre}} {{$maestro->datosUsuario->apellido_paterno}} {{$maestro->datosUsuario->apellido_materno}}</option>
                 @endforeach
             </select>
             <label>Maestro</label>
@@ -92,7 +92,6 @@
             </select>
             <label>Semestre</label>
         </div>
-
         <div class="row">
           <input class="input-field btn right dark-primary-color" style="width:70%; margin:auto;" type="submit" value="Registrar">
         </div>
@@ -114,7 +113,7 @@
         </div>
         
         <div class="input-field col s12">
-            <select id="carrera" name="id_materia" class="select-wrapper">
+            <select id="materia" name="id_materia" class="select-wrapper">
                 @foreach($materias as $materia)
                     <option value="{{ $materia->id }}">{{$materia->nombre}}</option>
                 @endforeach
@@ -123,16 +122,16 @@
         </div>
 
         <div class="input-field col s12">
-            <select id="carrera" name="id_maestro" class="select-wrapper">
+            <select id="maestro" name="id_maestro" class="select-wrapper">
                 @foreach($maestros as $maestro)
-                    <option value="{{ $maestro->id }}">{{$maestro->datosUsuario->nombre}}</option>
+                    <option value="{{ $maestro->id }}">{{$maestro->datosUsuario->nombre}} {{$maestro->datosUsuario->apellido_paterno}} {{$maestro->datosUsuario->apellido_materno}}</option>
                 @endforeach
             </select>
             <label>Maestro</label>
         </div>
 
         <div class="input-field col s12">
-            <select id="carrera" name="id_aula" class="select-wrapper">
+            <select id="aula" name="id_aula" class="select-wrapper">
                 @foreach($aulas as $aula)
                     <option value="{{ $aula->id }}">{{$aula->numero}}</option>
                 @endforeach
@@ -142,7 +141,7 @@
 
         
         <div class="input-field col s12">
-            <select id="carrera" name="id_semestre" class="select-wrapper">
+            <select id="semestre" name="id_semestre" class="select-wrapper">
                 @foreach($semestres as $semestre)
                     <option value="{{ $semestre->id }}">{{$semestre->id}}</option>
                 @endforeach
@@ -162,19 +161,19 @@
     <form id="formEditar" method="POST" action="{{url('/escuela/registrarAlumnosGrupo/')}}" enctype="multipart/form-data">
       {{csrf_field()}}
       <div class="row">
-        <h2 style="margin-bottom:25px;">Agregar alumnos</h2>
-        <input type="hidden" name="id" id="id-editar">
+        <h2 style="margin-bottom:25px;">Lista de alumnos</h2>
+        <input type="hidden" name="id" id="id-agregaralumnos">
       </div>
 
         
-      <div class="input-field col s12">
-        <select multiple name="id_usuarios[]">
-            @foreach($alumnos as $alumno)
-            <option value="{{$alumno->id}}">{{$alumno->matricula}}, {{$alumno->datosUsuario->nombre}} {{$alumno->datosUsuario->apellido_paterno}} {{$alumno->datosUsuario->apellido_materno}}</option>
-            @endforeach
-        </select>
-        <label>Alumnos</label>
-    </div>
+        <?php $index = 0; ?>
+        @foreach($alumnos as $alumno)
+          <div class="row col s12">
+            <input type="checkbox" value="{{$alumno->id}}" id="checkAlumnos{{$index}}" name="alumnos[]" class="filled-in" />
+            <label for="checkAlumnos{{$index}}">{{$alumno->datosUsuario->nombre}} {{$alumno->datosUsuario->apellido_paterno}} {{$alumno->datosUsuario->apellido_materno}} - {{$alumno->matricula}} </label>
+            <?php $index++ ?>
+          </div>
+        @endforeach
 
       <div class="row">
           <input class="input-field btn right dark-primary-color" style="width:70%; margin:auto;" type="submit" value="Guardar">
