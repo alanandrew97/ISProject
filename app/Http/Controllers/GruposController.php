@@ -64,7 +64,7 @@ class GruposController extends Controller {
   }
 
   public function imprimir($id) {
-    $escuela = Escuela::all()->first();
+    /*$escuela = Escuela::all()->first();
     $grupo = Grupo::find($id);
     $alumnos = $grupo->alumnos;
     $maestro = $grupo->maestro;
@@ -75,7 +75,18 @@ class GruposController extends Controller {
     $pdf->loadHTML($view)->save('pdf/reporte.pdf');
     dd($pdf);
     $grupo = Grupo::find(1);
-    return response()->download($pathToFile)->deleteFileAfterSend(true);
+    return response()->download($pathToFile)->deleteFileAfterSend(true);*/
+    $escuela = Escuela::all()->first();
+    $grupo = Grupo::find($id);
+    $alumnos = $grupo->alumnos;
+    $maestro = $grupo->maestro;
+    $materia = $grupo->materia;
+
+    return view('pdf.listaAlumnos', array(
+      'alumnos' => $alumnos,
+      'grupo' => $grupo,
+      'escuela' => $escuela,
+    ));
   }
 
   public function vistaReporte() {
