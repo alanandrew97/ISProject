@@ -33,14 +33,16 @@ $(function(){
     // $('#formEliminar').submit();
   });
 
+  
   //Funcion de editar carrera
   $(document).on('click', '.edit-carrera', function (e) {
     let $this = $(this);
     let carreraId = $this.data('carrera-id');
     let padre = $this.parents('.collapsible');
     let campuses = $this.data('campuses');
-    let numeroCampus = $('#numero-campus').val();
+    let numeroCampus = $('#total-campuses').val();
 
+    
     let imgCarrera = $('.imgCarrera', padre).attr('src');
     let carreraNombre = $('.carreraNombre', padre).text();
     let carreraAbreviatura = $('.carreraAbreviatura', padre).text();
@@ -49,9 +51,17 @@ $(function(){
     let residenciaProfesionalCreditos = $('.residencia_profesional_creditos', padre).text();
     let servicioSocialCreditos = $('.servicio_social_creditos', padre).text();
     let actividadesComplementariasCreditos = $('.actividades_complementarias_creditos', padre).text();
+    
+    for(i = 0; i < numeroCampus; i++) {
+      $('#modalEditarCarrera #checkCampusEdit' + i).prop('checked', false);
+      for(j = 0; j < campuses.length; j++) {
+        if($('#modalEditarCarrera #checkCampusEdit' + i).val() == campuses[j].id) {
+          $('#modalEditarCarrera #checkCampusEdit' + i).prop('checked', true);
+        }
+      }
+    }
 
     console.log(numeroCampus);
-
     $('#carreraId').val(carreraId);
     $('#modalEditarCarrera #imgEditarCarrera').attr('src',imgCarrera);
     $('#modalEditarCarrera #nombre').val(carreraNombre);
@@ -62,7 +72,7 @@ $(function(){
     $('#modalEditarCarrera #servicioSocialCreditos').val(servicioSocialCreditos);
     $('#modalEditarCarrera #actividadesComplementariasCreditos').val(actividadesComplementariasCreditos);
     
-    Materialize.updateTextFields()
+    Materialize.updateTextFields();
   });
 
   $("#ruta_imagen").on('change', function (evt) {
@@ -160,9 +170,8 @@ $(function(){
     });
   }
 
-  var gg;
   function getCarreras(query) {
-    gg = $.ajax({
+    $.ajax({
       url: $('#_url').val() + '/escuela/buscarCarrera',
       data: {
         query : query
@@ -172,6 +181,6 @@ $(function(){
       $('.collapsible').collapsible();
     }); 
 
-    console.log(gg);
   }
+  
 });

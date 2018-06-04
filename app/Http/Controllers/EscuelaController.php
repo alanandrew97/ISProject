@@ -153,15 +153,16 @@ class EscuelaController extends Controller {
       'ruta_imagen' => $rutaImagen
     ]);
 
-    foreach($campuses as $campus) {
-      $carrera->campus()->attach($campus);
+    if(!is_null($campuses)) {
+      foreach($campuses as $campus) {
+        $carrera->campus()->attach($campus);
+      }
     }
         
     return redirect('/escuela/carreras');
   }
 
   public function editarCarrera(Request $request){
-
     $this->validate($request, [
       'nombre' => 'required',
       'abreviatura' => 'required',
@@ -173,6 +174,7 @@ class EscuelaController extends Controller {
     ]);
 
     $carrera = Carrera::find($request->carreraId);
+    $campuses = $request->input('campuses');
     
     $carrera->nombre = $request->nombre;
     $carrera->abreviatura = $request->abreviatura;
@@ -181,6 +183,13 @@ class EscuelaController extends Controller {
     $carrera->residencia_profesional_creditos = $request->residenciaProfesionalCreditos;
     $carrera->servicio_social_creditos = $request->servicioSocialCreditos;
     $carrera->actividades_complementarias_creditos = $request->actividadesComplementariasCreditos;
+    $carrera->campus()->detach();
+
+    if(!is_null($campuses)) {
+      foreach($campuses as $campus) {
+        $carrera->campus()->attach($campus);
+      }
+    }
     
     if ( isset($request->ruta_imagen) ) {
       //Borrar imagen anterior
@@ -434,7 +443,7 @@ class EscuelaController extends Controller {
       ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
     ];
 
-    return view('escuela.listaSemestres', array(
+    return view('semestres.index', array(
       'semestres' => $semestres,
       'escuela' => $escuela,
       'submenuItems' => $submenuItems
@@ -515,7 +524,7 @@ class EscuelaController extends Controller {
       ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
     ];
       
-    return view('escuela.listaMaterias', array(
+    return view('materias.index', array(
         'materias' => $materias,
         'escuela' => $escuela,
         'submenuItems' => $submenuItems,
@@ -541,7 +550,7 @@ class EscuelaController extends Controller {
         ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
       ];
 
-    return view('escuela.listaGrupos', array(
+    return view('todosLosGrupos.index', array(
       'grupos' => $grupos,
       'materias' => $materias,
       'maestros' => $maestros,
@@ -569,6 +578,13 @@ class EscuelaController extends Controller {
       'id_aula' => $request->input('id_aula'),
       'id_semestre' => $request->input('id_semestre')
     ]);
+
+    return redirect('escuela/grupos');
+  }
+
+  public function eliminarGrupo(Request $request) {
+    $grupo = Grupo::find($request->input('id'));
+    $grupo->delete();
 
     return redirect('escuela/grupos');
   }
@@ -645,6 +661,25 @@ class EscuelaController extends Controller {
     $carreras = Carrera::where('nombre', 'like', "%$query%")->get();
     return view('carreras.lista')->with('carreras', $carreras);
   }
+
+  public function buscarMateria(Request $request) {
+    $query = $request->input('query');
+    $materias = Materia::where('nombre', 'like', "%$query%")->get();
+    return view('materias.lista')->with('materias', $materias);
+  }
+
+  public function buscarSemestre(Request $request) {
+    $query = $request->input('query');
+    $semestres = Semestre::where('id', 'like', "%$query%")->get();
+    return view('semestres.lista')->with('semestres', $semestres);
+  }
+
+  public function buscarTodosLosGrupos(Request $request) {
+    $query = $request->input('query');
+    $grupos = Grupo::where('clave', 'like', "%$query%")->get();
+    return view('todosLosGrupos.lista')->with('grupos', $grupos);
+  }
+  
 
 }
     

@@ -9,7 +9,17 @@
                 <a href="#modalEliminarCampus" class="modal-trigger"><i style="position:absolute;right:0px;" data-campus-id="{{$campus->id}}" class="material-icons right delete-campus">close</i></a>
                 </div>
                 <div class="collapsible-body" style="padding: 20px;">
-                <span class="campusDireccion" style="margin-bottom: 10px;" class="col s12">{{$campus->direccion}}</span>
+                <div class="col s12">Dirección: 
+                <span class="campusDireccion" style="margin-bottom: 10px;" class="col s12">{{$campus->direccion}}</span></div><br>
+
+                <div class="col s12">Carreras:</div><br>
+                  @if(count($campus->carreras) != 0)
+                  @foreach($campus->carreras as $carrera)
+                  <div class="col s12"><span>{{$carrera->nombre}}</span></div><br>
+                  @endforeach
+                  @else
+                  <div class="error">Aun no hay carreras registrados en este campus.</div>
+                  @endif
             </li>
             </ul>
         @endforeach
