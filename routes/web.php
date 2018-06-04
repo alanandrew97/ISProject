@@ -60,6 +60,8 @@ Route::group(['prefix' => 'escuela'], function() {
     Route::get('buscarTodosLosGrupos', 'EscuelaController@buscarTodosLosGrupos');
     Route::post('eliminarGrupo', 'EscuelaController@eliminarGrupo');
     Route::post('editarGrupo', 'EscuelaController@editarGrupo');
+    Route::get('buscarMaestros', 'EscuelaController@buscarMaestros');
+    Route::get('buscarAlumnos', 'EscuelaController@buscarAlumnos');
 
 
     // Route::get('nuevo', 'EscuelaController@nuevo');

@@ -5,7 +5,7 @@
             <li>
               <div class="collapsible-header" style="position:relative;">
                 <i class="material-icons">school</i><div class="carreraNombre">{{$grupo->clave}}</div>&nbsp;&nbsp;
-                <a href="#modalAgregarAlumnos" class="modal-trigger"><i style="position:absolute;right:105px;" data-edificio-id="{{$grupo->id}}" class="material-icons right alumnos-grupo">add</i></a>
+                <a href="#modalAgregarAlumnos" class="modal-trigger"><i style="position:absolute;right:105px;" data-edificio-id="{{$grupo->id}}" data-alumnos="{{$grupo->alumnos}}" class="material-icons right alumnos-grupo">add</i></a>
                 <a href="#modalGrafica" class="modal-trigger"><i style="position:absolute;right:70px;" data-edificio-id="{{$grupo->id}}" class="material-icons right grafica-grupo">insert_chart</i></a>
                 <a href="#modalEditarGrupo" class="modal-trigger"><i style="position:absolute;right:35px;" data-edificio-id="{{$grupo->id}}" class="material-icons right edit-grupo">edit</i></a>
                 <a href="#modalEliminarEdificio" class="modal-trigger"><i style="position:absolute;right:0px;" data-edificio-id="{{$grupo->id}}" class="material-icons right delete-grupo">close</i></a>

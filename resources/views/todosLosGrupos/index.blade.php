@@ -165,6 +165,9 @@
         <input type="hidden" name="id" id="id-agregaralumnos">
       </div>
 
+    <input type="hidden" value="{{count($alumnos)}}" id="total-alumnos">
+
+
         
         <?php $index = 0; ?>
         @foreach($alumnos as $alumno)

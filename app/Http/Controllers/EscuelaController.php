@@ -18,6 +18,7 @@ use App\Maestro;
 use App\Alumno;
 use App\AlumnoGrupo;
 use App\CampusCarrera;
+use App\DatosUsuario;
 
 class EscuelaController extends Controller {
 
@@ -646,8 +647,10 @@ class EscuelaController extends Controller {
 
     $grupo->alumnos()->detach();
 
-    foreach($request->input('alumnos') as $id_alumno) {
-      $grupo->alumnos()->attach($id_alumno);
+    if(!is_null($request->input('alumnos'))) {
+      foreach($request->input('alumnos') as $id_alumno) {
+        $grupo->alumnos()->attach($id_alumno);
+      }
     }
 
     return redirect('escuela/grupos');
@@ -682,6 +685,46 @@ class EscuelaController extends Controller {
     $query = $request->input('query');
     $grupos = Grupo::where('clave', 'like', "%$query%")->get();
     return view('todosLosGrupos.lista')->with('grupos', $grupos);
+  }
+
+  public function buscarMaestros(Request $request) {
+    $query = $request->input('query');
+    $datos = DatosUsuario::where('nombre', 'like', "%$query%")
+    ->orWhere('apellido_paterno', 'like', "%$query%")
+    ->orWhere('apellido_materno', 'like', "%$query%")->get();
+    $aux = Maestro::all();
+    $maestros = array();
+
+
+    foreach($datos as $dato) {
+      foreach($aux as $maestro) {
+        if($dato->id == $maestro->id_datos_usuario) {
+          array_push($maestros, $maestro);
+        }
+      }
+    }
+
+    return view('maestro.lista')->with('maestros', $maestros);
+  }
+
+  public function buscarAlumnos(Request $request) {
+    $query = $request->input('query');
+    $datos = DatosUsuario::where('nombre', 'like', "%$query%")
+    ->orWhere('apellido_paterno', 'like', "%$query%")
+    ->orWhere('apellido_materno', 'like', "%$query%")->get();
+    $aux = Alumno::all();
+    $alumnos = array();
+
+
+    foreach($datos as $dato) {
+      foreach($aux as $alumno) {
+        if($dato->id == $alumno->id_datos_usuario) {
+          array_push($alumnos, $alumno);
+        }
+      }
+    }
+
+    return view('alumno.lista')->with('alumnos', $alumnos);
   }
   
 

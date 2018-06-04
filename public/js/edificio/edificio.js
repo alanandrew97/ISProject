@@ -153,8 +153,17 @@ $(function(){
     // $('#formEliminar').attr('action', url + '/escuela/eliminarCampus/' + campusId);
     //console.log(idDatosUsuario);
     $('#id-agregaralumnos').val(id);
+    let numeroAlumnos = $('#total-alumnos').val();
+    let alumnos = $(this).data('alumnos');
 
-    console.log(id);
+    for(i = 0; i < numeroAlumnos; i++) {
+      $('#modalAgregarAlumnos #checkAlumnos' + i).prop('checked', false);
+      for(j = 0; j < alumnos.length; j++) {
+        if($('#modalAgregarAlumnos #checkAlumnos' + i).val() == alumnos[j].id) {
+          $('#modalAgregarAlumnos #checkAlumnos' + i).prop('checked', true);
+        }
+      }
+    }
     // $('#formEliminar').submit();
   });
 

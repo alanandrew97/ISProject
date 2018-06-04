@@ -53,7 +53,7 @@ class UsuarioController extends Controller {
             ['nombre'=>'Alumnos', 'link'=>url('usuarios/alumnos'), 'selected'=>false]
         ];
 
-        return view('usuario.listaMaestros', array(
+        return view('maestro.index', array(
             'maestros' => $maestros,
             'escuela' => $escuela,
             'submenuItems' => $submenuItems
@@ -70,7 +70,7 @@ class UsuarioController extends Controller {
             ['nombre'=>'Alumnos', 'link'=>url('usuarios/alumnos'), 'selected'=>false]
         ];
 
-        return view('usuario.listaAlumnos', array(
+        return view('alumno.index', array(
             'alumnos' => $alumnos,
             'escuela' => $escuela,
             'carreras' => $carreras,
