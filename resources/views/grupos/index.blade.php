@@ -27,7 +27,7 @@
               <div class="collapsible-header" style="position:relative;">
                 <i class="material-icons">insert_chart</i>&nbsp;Grupo: &nbsp;{{$grupo->clave}}&nbsp;{{$grupo->materia->nombre}}&nbsp;{{$grupo->maestro->datosUsuario->nombre}}&nbsp;{{$grupo->maestro->datosUsuario->apellido_paterno}}&nbsp;{{$grupo->maestro->datosUsuario->apellido_materno}}
                 @if (session('rol')==1)
-                <a href="#modalImprimirReporte" class="modal-trigger"><i style="position:absolute;right:35px;" data-grupo-id="{{$grupo->id}}" class="material-icons right">print</i></a>
+                <a href="{{url('/grupos/imprimir').'/'.$grupo->id}}" class="modal-trigger"><i style="position:absolute;right:35px;" class="material-icons right">print</i></a>
                 @endif
               </div>
               <div class="collapsible-body" style="padding: 20px;">
