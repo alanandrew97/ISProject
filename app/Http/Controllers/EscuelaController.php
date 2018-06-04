@@ -18,6 +18,7 @@ use App\Maestro;
 use App\Alumno;
 use App\AlumnoGrupo;
 use App\CampusCarrera;
+use App\DatosUsuario;
 
 class EscuelaController extends Controller {
 
@@ -51,8 +52,7 @@ class EscuelaController extends Controller {
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
       ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
-      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
-      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false]
     ];
 
     //dd($escuela);
@@ -113,8 +113,7 @@ class EscuelaController extends Controller {
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
       ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
-      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
-      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false]
     ];
     
     // dd($carrera);
@@ -223,8 +222,7 @@ class EscuelaController extends Controller {
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
       ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
-      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
-      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false]
     ];
     
     // dd($carrera);
@@ -265,8 +263,7 @@ class EscuelaController extends Controller {
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
       ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
-      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
-      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false]
     ];
 
     return view('escuela.listaEdificios', array(
@@ -323,8 +320,7 @@ class EscuelaController extends Controller {
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
       ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
-      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
-      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false]
     ];
 
     return view('escuela.listaAulas', array(
@@ -381,8 +377,7 @@ class EscuelaController extends Controller {
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
       ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
-      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
-      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false]
     ];
 
     return view('escuela.listaHorarios', array(
@@ -439,8 +434,7 @@ class EscuelaController extends Controller {
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
       ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
-      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
-      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false]
     ];
 
     return view('semestres.index', array(
@@ -520,8 +514,7 @@ class EscuelaController extends Controller {
       ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
       ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>false],
       ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
-      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
-      ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+      ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false]
     ];
       
     return view('materias.index', array(
@@ -546,8 +539,7 @@ class EscuelaController extends Controller {
         ['nombre'=>'Semestres','link'=>url('escuela/semestres'), 'selected'=>false],
         ['nombre'=>'Todos los grupos','link'=>url('escuela/grupos'), 'selected'=>true],
         ['nombre'=>'Edificios','link'=>url('escuela/edificios'), 'selected'=>false],
-        ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false],
-        ['nombre'=>'Horarios','link'=>url('escuela/horarios'), 'selected'=>false],
+        ['nombre'=>'Aulas','link'=>url('escuela/aulas'), 'selected'=>false]
       ];
 
     return view('todosLosGrupos.index', array(
@@ -585,6 +577,19 @@ class EscuelaController extends Controller {
   public function eliminarGrupo(Request $request) {
     $grupo = Grupo::find($request->input('id'));
     $grupo->delete();
+
+    return redirect('escuela/grupos');
+  }
+
+  public function editarGrupo(Request $request) {
+    $grupo = Grupo::find($request->input('id'));
+
+    $grupo->clave = $request->input('clave');
+    $grupo->id_materia = $request->input('id_materia');
+    $grupo->id_maestro = $request->input('id_maestro');
+    $grupo->id_aula = $request->input('id_aula');
+    $grupo->id_semestre = $request->input('id_semestre');
+    $grupo->save();
 
     return redirect('escuela/grupos');
   }
@@ -638,15 +643,17 @@ class EscuelaController extends Controller {
   }
 
   public function registrarAlumnosGrupo(Request $request) {
-    foreach($request->input('id_usuarios') as $id_usuario) {
-      AlumnoGrupo::create([
-        'id_alumno' => $id_usuario,
-        'id_grupo' => $request->input('id'),
-        'id_alumno_horario' => 0
-      ]);
+    $grupo = Grupo::find($request->input('id'));
+
+    $grupo->alumnos()->detach();
+
+    if(!is_null($request->input('alumnos'))) {
+      foreach($request->input('alumnos') as $id_alumno) {
+        $grupo->alumnos()->attach($id_alumno);
+      }
     }
 
-    return redirect('escuela');
+    return redirect('escuela/grupos');
   }
 
 
@@ -678,6 +685,46 @@ class EscuelaController extends Controller {
     $query = $request->input('query');
     $grupos = Grupo::where('clave', 'like', "%$query%")->get();
     return view('todosLosGrupos.lista')->with('grupos', $grupos);
+  }
+
+  public function buscarMaestros(Request $request) {
+    $query = $request->input('query');
+    $datos = DatosUsuario::where('nombre', 'like', "%$query%")
+    ->orWhere('apellido_paterno', 'like', "%$query%")
+    ->orWhere('apellido_materno', 'like', "%$query%")->get();
+    $aux = Maestro::all();
+    $maestros = array();
+
+
+    foreach($datos as $dato) {
+      foreach($aux as $maestro) {
+        if($dato->id == $maestro->id_datos_usuario) {
+          array_push($maestros, $maestro);
+        }
+      }
+    }
+
+    return view('maestro.lista')->with('maestros', $maestros);
+  }
+
+  public function buscarAlumnos(Request $request) {
+    $query = $request->input('query');
+    $datos = DatosUsuario::where('nombre', 'like', "%$query%")
+    ->orWhere('apellido_paterno', 'like', "%$query%")
+    ->orWhere('apellido_materno', 'like', "%$query%")->get();
+    $aux = Alumno::all();
+    $alumnos = array();
+
+
+    foreach($datos as $dato) {
+      foreach($aux as $alumno) {
+        if($dato->id == $alumno->id_datos_usuario) {
+          array_push($alumnos, $alumno);
+        }
+      }
+    }
+
+    return view('alumno.lista')->with('alumnos', $alumnos);
   }
   
 

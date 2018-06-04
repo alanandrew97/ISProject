@@ -53,7 +53,7 @@ class UsuarioController extends Controller {
             ['nombre'=>'Alumnos', 'link'=>url('usuarios/alumnos'), 'selected'=>false]
         ];
 
-        return view('usuario.listaMaestros', array(
+        return view('maestro.index', array(
             'maestros' => $maestros,
             'escuela' => $escuela,
             'submenuItems' => $submenuItems
@@ -70,7 +70,7 @@ class UsuarioController extends Controller {
             ['nombre'=>'Alumnos', 'link'=>url('usuarios/alumnos'), 'selected'=>false]
         ];
 
-        return view('usuario.listaAlumnos', array(
+        return view('alumno.index', array(
             'alumnos' => $alumnos,
             'escuela' => $escuela,
             'carreras' => $carreras,
@@ -118,6 +118,8 @@ class UsuarioController extends Controller {
                 'id_datos_usuario' => $datos_usuario->id,
                 'administrador' => $administrador
             ]);
+
+            return redirect('usuarios');
         } else {
             Alumno::create([
                 'id_datos_usuario' => $datos_usuario->id,
@@ -126,9 +128,10 @@ class UsuarioController extends Controller {
                 'semestre' => $request->input('semestre'),
                 'id_turno' => $request->input('id_turno')
             ]);
+
+            return redirect('usuarios/alumnos');
         }
 
-        return redirect('usuarios');
     }
 
     public function registrarPrimerUsuario(Request $request) {
@@ -203,6 +206,8 @@ class UsuarioController extends Controller {
 
             $datos_usuario->save();
             $maestro->save();
+
+            return redirect('usuarios');
         } else {
             $alumno = Alumno::where('id_datos_usuario', '=', $datos_usuario->id)->first();
             $datos_usuario->nombre = $nombre;
@@ -217,9 +222,10 @@ class UsuarioController extends Controller {
             
             $datos_usuario->save();
             $alumno->save();
+
+            return redirect('usuarios/alumnos');
         }
 
-        return redirect('usuarios');
     }
 
     public function eliminar(Request $request) {
