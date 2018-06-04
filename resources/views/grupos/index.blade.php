@@ -32,7 +32,7 @@
               </div>
               <div class="collapsible-body" style="padding: 20px;">
                 <a href="#modalGraficaGrupo" data-graphic-labels="{{json_encode($grupo['labels'])}}" data-graphic-data="{{ json_encode($grupo['data']) }}" class="modal-trigger modalGraficaGrupo"><i class="material-icons">insert_chart</i>&nbsp;<h5 style="display:inline-block;">Ver gráfica</h5></a><br>
-                <a href="#modalRegistrarCalificaciones" data-alumnos="{{$grupo->alumnos}}" class="modal-trigger modalGraficaGrupo"><i class="material-icons">playlist_add_check</i>&nbsp;<h5 style="display:inline-block;">Registrar calificaciones</h5></a>
+                <a href="#modalRegistrarCalificaciones" data-alumnos="{{$grupo->alumnos}}" class="modal-trigger registrarCalificaciones"><i class="material-icons">playlist_add_check</i>&nbsp;<h5 style="display:inline-block;">Registrar calificaciones</h5></a>
                 <div>
                   @if (count($grupo->alumnos)!=0)
                     @foreach($grupo->alumnos as $alumno)

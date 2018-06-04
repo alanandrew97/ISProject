@@ -20,6 +20,12 @@ $(document).ready(function () {
     console.log(dataGroup);
     crearGrafica(dataGroup, labelsG, 'graficaAlumno', 'bar');
   });
+
+  
+  $(document).on('click', '.registrarCalificaciones', function(e) {
+    let alumnos = $(this).data('alumnos');
+    console.log(alumnos);
+  });
   
 });//Termina document ready
 
@@ -67,4 +73,5 @@ function crearGrafica(dataG, labelsG, elemento, tipo){
       fill: false,
     }
   });
+
 }
