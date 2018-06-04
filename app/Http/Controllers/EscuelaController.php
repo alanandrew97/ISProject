@@ -19,6 +19,9 @@ use App\Alumno;
 use App\AlumnoGrupo;
 use App\CampusCarrera;
 use App\DatosUsuario;
+use App\Parcial;
+use App\RegistroAlumnoGrupo;
+use App\RegistroGrupo;
 
 class EscuelaController extends Controller {
 
@@ -732,6 +735,137 @@ class EscuelaController extends Controller {
     }
 
     return view('alumno.lista')->with('alumnos', $alumnos);
+  }
+
+  public function registrarCalificaciones(Request $request) {
+    $grupo = Grupo::find($request->input('id_grupo'));
+    $total_alumnos = count($request->input('id'));
+    $aprobados = 0;
+    $reprobados = 0;
+    $desertores = 0;
+
+    for($i = 0; $i < count($request->input('id')); $i++) {
+      $alumno = Alumno::find($request->input('id')[$i]);
+      $alumno_grupo = AlumnoGrupo::where('id_alumno', '=', $alumno->id)->where('id_grupo', '=', $grupo->id)->first();
+      $faltas_totales = 0;
+      $suma_calificaciones = 0;
+      $calificacion_final = 0;
+      $desertor = 0;
+
+      if(!is_null($request->input('calificacion1')[$i])) {
+          $suma_calificaciones = $suma_calificaciones + $request->input('calificacion1')[$i];
+
+          $faltas_totales = $faltas_totales + $request->input('faltas1')[$i];
+
+          $parcial = Parcial::where('id_alumno_grupo', '=', $alumno_grupo->id)->where('numero', '=', 1)->first();
+            $faltas_totales = $faltas_totales + $request->input('faltas1')[$i];
+            if(!is_null($parcial)) {
+              $parcial->calificacion = $request->input('calificacion1')[$i];
+              $parcial->faltas = $request->input('faltas1')[$i];
+              $parcial->save();
+            } else {
+              Parcial::create([
+                'id_alumno_grupo' => $alumno_grupo->id,
+                'numero' => 1,
+                'faltas' => $request->input('faltas1')[$i],
+                'calificacion' => $request->input('calificacion1')[$i]
+              ]);
+            }
+      }
+
+      if(!is_null($request->input('calificacion2')[$i])) {
+        $suma_calificaciones = $suma_calificaciones + $request->input('calificacion2')[$i];
+
+        $faltas_totales = $faltas_totales + $request->input('faltas2')[$i];
+
+        $parcial = Parcial::where('id_alumno_grupo', '=', $alumno_grupo->id)->where('numero', '=', 2)->first();
+          $faltas_totales = $faltas_totales + $request->input('faltas2')[$i];
+          if(!is_null($parcial)) {
+            $parcial->calificacion = $request->input('calificacion2')[$i];
+            $parcial->faltas = $request->input('faltas2')[$i];
+            $parcial->save();
+          } else {
+            Parcial::create([
+              'id_alumno_grupo' => $alumno_grupo->id,
+              'numero' => 2,
+              'faltas' => $request->input('faltas2')[$i],
+              'calificacion' => $request->input('calificacion2')[$i]
+            ]);
+          }
+      }
+
+      if(!is_null($request->input('calificacion3')[$i])) {
+        $suma_calificaciones = $suma_calificaciones + $request->input('calificacion3')[$i];
+
+        $faltas_totales = $faltas_totales + $request->input('faltas3')[$i];
+
+        $parcial = Parcial::where('id_alumno_grupo', '=', $alumno_grupo->id)->where('numero', '=', 3)->first();
+          $faltas_totales = $faltas_totales + $request->input('faltas3')[$i];
+          if(!is_null($parcial)) {
+            $parcial->calificacion = $request->input('calificacion3')[$i];
+            $parcial->faltas = $request->input('faltas3')[$i];
+            $parcial->save();
+          } else {
+            Parcial::create([
+              'id_alumno_grupo' => $alumno_grupo->id,
+              'numero' => 1,
+              'faltas' => $request->input('faltas3')[$i],
+              'calificacion' => $request->input('calificacion3')[$i]
+            ]);
+          }
+      }
+
+      if(!is_null($request->input('desertor'))[$i]) {
+        $desertor = 1;
+        $desertores++;
+      }
+
+      $calificacion_final = $suma_calificaciones / 3;
+
+      if($calificacion_final < 70) {
+        $reprobados++;
+      } else {
+        $aprobados++;
+      }
+
+      $registro_alumno_grupo = RegistroAlumnoGrupo::where('id_alumno_grupo', '=', $alumno_grupo->id)->first();
+
+      if(!is_null($registro_alumno_grupo)) {
+        $registro_alumno_grupo->id_tipo_curso = 0;
+        $registro_alumno_grupo->faltas_totales = $faltas_totales;
+        $registro_alumno_grupo->calificacion_total = $calificacion_final;
+        $registro_alumno_grupo->desertor = $desertor;
+        $registro_alumno_grupo->save();
+      } else {
+        RegistroAlumnoGrupo::create([
+          'id_alumno_grupo' => $alumno_grupo->id,
+          'id_tipo_curso' => 0,
+          'faltas_totales' => $faltas_totales,
+          'calificacion_total' => $calificacion_final,
+          'desertor' => $desertor
+        ]);
+      }
+    }
+
+    $registro_grupo = RegistroGrupo::where('id_grupo', '=', $grupo->id)->first();
+
+    if(!is_null($registro_grupo)) {
+      $registro_grupo->total_alumnos = $total_alumnos;
+      $registro_grupo->aprobados = $aprobados;
+      $registro_grupo->reprobados = $reprobados;
+      $registro_grupo->desertores = $desertores;
+      $registro_grupo->save();
+    } else {
+      RegistroGrupo::create([
+        'id_grupo' => $grupo->id,
+        'total_alumnos' => $total_alumnos,
+        'aprobados' => $aprobados,
+        'reprobados' => $reprobados,
+        'desertores' => $desertores
+      ]);
+    }
+
+    return redirect('grupos');
   }
   
 

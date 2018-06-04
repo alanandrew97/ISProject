@@ -21,7 +21,6 @@
       @if( count($grupos) != 0 )
         @foreach($grupos as $grupo)
 
-        {{strtotime($grupo->semestre->fecha_inicial_parcial_1)}}
           <ul class="collapsible">
             <li>
               <div class="collapsible-header" style="position:relative;">
@@ -32,7 +31,7 @@
               </div>
               <div class="collapsible-body" style="padding: 20px;">
                 <a href="#modalGraficaGrupo" data-graphic-labels="{{json_encode($grupo['labels'])}}" data-graphic-data="{{ json_encode($grupo['data']) }}" class="modal-trigger modalGraficaGrupo"><i class="material-icons">insert_chart</i>&nbsp;<h5 style="display:inline-block;">Ver gráfica</h5></a><br>
-                <a href="#modalRegistrarCalificaciones" data-alumnos="{{$grupo->alumnos}}" class="modal-trigger registrarCalificaciones"><i class="material-icons">playlist_add_check</i>&nbsp;<h5 style="display:inline-block;">Registrar calificaciones</h5></a>
+                <a href="#modalRegistrarCalificaciones" data-alumnos="{{$grupo->alumnos}}" data-id-grupo="{{$grupo->id}}"  class="modal-trigger registrarCalificaciones"><i class="material-icons">playlist_add_check</i>&nbsp;<h5 style="display:inline-block;">Registrar calificaciones</h5></a>
                 <div>
                   @if (count($grupo->alumnos)!=0)
                     @foreach($grupo->alumnos as $alumno)
@@ -70,6 +69,8 @@
   </div>
 
   <div class="modal" id="modalRegistrarCalificaciones" style="padding:20px;max-height:400px; overflow-y: scroll">
+  <form id="formCalificaciones" method="POST" action="{{url('/escuela/registrarCalificaciones')}}">
+  {{ csrf_field() }}
       <table class="striped">
         <thead>
           <tr>
@@ -81,89 +82,11 @@
           </tr>
         </thead>
 
-        <tbody>
-          <tr>
-            <td>Alvin</td>
-            <td>
-              <div class="input-field col s12">
-                <input id="holi" type="text">
-                <label for="holi">Calificación</label>
-              </div>
-              <div class="input-field col s12">
-                <input id="holi" type="text">
-                <label for="holi">Faltas</label>
-              </div>
-            </td>
-            <td>
-              <div class="input-field col s12">
-                <input id="holi" type="text">
-                <label for="holi">Calificación</label>
-              </div>
-              <div class="input-field col s12">
-                <input id="holi" type="text">
-                <label for="holi">Faltas</label>
-              </div>
-            </td>
-            <td>
-              <div class="input-field col s12">
-                <input id="holi" type="text">
-                <label for="holi">Calificación</label>
-              </div>
-              <div class="input-field col s12">
-                <input id="holi" type="text">
-                <label for="holi">Faltas</label>
-              </div>
-            </td>
-            <td>
-            <center>
-            <input type="checkbox" value="" id="checkCampus" name="campuses[]" class="filled-in" />
-            <label for="checkCampus"></label>
-            </center>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Alan</td>
-            <td>
-              <div class="input-field col s12">
-                <input id="holi" type="text">
-                <label for="holi">Calificación</label>
-              </div>
-              <div class="input-field col s12">
-                <input id="holi" type="text">
-                <label for="holi">Faltas</label>
-              </div>
-            </td>
-            <td>
-              <div class="input-field col s12">
-                <input id="holi" type="text">
-                <label for="holi">Calificación</label>
-              </div>
-              <div class="input-field col s12">
-                <input id="holi" type="text">
-                <label for="holi">Faltas</label>
-              </div>
-            </td>
-            <td>
-              <div class="input-field col s12">
-                <input id="holi" type="text">
-                <label for="holi">Calificación</label>
-              </div>
-              <div class="input-field col s12">
-                <input id="holi" type="text">
-                <label for="holi">Faltas</label>
-              </div>
-            </td>
-            
-            <td>
-            <center>
-            <input type="checkbox" value="" id="checkCampus1" name="campuses[]" class="filled-in" />
-            <label for="checkCampus1"></label>
-            </center>
-            </td>
-          </tr>
+        <tbody id="tabla-alumnos"> 
         </tbody>
       </table>
+      <button class="waves-effect btn right primary-color" type="submit" form="formCalificaciones" style="width:40%;margin:15px;">aceptar</button>
+      </form>
   </div>
 
 
