@@ -63,18 +63,33 @@ class GruposController extends Controller {
     $data = [$grupo->registro->aprobados, $grupo->registro->reprobados, $grupo->registro->desertores];
   }
 
-  public function imprimir(Request $request) {
+  public function imprimir($id) {
     $escuela = Escuela::all()->first();
-    $grupo = Grupo::find($request->input('id'));
+    $grupo = Grupo::find($id);
     $alumnos = $grupo->alumnos;
     $maestro = $grupo->maestro;
     $materia = $grupo->materia;
 
     $view = view('pdf.listaAlumnos')->with('alumnos', $alumnos)->with('grupo', $grupo)->with('escuela', $escuela)->render();
     $pdf = \App::make('dompdf.wrapper');
-    $pdf->loadHTML($view)->save('pdf/algo.pdf');
+    $pdf->loadHTML($view)->save('pdf/reporte.pdf');
+    dd($pdf);
     $grupo = Grupo::find(1);
-    return redirect('grupos');
+    return response()->download($pathToFile)->deleteFileAfterSend(true);
+  }
+
+  public function vistaReporte() {
+    $escuela = Escuela::all()->first();
+    $grupo = Grupo::find(1);
+    $alumnos = $grupo->alumnos;
+    $maestro = $grupo->maestro;
+    $materia = $grupo->materia;
+
+    return view('pdf.listaAlumnos', array(
+      'alumnos' => $alumnos,
+      'grupo' => $grupo,
+      'escuela' => $escuela,
+    ));
   }
 
   public function alumnos(Request $request) {
@@ -121,6 +136,18 @@ class GruposController extends Controller {
       'grupos' => $grupos,
       'submenuItems' => $submenuItems
     ));
+  }
+
+  function check_in_range($fecha_inicio, $fecha_fin, $fecha){
+    $fecha_inicio = strtotime($fecha_inicio);
+    $fecha_fin = strtotime($fecha_fin);
+    $fecha = strtotime($fecha);
+
+    if(($fecha >= $fecha_inicio) && ($fecha <= $fecha_fin)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
