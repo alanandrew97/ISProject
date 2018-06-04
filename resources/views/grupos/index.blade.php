@@ -31,7 +31,7 @@
                   @if (count($grupo->alumnos)!=0)
                     @foreach($grupo->alumnos as $alumno)
                       <div>
-                        Alumno {{--<a class="" href="{{url('escuelas/carrera/'.$reticula->id)}}"><i class="material-icons" style="margin-right:10px;color:white;">school</i>{{$reticula->nombre}}</a>--}}
+                        Alumno: <i class="material-icons" style="margin-right:10px;color:white;">school</i>{{$alumno->datosUsuario->nombre}} {{$alumno->datosUsuario->apellido_paterno}} {{$alumno->datosUsuario->apellido_materno}}
                       </div>
                     @endforeach
                   @else

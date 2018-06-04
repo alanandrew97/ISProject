@@ -27,8 +27,7 @@
               </div>
               <div class="collapsible-body" style="padding: 20px;">
                 <div>
-                  {{isset($grupo->alumnosGrupo)}}
-                  @if (count($grupo->alumnosGrupo)!=0)
+                  @if (isset($grupo->alumnosGrupo) && count($grupo->alumnosGrupo)!=0)
                     @foreach($grupo->alumnosGrupo as $alumnoGrupo)
                       <div>
                         @if (isset($alumnoGrupo->alumno))

@@ -17,11 +17,11 @@ class GruposController extends Controller {
     $labels = [];
     $escuela = Escuela::all()->first();
     if (session('rol')==1) {
-      if (session('usuario')->administrador == 1) {
-        $grupos = Grupo::all();
-      } else {
+      // if (session('usuario')->administrador == 1) {
+      //   $grupos  = Grupo::all();
+      // } else {
         $grupos = session('usuario')->grupos;
-      }
+      // }
       foreach ($grupos as $grupo) {
         // dd( $grupo->materia );
         if (isset($grupo->registro)){

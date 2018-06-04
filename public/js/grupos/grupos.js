@@ -11,7 +11,7 @@ $(document).ready(function () {
     dataGroup = $this.data('graphic-data');
     labelsG = $this.data('graphic-labels');
     // console.log(dataGroup);
-    crearGrafica(dataGroup, labelsG, 'graficaGrupo');
+    crearGrafica(dataGroup, labelsG, 'graficaGrupo', 'bar');
     // $('canvas').width('60%');
     // $('canvas').height('60%');
   });
@@ -21,7 +21,7 @@ $(document).ready(function () {
     dataGroup = $this.data('graphic-data');
     labelsG = $this.data('graphic-labels');
     console.log(dataGroup);
-    crearGrafica(dataGroup, labelsG, 'graficaAlumno');
+    crearGrafica(dataGroup, labelsG, 'graficaAlumno', 'bar');
     // $('canvas').width('60%');
     // $('canvas').height('60%');
   });
@@ -30,10 +30,13 @@ $(document).ready(function () {
 
 let ctx;
 
-function crearGrafica(dataG, labelsG, elemento){
+function crearGrafica(dataG, labelsG, elemento, tipo){
+  let padre = $('#'+elemento).parent();
+  $('#'+elemento).remove(); // this is my <canvas> element
+  padre.append('<canvas id="' + elemento +'" style="max-height:525px;"><canvas>');
   ctx = document.getElementById(elemento).getContext('2d');
   var groupChart = new Chart(ctx, {
-    type: 'bar',
+    type: tipo,
     data: {
       labels: labelsG,
       datasets: [{
@@ -65,7 +68,8 @@ function crearGrafica(dataG, labelsG, elemento){
             beginAtZero: true
           }
         }]
-      }
+      },
+      fill: false,
     }
   });
 }
