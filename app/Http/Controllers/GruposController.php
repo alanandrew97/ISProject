@@ -102,7 +102,6 @@ class GruposController extends Controller {
     // $grupos = session('usuario')->gruposAlumno;
     foreach ($grupos as $grupo) {
       foreach ($grupo->alumnosGrupo as $i => $alumnoGrupo) {
-        // dd( $alumnoGrupo->parciales );
         foreach ($alumnoGrupo->parciales as $parcial) {
           $data[$i][] = $parcial->calificacion;
           $labels[$i][] = 'U'.$parcial->numero;
@@ -118,6 +117,7 @@ class GruposController extends Controller {
         }
         
       }
+      // dd($alumnoGrupo[]);
     }
 
     // dd($grupos[0]);

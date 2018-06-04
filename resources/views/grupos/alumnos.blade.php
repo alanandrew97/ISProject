@@ -27,17 +27,17 @@
               </div>
               <div class="collapsible-body" style="padding: 20px;">
                 <div>
+                  {{isset($grupo->alumnosGrupo)}}
                   @if (count($grupo->alumnosGrupo)!=0)
                     @foreach($grupo->alumnosGrupo as $alumnoGrupo)
                       <div>
                         @if (isset($alumnoGrupo->alumno))
-                          Alumno: <a class="modal-trigger modalGraficaAlumno" href="#modalGraficaAlumno" data-graphic-labels="{{json_encode($grupo['labels'])}}" data-graphic-data="{{ json_encode($grupo['data']) }}">
+                          Alumno: <a class="modal-trigger modalGraficaAlumno" href="#modalGraficaAlumno" data-graphic-labels="{{json_encode($alumnoGrupo['labels'])}}" data-graphic-data="{{ json_encode($alumnoGrupo['data']) }}">
                           {{$alumnoGrupo->alumno->datosUsuario->nombre.' '.$alumnoGrupo->alumno->datosUsuario->apellido_paterno.' '.$alumnoGrupo->alumno->datosUsuario->apellido_materno}}
                           <i class="material-icons">insert_chart</i></a>
                         @endif
                       </div>
                     @endforeach
-                    {{--var_dump($alumnoGrupo->alumno)--}}
                   @else
                     <div class="error">Aun no hay alumnos asignados a este grupo.</div>
                   @endif
@@ -45,8 +45,6 @@
               </div>
             </li>
           </ul>
-          <pre>
-          </pre>
             {{--dd($grupos)--}}
         @endforeach
       @else

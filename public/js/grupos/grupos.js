@@ -28,11 +28,9 @@ $(document).ready(function () {
   
 });//Termina document ready
 
-// let ctx;
+let ctx;
 
 function crearGrafica(dataG, labelsG, elemento){
-  // let ctx = ctx.clearRect(0, 0, canvas.width, canvas.height);
-  // ctx.update();
   ctx = document.getElementById(elemento).getContext('2d');
   var groupChart = new Chart(ctx, {
     type: 'bar',
