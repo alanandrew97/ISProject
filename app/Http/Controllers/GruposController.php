@@ -43,7 +43,7 @@ class GruposController extends Controller {
         $grupo['data'] = $data[$i];
         $grupo['labels'] = $labels[$i];
         $grupo['materiaNombre'] = $grupo->grupo->materia->nombre;
-        $grupo['maestroNombre'] = $grupo->grupo->maestro->nombre;
+        $grupo['materiaNombre'] = $grupo->grupo->materia->nombre;
         $grupo['maestroApellido'] = $grupo->grupo->maestro->apellido_paterno;
       }
       $submenuItems = [

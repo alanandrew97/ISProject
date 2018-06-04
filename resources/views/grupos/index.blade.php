@@ -24,14 +24,18 @@
           <ul class="collapsible">
             <li>
               <div class="collapsible-header" style="position:relative;">
-                <i class="material-icons">insert_chart</i>&nbsp;Grupo: &nbsp;{{$grupo->clave}}&nbsp;{{$grupo->materia->nombre}}&nbsp;{{$grupo->maestro->datosUsuario->nombre}}&nbsp;{{$grupo->maestro->datosUsuario->apellido_paterno}}&nbsp;{{$grupo->maestro->datosUsuario->apellido_materno}}
                 @if (session('rol')==1)
+                <i class="material-icons">insert_chart</i>&nbsp;Grupo: &nbsp;{{$grupo->clave}}&nbsp;{{$grupo->materia->nombre}}&nbsp;{{$grupo->maestro->datosUsuario->nombre}}&nbsp;{{$grupo->maestro->datosUsuario->apellido_paterno}}&nbsp;{{$grupo->maestro->datosUsuario->apellido_materno}}
                 <a href="{{url('/grupos/imprimir').'/'.$grupo->id}}" class="modal-trigger"><i style="position:absolute;right:35px;" class="material-icons right">print</i></a>
+                @else
+                  <i class="material-icons">insert_chart</i>&nbsp;Grupo: &nbsp;{{$grupo->grupo->clave}}&nbsp;{{$grupo->grupo->materia->nombre}}&nbsp;{{$grupo->grupo->maestro->datosUsuario->nombre}}&nbsp;{{$grupo->grupo->maestro->datosUsuario->apellido_paterno}}&nbsp;{{$grupo->grupo->maestro->datosUsuario->apellido_materno}}
                 @endif
               </div>
               <div class="collapsible-body" style="padding: 20px;">
                 <a href="#modalGraficaGrupo" data-graphic-labels="{{json_encode($grupo['labels'])}}" data-graphic-data="{{ json_encode($grupo['data']) }}" class="modal-trigger modalGraficaGrupo"><i class="material-icons">insert_chart</i>&nbsp;<h5 style="display:inline-block;">Ver gráfica</h5></a><br>
+                @if (session('rol')==1)                
                 <a href="#modalRegistrarCalificaciones" data-alumnos="{{$grupo->alumnos}}" data-id-grupo="{{$grupo->id}}"  class="modal-trigger registrarCalificaciones"><i class="material-icons">playlist_add_check</i>&nbsp;<h5 style="display:inline-block;">Registrar calificaciones</h5></a>
+                @endif
                 <div>
                   @if (count($grupo->alumnos)!=0)
                     @foreach($grupo->alumnos as $alumno)
