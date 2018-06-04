@@ -74,7 +74,6 @@ Route::group(['prefix' => 'escuela'], function() {
     // Route::get('detalle/{id}', 'EscuelaController@detalleEscuela');
 });
 
-Route::get('/imprimir', 'GruposController@imprimir');
 
 
 Route::group(['prefix' => 'usuarios'], function() {
@@ -90,6 +89,7 @@ Route::group(['prefix' => 'usuarios'], function() {
 Route::group(['prefix' => 'grupos'], function() {
     Route::get('/', 'GruposController@index');
     Route::get('/alumnos', 'GruposController@alumnos');
+    Route::get('/imprimir/{id}', 'GruposController@imprimir');
     // Route::get('alumnos', 'UsuarioController@listaAlumnos');
     // Route::post('registrarPrimerUsuario', 'UsuarioController@registrarPrimerUsuario');
     // Route::post('registrar', 'UsuarioController@registrar');
